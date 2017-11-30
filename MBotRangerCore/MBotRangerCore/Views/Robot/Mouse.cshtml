@@ -1,0 +1,93 @@
+﻿
+@{
+    ViewData["Title"] = "Mouse";
+}
+<h2>Mouse</h2>
+<link rel="stylesheet" href="~/css/robot.css" />
+<!-- 5 Buttons to control the robot-->
+@using (Html.BeginForm("Mouse", "Robot"))
+{
+
+
+
+    <div class="row">
+        <div class="col-md-2">
+
+        </div>
+        <div class="col-md-2">
+
+            <input id="forwardBtn" type="submit" name="submit" value="Forward" />
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2">
+            <input id="leftBtn" type="submit" name="submit" value="Go Left" />
+
+        </div>
+        <div class="col-md-2">
+
+            <input id="stopBtn" type="submit" name="submit" value="Stop" />
+
+        </div>
+
+        <div class="col-md-2">
+
+            <input id="rightBtn" type="submit" name="submit" value="Go Right" />
+
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-2">
+
+        </div>
+        <div class="col-md-2">
+
+            <input id="backBtn" type="submit" name="submit" value="Back" />
+
+        </div>
+    </div>
+    <script>
+        //Forward button
+        document.getElementById("forwardBtn").addEventListener("mousedown", ff);
+        document.getElementById("forwardBtn").addEventListener("mouseup", mouseUp);
+        document.getElementById("forwardBtn").addEventListener("dblclick", ff);
+        function ff() {
+            Document(this.click(this.value = 'Forward'));
+
+        }
+        //Back button
+        document.getElementById("backBtn").addEventListener("mousedown", bb);
+        document.getElementById("backBtn").addEventListener("mouseup", mouseUp);
+        document.getElementById("backBtn").addEventListener("dblclick", bb);
+        //Right button
+        document.getElementById("rightBtn").addEventListener("mousedown", rr);
+        document.getElementById("rightBtn").addEventListener("mouseup", mouseUp);
+        document.getElementById("rightBtn").addEventListener("dblclick", rr);
+        //Left button
+        document.getElementById("leftBtn").addEventListener("mousedown", ll);
+        document.getElementById("leftBtn").addEventListener("mouseup", mouseUp);
+        document.getElementById("leftBtn").addEventListener("dd", ll);
+
+
+        function bb() {
+            Document(this.click(this.value='Back'));
+        }
+        function rr() {
+            Document(this.click(this.value = 'Go Right'));
+        }
+        function ll() {
+            Document(this.click(this.value = 'Go Left'));
+        }
+        function mouseUp() {
+            Document(this.click(this.value='Stop'));
+        }
+
+
+
+    </script>
+}
+
