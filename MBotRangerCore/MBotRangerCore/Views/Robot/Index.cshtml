@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewData["Title"] = "Robot Controller";
+}
+
+<h2>Control the robot with Buttons</h2>
+
+<link rel="stylesheet" href="~/css/robot.css" />
+
+@using (Html.BeginForm("Index", "Robot"))
+{
+    <div class="row">
+        <div class="col-md-2">
+
+        </div>
+        <div class="col-md-2">
+
+            <input id="forwardBtn" type="submit" name="submit" value="Forward" />
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2">
+            <input id="leftBtn" type="submit" name="submit" value="Go Left" />
+
+        </div>
+        <div class="col-md-2">
+
+            <input id="stopBtn" type="submit" name="submit" value="Stop" />
+
+        </div>
+
+        <div class="col-md-2">
+
+            <input id="rightBtn" type="submit" name="submit" value="Go Right" />
+
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-2">
+
+        </div>
+        <div class="col-md-2">
+
+            <input id="backBtn" type="submit" name="submit" value="Back" />
+
+        </div>
+    </div>
+
+}
+

@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewData["Title"] = "Webcam";
+}
+
+<p><h2>Webcam page: </h2><b> Displaying a video from a laptop webcam and capturing a photo</b></p>
+
+@section Scripts
+    {
+    <script src="~/js/WebCamStart.js"></script>
+    <link rel="stylesheet" href="~/css/robot.css" />
+}
+<div class="row">
+    @*The appropriate width and height should be 640 and 480 respectively
+        canvas size on js file should be the same with cshtml file to avoid croping*@
+    <div class="col-md-6">
+        <video id="video" width="500" height="330" autoplay></video>
+    </div>
+    <div class="col-md-6">
+        <canvas id="canvas" width="500" height="330"></canvas>
+    </div>
+</div>
+
+<div class="row">
+
+    <div class="col-md-2">
+        <button id="webcam">Start Webcam</button>
+    </div>
+
+    <div class="col-md-2">
+        <button id="stop">Stop Webcam</button>
+    </div>
+
+
+    <div class="col-md-2">
+        <button id="capture">Capture Photo</button>
+    </div>
+
+    @*Reloads the webcam page*@
+
+    <div class="col-md-6">
+        @using (Html.BeginForm("ReloadCam", "Webcam"))
+        {
+            <input id="buttonWebcam" type="submit" name="reload" value="Reload" />
+
+        }
+    </div>
+
+
+</div>
+
+

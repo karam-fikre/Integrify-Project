@@ -1,0 +1,11 @@
+C:\Users\Windows\Documents\My Projects\Daney_MainASPCore\MBotRangerCore\MBotRangerCore\bin\Debug\netcoreapp2.0\MBotRangerCore.deps.json
+C:\Users\Windows\Documents\My Projects\Daney_MainASPCore\MBotRangerCore\MBotRangerCore\bin\Debug\netcoreapp2.0\MBotRangerCore.runtimeconfig.json
+C:\Users\Windows\Documents\My Projects\Daney_MainASPCore\MBotRangerCore\MBotRangerCore\bin\Debug\netcoreapp2.0\MBotRangerCore.runtimeconfig.dev.json
+C:\Users\Windows\Documents\My Projects\Daney_MainASPCore\MBotRangerCore\MBotRangerCore\bin\Debug\netcoreapp2.0\MBotRangerCore.dll
+C:\Users\Windows\Documents\My Projects\Daney_MainASPCore\MBotRangerCore\MBotRangerCore\bin\Debug\netcoreapp2.0\MBotRangerCore.pdb
+C:\Users\Windows\Documents\My Projects\Daney_MainASPCore\MBotRangerCore\MBotRangerCore\obj\Debug\netcoreapp2.0\MBotRangerCore.csprojResolveAssemblyReference.cache
+C:\Users\Windows\Documents\My Projects\Daney_MainASPCore\MBotRangerCore\MBotRangerCore\obj\Debug\netcoreapp2.0\MBotRangerCore.csproj.CoreCompileInputs.cache
+C:\Users\Windows\Documents\My Projects\Daney_MainASPCore\MBotRangerCore\MBotRangerCore\obj\Debug\netcoreapp2.0\MBotRangerCore.AssemblyInfoInputs.cache
+C:\Users\Windows\Documents\My Projects\Daney_MainASPCore\MBotRangerCore\MBotRangerCore\obj\Debug\netcoreapp2.0\MBotRangerCore.AssemblyInfo.cs
+C:\Users\Windows\Documents\My Projects\Daney_MainASPCore\MBotRangerCore\MBotRangerCore\obj\Debug\netcoreapp2.0\MBotRangerCore.dll
+C:\Users\Windows\Documents\My Projects\Daney_MainASPCore\MBotRangerCore\MBotRangerCore\obj\Debug\netcoreapp2.0\MBotRangerCore.pdb
