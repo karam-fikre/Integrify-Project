@@ -1,4 +1,4 @@
-﻿
+﻿//This file is for streaming from the webcam.
 var localstream;
 
 // Display containers
