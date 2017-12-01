@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "MobileCam";
+}
+
+<p><h2>Mobile Camera: </h2><b> Please open IP cam app on your mobile and start broadcasting </b></p>
+
+@section Scripts
+    {
+    <script src="~/js/MobileCam.js"></script>
+    <link rel="stylesheet" href="~/css/robot.css" />
+}
+<div class="row">
+    @*The appropriate width and height should be 640 and 480 respectively
+        canvas size on js file should be the same with cshtml file to avoid croping*@
+    <div class="col-md-6">
+        <img id="img2" src="http://192.168.1.65:8080/video" style="margin: 0;" width="500" height="330" />
+    </div>
+    <div class="col-md-6">
+        <img id="img2" width="500" height="330" alt="capture" crossOrigin="Anonymous" />
+    </div>
+</div>
+
+<div class="row">
+
+    <div class="col-md-2">
+        @*<button id="capture">Capture Photo</button>*@
+    </div>
+
+</div>
