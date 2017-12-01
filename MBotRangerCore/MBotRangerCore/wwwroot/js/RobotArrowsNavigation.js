@@ -1,4 +1,5 @@
-﻿document.onkeydown = function (e) {
+﻿//Ourmaster branch edit
+document.onkeydown = function (e) {
     switch (e.keyCode) {
         case 37:
             location.href = '/Robot/RobotArrows?id=' + 3;//left
