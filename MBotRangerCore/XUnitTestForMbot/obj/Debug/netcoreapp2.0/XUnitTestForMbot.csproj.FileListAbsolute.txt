@@ -1,0 +1,16 @@
+C:\Users\Windows\Desktop\TheLatestMbotCore\MBotRangerCore\XUnitTestForMbot\obj\Debug\netcoreapp2.0\XUnitTestForMbot.csprojResolveAssemblyReference.cache
+C:\Users\Windows\Desktop\TheLatestMbotCore\MBotRangerCore\XUnitTestForMbot\obj\Debug\netcoreapp2.0\XUnitTestForMbot.csproj.CoreCompileInputs.cache
+C:\Users\Windows\Desktop\TheLatestMbotCore\MBotRangerCore\XUnitTestForMbot\obj\Debug\netcoreapp2.0\XUnitTestForMbot.AssemblyInfoInputs.cache
+C:\Users\Windows\Desktop\TheLatestMbotCore\MBotRangerCore\XUnitTestForMbot\obj\Debug\netcoreapp2.0\XUnitTestForMbot.AssemblyInfo.cs
+C:\Users\Windows\Desktop\TheLatestMbotCore\MBotRangerCore\XUnitTestForMbot\bin\Debug\netcoreapp2.0\xunit.runner.visualstudio.dotnetcore.testadapter.dll
+C:\Users\Windows\Desktop\TheLatestMbotCore\MBotRangerCore\XUnitTestForMbot\bin\Debug\netcoreapp2.0\xunit.runner.utility.netstandard15.dll
+C:\Users\Windows\Desktop\TheLatestMbotCore\MBotRangerCore\XUnitTestForMbot\bin\Debug\netcoreapp2.0\xunit.runner.reporters.netstandard15.dll
+C:\Users\Windows\Desktop\TheLatestMbotCore\MBotRangerCore\XUnitTestForMbot\bin\Debug\netcoreapp2.0\XUnitTestForMbot.deps.json
+C:\Users\Windows\Desktop\TheLatestMbotCore\MBotRangerCore\XUnitTestForMbot\bin\Debug\netcoreapp2.0\XUnitTestForMbot.runtimeconfig.json
+C:\Users\Windows\Desktop\TheLatestMbotCore\MBotRangerCore\XUnitTestForMbot\bin\Debug\netcoreapp2.0\XUnitTestForMbot.runtimeconfig.dev.json
+C:\Users\Windows\Desktop\TheLatestMbotCore\MBotRangerCore\XUnitTestForMbot\bin\Debug\netcoreapp2.0\XUnitTestForMbot.dll
+C:\Users\Windows\Desktop\TheLatestMbotCore\MBotRangerCore\XUnitTestForMbot\bin\Debug\netcoreapp2.0\XUnitTestForMbot.pdb
+C:\Users\Windows\Desktop\TheLatestMbotCore\MBotRangerCore\XUnitTestForMbot\bin\Debug\netcoreapp2.0\MBotRangerCore.dll
+C:\Users\Windows\Desktop\TheLatestMbotCore\MBotRangerCore\XUnitTestForMbot\bin\Debug\netcoreapp2.0\MBotRangerCore.pdb
+C:\Users\Windows\Desktop\TheLatestMbotCore\MBotRangerCore\XUnitTestForMbot\obj\Debug\netcoreapp2.0\XUnitTestForMbot.dll
+C:\Users\Windows\Desktop\TheLatestMbotCore\MBotRangerCore\XUnitTestForMbot\obj\Debug\netcoreapp2.0\XUnitTestForMbot.pdb

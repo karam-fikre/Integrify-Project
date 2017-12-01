@@ -12,6 +12,26 @@ namespace MBotRangerCore.Controllers
     public class RobotController : Controller
     {
         public byte[] sendbuf;
+
+        public bool ForXUnit()
+        {
+            return true;
+        }
+
+        public IActionResult ForXUnit2(RobotController result)
+        {
+            if (!result.Equals(null))
+            {
+                return View("Index");
+            }
+            return null;
+        }
+
+        public virtual IActionResult ForXUnitIndex(string str)
+        {
+            return null;
+        }
+
         public IActionResult Index(string submit)
         {
 
