@@ -9,11 +9,6 @@
 *.userosscache
 *.sln.docstates
 
-#Adkat addition
-*.ide
-*.ide-shm
-*.ide-wal
-
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
