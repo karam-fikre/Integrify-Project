@@ -34,7 +34,7 @@ namespace MBotRangerCore.Controllers
 
         public IActionResult Index(string submit)
         {
-
+           //Button Options
             switch (submit)
             {
                 case "Forward":
