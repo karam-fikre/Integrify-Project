@@ -13,9 +13,14 @@ namespace MBotRangerCore.Controllers
             return View();
         }
 
+        public IActionResult WebCamMain()
+        {
+            return View();
+        }
+
         public IActionResult ReloadCam()
         {
-            return View("Index");
+            return View("WebCamMain");
         }
     }
 }
