@@ -1,8 +1,18 @@
 ﻿
+@using Microsoft.AspNetCore.Identity
+@using MBotRangerCore.Models
+@model MBotRangerCore.Models.ConfirmViewModel
+@inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
+
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Account Information";
 }
+
+
+@if (SignInManager.IsSignedIn(User))
+{
+
 
 <h2>Account Information</h2>
 
@@ -37,3 +47,4 @@
     </dl>
 </div>
 
+    }
