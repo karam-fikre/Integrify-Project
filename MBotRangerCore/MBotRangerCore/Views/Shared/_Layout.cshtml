@@ -35,10 +35,9 @@
                     <li><a asp-area="" asp-controller="Robot" asp-action="RobotArrows">Robot Arrows</a></li>
                     <li><a asp-area="" asp-controller="Robot" asp-action="Mouse">Mouse Control</a></li>
                     <li><a asp-area="" asp-controller="MobileCam" asp-action="Index">Mobile Camera</a></li>
-                    <li><a asp-area="" asp-controller="Users" asp-action="SignUp">Sign Up</a></li>
-                    <li><a asp-area="" asp-controller="Users" asp-action="Login">Login</a></li>
-
+                    
                 </ul>
+                @await Html.PartialAsync("_LoginPartial")
             </div>
         </div>
     </nav>

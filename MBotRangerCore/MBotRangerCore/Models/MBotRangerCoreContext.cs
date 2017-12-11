@@ -5,10 +5,11 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using MBotRangerCore.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace MBotRangerCore.Models
 {
-    public class MBotRangerCoreContext : DbContext
+    public class MBotRangerCoreContext : IdentityDbContext<ApplicationUser>
     {
         public MBotRangerCoreContext(DbContextOptions<MBotRangerCoreContext> options)
             : base(options)
