@@ -12,7 +12,6 @@ canvas {
 video {
     margin-top: 10px;
     border-style: solid;
-    border-color: darkgreen;
 }
 
 
@@ -43,27 +42,27 @@ button {
     margin-top: 10px;
     border-style: solid;
     font-size: larger;
-    border-radius: 10px;
+    border-radius: 20px;
     font-weight: bolder;
     background: #8A8575;
     width: 100px;
     height: 50px;
     color: #000000;
-    background-color: Transparent;
+
 }
+
 
 input[type=submit] {
     clear: both;
     display: inline-block;
-    padding: 5px;
-    margin-top: 20px;
+    margin-top: 5px;
     border-style: solid;
     font-size: larger;
     border-radius: 10px;
     font-weight: bolder;
     background: #8A8575;
-    width: 100px;
-    height: 40px;
+    width: 115px;
+    height: 60px;
     color: #000000;
 }
 
