@@ -1,15 +1,22 @@
-﻿
+﻿@using Microsoft.AspNetCore.Identity
+@using MBotRangerCore.Models
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
 @{
     ViewData["Title"] = "RobotArrows";
 }
+@if (SignInManager.IsSignedIn(User))
+{
+
 <h2>Control the robot using Arrow Keys</h2>
 <h4>@ViewData["Key"]</h4>
 
-@*Master edit*@
-@*DaneysBranch edit*@
 @section Scripts
 {
     <script src="~/js/RobotArrowsNavigation.js"></script>
     <link rel="stylesheet" href="~/css/robot.css" />
 }
 
+    }
