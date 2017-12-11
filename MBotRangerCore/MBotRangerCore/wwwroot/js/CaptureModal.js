@@ -60,17 +60,21 @@ captureByModal.addEventListener("click", function () {
 var modal = document.getElementById('myModal');
 var savePop = document.getElementById("popupSave");
 var cancelPop = document.getElementById("popupCancel");
-var prev = document.getElementById("previous");
-var next = document.getElementById("next");
+var changeToRobot = document.getElementById("robot_");
+var changeToWebcam = document.getElementById("webcam_");
 var controlButtons = document.getElementById("controlButtons");
+var webcamButtons = document.getElementById("webcamButtons");
+webcamButtons.style.display = "none";
 
 
-prev.onclick = function () {
-    controlButtons.style.display = "none";
+changeToRobot.onclick = function () {
+    controlButtons.style.display = "block";
+    webcamButtons.style.display = "none";
 };
 
-next.onclick = function () {
-    controlButtons.style.display = "block";
+changeToWebcam.onclick = function () {
+    controlButtons.style.display = "none";
+    webcamButtons.style.display = "block";
 };
 
 savePop.onclick = function () {

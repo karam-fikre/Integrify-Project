@@ -15,6 +15,55 @@
         <video id="videoM" width="720" height="480" autoplay></video>
     </div>
 
+    @*Webcam buttons div copied from down*@
+    <div id="webcamButtons" class="col-md-4">
+        <div class="row">
+
+            <div class="col-md-12">
+                <h2>Start the camera</h2>
+            </div>
+           
+
+
+
+            </div>
+        <div class="row">
+            <div class="col-md-4">
+                <button id="webcamM">Start Webcam</button>
+            </div>
+
+            <div class="col-md-4">
+                <button id="stopM">Stop Webcam</button>
+            </div>
+
+
+            <div class="col-md-4">
+                <button id="captureM">Capture Photo</button>
+            </div>
+            </div>
+        <div class="row">
+            <div class="col-md-4">
+
+            </div>
+
+
+
+                @*Reloads the webcam page*@
+
+                <div class="col-md-6">
+                    @using (Html.BeginForm("ReloadCam", "Webcam"))
+                    {
+                        <button id="buttonWebcam">Reload</button>
+
+                    }
+
+
+            </div>
+            </div>
+
+        </div> 
+    @*Webcam buttons finish, copied from down*@
+
     <div id="controlButtons" class="col-md-4">
         @*Robot controllers to into the webcam page*@
         @using (Html.BeginForm("WebCamMain", "Webcam"))
@@ -66,44 +115,20 @@
 
         </div>
    
-    <div class="row">
+    <div id="changeRobot_Cam" class="col-md-4">
+        @*
     <a id="previous" href="#" class="previous round">&#8249;</a>
     <a id="next" href="#" class="next round">&#8250;</a>
+        *@
+
+        <a id="robot_" href="#" class="robot_class">Robots</a>
+        <a id="webcam_" href="#" class="webcam_class">Webcam</a>
     </div>
-
-    <div id="webcamButtons" class="row">
-        <div class="col-md-4">
-            <button id="webcamM">Start Webcam</button>
-        </div>
-
-        <div class="col-md-4">
-            <button id="stopM">Stop Webcam</button>
-        </div>
-
-
-        <div class="col-md-4">
-            <button id="captureM">Capture Photo</button>
-        </div>
-
-    </div>
-</div>
-
-<div class="row">
 
     
-
-    @*Reloads the webcam page*@
-
-    <div class="col-md-6">
-        @using (Html.BeginForm("ReloadCam", "Webcam"))
-        {
-            <button id="buttonWebcam">Reload</button>
-
-        }
-    </div>
-
-
 </div>
+
+
 
 
 
