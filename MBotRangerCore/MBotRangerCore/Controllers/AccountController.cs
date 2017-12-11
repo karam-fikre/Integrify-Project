@@ -33,8 +33,14 @@ namespace MBotRangerCore.Controllers
         [TempData]
         public string ErrorMessage { get; set; }
 
-       
 
+        [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+           
+
+            return View();
+        }
         // GET: Users/Login
 
         [HttpGet]
