@@ -33,21 +33,10 @@ namespace MBotRangerCore.Controllers
         [TempData]
         public string ErrorMessage { get; set; }
 
-        public ConfirmViewModel ConfirmViewModel => confirmViewModel;
+
 
         private readonly MBotRangerCoreContext _context;
 
-        private readonly ConfirmViewModel confirmViewModel;
-
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ILogger logger, string errorMessage, MBotRangerCoreContext context, ConfirmViewModel confirmViewModel)
-        {
-            _userManager = userManager;
-            _signInManager = signInManager;
-            _logger = logger;
-            ErrorMessage = errorMessage;
-            _context = context;
-            this.confirmViewModel = confirmViewModel;
-        }
 
         // GET: Users
         public async Task<IActionResult> Index()
