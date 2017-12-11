@@ -33,22 +33,8 @@ namespace MBotRangerCore.Controllers
         [TempData]
         public string ErrorMessage { get; set; }
 
-
-        private readonly MBotRangerCoreContext _context;
-
-        private readonly ConfirmViewModel confirmViewModel;
-        //public UsersController(MBotRangerCoreContext context)
-        //{
-        //    _context = context;
-        //}
-
-        // GET: Users
-        public async Task<IActionResult> Index()
-        {
-            return View(await _context.Users.ToListAsync());
-        }
-
        
+
         // GET: Users/Login
 
         [HttpGet]
@@ -63,6 +49,7 @@ namespace MBotRangerCore.Controllers
         }
 
 
+
         // POST: Users/Login
 
         [HttpPost]
@@ -70,6 +57,7 @@ namespace MBotRangerCore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
         {
+
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
@@ -102,9 +90,13 @@ namespace MBotRangerCore.Controllers
         [AllowAnonymous]
         public IActionResult Register(string returnUrl = null)
         {
+
             ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
+
+
+        // POST: Users/Register
 
         [HttpPost]
         [AllowAnonymous]
@@ -119,8 +111,6 @@ namespace MBotRangerCore.Controllers
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
-
-
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     _logger.LogInformation("User created a new account with password.");
                     return RedirectToAction(nameof(RobotController.Index), "Robot");
@@ -131,6 +121,8 @@ namespace MBotRangerCore.Controllers
             return View(model);
         }
 
+
+        //Logout
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
@@ -140,15 +132,6 @@ namespace MBotRangerCore.Controllers
             return RedirectToAction(nameof(AccountController.Login));
         }
 
-       
-
-        
-
-        private bool UserExists(string email)
-        {
-
-            return _context.Users.Any(e => e.Email == email);
-        }
 
         #region Helpers
 

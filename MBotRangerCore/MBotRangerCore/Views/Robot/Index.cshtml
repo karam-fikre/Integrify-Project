@@ -1,7 +1,14 @@
-﻿
+﻿@using Microsoft.AspNetCore.Identity
+@using MBotRangerCore.Models
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 @{
     ViewData["Title"] = "Robot Controller";
 }
+@if (SignInManager.IsSignedIn(User))
+{
+
 
 <h2>Control the robot with Buttons</h2>
 
@@ -52,3 +59,4 @@
 
 }
 
+}

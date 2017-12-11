@@ -1,9 +1,8 @@
 @using Microsoft.AspNetCore.Identity
 @using MBotRangerCore.Models
-
+@model MBotRangerCore.Models.ConfirmViewModel
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
-
 @if (SignInManager.IsSignedIn(User))
 {
     <div class="navbar-header">
@@ -17,7 +16,6 @@
     </div>
     <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
-            @**  <li><a asp-area="" asp-controller="Robot" asp-action="Index">Robot Buttons</a></li> *@
             <li><a asp-area="" asp-controller="Webcam" asp-action="Index">Web Cam</a></li>
             <li><a asp-area="" asp-controller="Robot" asp-action="RobotArrows">Robot Arrows</a></li>
             <li><a asp-area="" asp-controller="Robot" asp-action="Mouse">Mouse Control</a></li>
@@ -25,11 +23,11 @@
 
         </ul>
 
-
+        
         <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="navbar-right">
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">Hello!@UserManager.GetUserName(User)!</a>
+                    <a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">Hello!!</a>
                 </li>
                 <li>
                     <button type="submit" class="btn btn-link navbar-btn navbar-link">Log out</button>
@@ -38,10 +36,4 @@
         </form>
     </div>
 }
-else
-{
-    <ul class="nav navbar-nav navbar-right">
-        <li><a asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>
-        <li><a asp-area="" asp-controller="Account" asp-action="Login">Log in</a></li>
-    </ul>
-}
+
