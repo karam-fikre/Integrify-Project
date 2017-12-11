@@ -6,16 +6,37 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-    <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="navbar-right">
-        <ul class="nav navbar-nav navbar-right">
-            <li>
-                <a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">Hello!@UserManager.GetUserName(User)!</a>
-            </li>
-            <li>
-                <button type="submit" class="btn btn-link navbar-btn navbar-link">Log out</button>
-            </li>
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a asp-area="" asp-controller="Robot" asp-action="Index" class="navbar-brand">Mbot Controller</a>
+    </div>
+    <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+            @**  <li><a asp-area="" asp-controller="Robot" asp-action="Index">Robot Buttons</a></li> *@
+            <li><a asp-area="" asp-controller="Webcam" asp-action="Index">Web Cam</a></li>
+            <li><a asp-area="" asp-controller="Robot" asp-action="RobotArrows">Robot Arrows</a></li>
+            <li><a asp-area="" asp-controller="Robot" asp-action="Mouse">Mouse Control</a></li>
+            <li><a asp-area="" asp-controller="MobileCam" asp-action="Index">Mobile Camera</a></li>
+
         </ul>
-    </form>
+
+
+        <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="navbar-right">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">Hello!@UserManager.GetUserName(User)!</a>
+                </li>
+                <li>
+                    <button type="submit" class="btn btn-link navbar-btn navbar-link">Log out</button>
+                </li>
+            </ul>
+        </form>
+    </div>
 }
 else
 {

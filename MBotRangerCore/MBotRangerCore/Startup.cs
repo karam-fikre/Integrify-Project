@@ -52,7 +52,7 @@ namespace MBotRangerCore
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Robot}/{action=Index}/{id?}");
+                    template: "{controller=Account}/{action=Login}/{id?}");
             });
         }
     }
