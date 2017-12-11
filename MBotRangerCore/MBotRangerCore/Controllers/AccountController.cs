@@ -73,12 +73,12 @@ namespace MBotRangerCore.Controllers
                 else
                 {
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                    return View(model);
+                    return View();
                 }
             }
 
             
-            return View(model);
+            return View();
         }
 
 
@@ -106,7 +106,7 @@ namespace MBotRangerCore.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { FirstName = model.FirstName, LastName = model.LastName,DateOfBirth=model.DateOfBirth, Email = model.Email, UserName = model.Email };
+                var user = new ApplicationUser { FirstName = model.FirstName, LastName = model.LastName,DateOfBirth=model.DateOfBirth, Email = model.Email, UserName = model.Email};
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
