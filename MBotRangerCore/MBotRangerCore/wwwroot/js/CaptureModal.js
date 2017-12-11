@@ -64,7 +64,7 @@ var changeToRobot = document.getElementById("robot_");
 var changeToWebcam = document.getElementById("webcam_");
 var controlButtons = document.getElementById("controlButtons");
 var webcamButtons = document.getElementById("webcamButtons");
-webcamButtons.style.display = "block";
+webcamButtons.style.display = "none";
 
 
 changeToRobot.onclick = function () {
