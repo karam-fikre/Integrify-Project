@@ -35,11 +35,9 @@ namespace MBotRangerCore.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-           
-
-            return View();
+               return View();
         }
         // GET: Users/Login
 
