@@ -5,3 +5,15 @@
 <h3>@ViewData["Message"]</h3>
 
 <p>Use this area to provide additional information.</p>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a asp-area="" asp-controller="Account" asp-action="Login">Login</a></li>
+                <li><a asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
