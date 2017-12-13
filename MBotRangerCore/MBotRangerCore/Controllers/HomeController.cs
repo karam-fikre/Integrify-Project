@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MBotRangerCore.Models;
 
-// Tobis comment #3
-
 namespace MBotRangerCore.Controllers
 {
     public class HomeController : Controller
@@ -19,7 +17,8 @@ namespace MBotRangerCore.Controllers
 
         public IActionResult About()
         {
-            ViewData["Message"] = "Your application description page.";
+            ViewData["Message"] = "";
+            //ViewData["Message"] = "Your application description page.";
 
             return View();
         }
