@@ -1,7 +1,14 @@
-﻿
+﻿@using Microsoft.AspNetCore.Identity
+@using MBotRangerCore.Models
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 @{
     ViewData["Title"] = "Webcam";
 }
+@if (SignInManager.IsSignedIn(User))
+{
+
 
 <p><h2>Webcam page: </h2><b> Displaying a video from a laptop webcam and capturing a photo</b></p>
 
@@ -50,3 +57,4 @@
 </div>
 
 
+}

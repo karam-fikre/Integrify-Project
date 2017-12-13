@@ -1,0 +1,50 @@
+﻿
+@using Microsoft.AspNetCore.Identity
+@using MBotRangerCore.Models
+@model MBotRangerCore.Models.ConfirmViewModel
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    ViewData["Title"] = "Account Information";
+}
+
+
+@if (SignInManager.IsSignedIn(User))
+{
+
+
+<h2>Account Information</h2>
+
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            First Name:
+        </dt>
+        <dd>
+            @UserManager.GetUserAsync(User).Result.FirstName
+        </dd>
+        <dt>
+            Last Name:
+        </dt>
+        <dd>
+            @UserManager.GetUserAsync(User).Result.LastName
+        </dd>
+        <dt>
+            Email:
+        </dt>
+        <dd>
+            @UserManager.GetUserAsync(User).Result.Email
+        </dd>
+        <dt>
+            Birhday:
+        </dt>
+        <dd>
+           @UserManager.GetUserAsync(User).Result.DateOfBirth.ToShortDateString()
+        </dd>
+    </dl>
+</div>
+
+    }

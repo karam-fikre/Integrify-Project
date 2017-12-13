@@ -1,7 +1,14 @@
-﻿
+﻿@using Microsoft.AspNetCore.Identity
+@using MBotRangerCore.Models
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 @{
     ViewData["Title"] = "Mouse";
 }
+@if (SignInManager.IsSignedIn(User))
+{
+
 <h2>Mouse</h2>
 <link rel="stylesheet" href="~/css/robot.css" />
 <!-- 5 Buttons to control the robot-->
@@ -90,4 +97,6 @@
 
     </script>
 }
+
+    }
 
