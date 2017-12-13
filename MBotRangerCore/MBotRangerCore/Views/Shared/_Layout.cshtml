@@ -19,6 +19,7 @@
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
+@*
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
@@ -30,7 +31,7 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                  @**  <li><a asp-area="" asp-controller="Robot" asp-action="Index">Robot Buttons</a></li> *@
+                   <li><a asp-area="" asp-controller="Robot" asp-action="Index">Robot Buttons</a></li>
                     <li><a asp-area="" asp-controller="Webcam" asp-action="WebCamMain">Web Cam</a></li>
                     <li><a asp-area="" asp-controller="Robot" asp-action="RobotArrows">Robot Arrows</a></li>
                     <li><a asp-area="" asp-controller="Robot" asp-action="Mouse">Mouse Control</a></li>
@@ -39,6 +40,14 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Receive Session</a></li>
                 </ul>
             </div>
+*@                   
+               
+
+
+
+ @await Html.PartialAsync("_LoginPartial")
+            
+
         </div>
     </nav>
     <div class="container body-content">
