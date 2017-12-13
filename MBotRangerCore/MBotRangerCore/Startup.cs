@@ -28,14 +28,14 @@ namespace MBotRangerCore
         {
           
            
-            services.AddDbContext<MBotRangerCoreContext>(options => options.UseSqlServer(@"Data Source=(localdb)\ProjectsV13;Initial Catalog=MBotRangerCore;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
+            services.AddDbContext<MBotRangerCoreContext>(options => options.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=MBotRangerCore;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
             services.AddIdentity<ApplicationUser, IdentityRole>()
                .AddEntityFrameworkStores<MBotRangerCoreContext>()
                .AddDefaultTokenProviders();
             services.Configure<IdentityOptions>(options =>
             {
                 // Password settings
-                options.Password.RequireDigit = true;
+                options.Password.RequireDigit = false;
                 options.Password.RequiredLength = 6;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
@@ -78,7 +78,7 @@ namespace MBotRangerCore
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Account}/{action=Login}/{id?}");
+                    template: "{controller=Home}/{action=About}/{id?}");
             });
         }
     }
