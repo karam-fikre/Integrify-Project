@@ -60,21 +60,37 @@ captureByModal.addEventListener("click", function () {
 var modal = document.getElementById('myModal');
 var savePop = document.getElementById("popupSave");
 var cancelPop = document.getElementById("popupCancel");
-var changeToRobot = document.getElementById("robot_");
+//var changeToRobot = document.getElementById("robot_");
 var changeToWebcam = document.getElementById("webcam_");
 var controlButtons = document.getElementById("controlButtons");
 var webcamButtons = document.getElementById("webcamButtons");
 webcamButtons.style.display = "none";
+var counter = false;
 
-
+/*
 changeToRobot.onclick = function () {
     controlButtons.style.display = "block";
     webcamButtons.style.display = "none";
 };
+*/
 
 changeToWebcam.onclick = function () {
-    controlButtons.style.display = "none";
-    webcamButtons.style.display = "block";
+    //controlButtons.style.display = "none";
+    // webcamButtons.style.display = "block";
+    if (counter == false) {
+        controlButtons.style.display = "none";
+        webcamButtons.style.display = "block";
+        changeToWebcam.innerHTML = "Change to Robot Options"
+        counter = true;
+    }
+    else
+    {
+        controlButtons.style.display = "block";
+        webcamButtons.style.display = "none";
+        changeToWebcam.innerHTML = "Change to Webcam Options"
+        counter = false;
+    }
+
 };
 
 savePop.onclick = function () {

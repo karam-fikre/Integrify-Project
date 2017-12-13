@@ -16,13 +16,11 @@ video {
 
 
 div[id="controlButtons"] {
-    margin-top: 10px;
-    border-style: solid;
+    margin-top: 50px;
 }
 
 div[id="webcamButtons"] {
-    margin-top: 10px;
-    border-style: solid;
+    margin-top: 50px;
 }
 
 div[id="changeRobot_Cam"] {
@@ -48,8 +46,8 @@ button {
     width: 100px;
     height: 50px;
     color: #000000;
-
 }
+    
 
 
 input[type=submit] {
@@ -99,17 +97,19 @@ a {
 }
 
 a:hover {
-        background-color: #ddd;
+        background-color: #888;
 }
-
+/*
 .robot_class {
     background-color: darkslategray;
     color: white;
 }
-
+*/
 .webcam_class {
     background-color: darkslategray;
-    color: white;
+    color: #0d0367;
+    font-size: 16px;
+    font: bold;
 }
 
 .round {

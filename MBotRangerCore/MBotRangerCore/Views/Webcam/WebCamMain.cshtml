@@ -20,7 +20,8 @@
         <div class="row">
 
             <div class="col-md-12">
-                <h2>Start the camera</h2>
+                <h2>Camera Alternatives</h2>
+                
             </div>
            
 
@@ -29,16 +30,16 @@
             </div>
         <div class="row">
             <div class="col-md-4">
-                <button id="webcamM">Start</button>
+                <input id="webcamM" type="submit" name="cam" value="Start" />
             </div>
 
             <div class="col-md-4">
-                <button id="stopM">Stop</button>
+                <input id="stopM" type="submit" name="cam" value="Stop" />
             </div>
 
 
             <div class="col-md-4">
-                <button id="captureM">Capture</button>
+                <input id="captureM" type="submit" name="cam" value="Capture" />
             </div>
             </div>
         <div class="row">
@@ -53,7 +54,7 @@
                 <div class="col-md-6">
                     @using (Html.BeginForm("ReloadCam", "Webcam"))
                     {
-                        <button id="buttonWebcam">Reload</button>
+                        <input id="buttonWebcam" type="submit" name="cam" value="Reload" />
 
                     }
 
@@ -121,8 +122,8 @@
     <a id="next" href="#" class="next round">&#8250;</a>
         *@
 
-        <a id="robot_" href="#" class="robot_class">Robots</a>
-        <a id="webcam_" href="#" class="webcam_class">Webcam</a>
+     @*   <a id="robot_" href="#" class="robot_class">Move Robot</a>*@
+        <a id="webcam_" href="#" class="webcam_class">Change to Webcam Options</a>
     </div>
 
     
