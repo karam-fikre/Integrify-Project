@@ -1,0 +1,163 @@
+﻿
+@{
+    ViewData["Title"] = "Webcam Main";
+}
+
+@section Scripts
+{
+    <script src="~/js/CaptureModal.js"></script>
+    <link rel="stylesheet" href="~/css/webcam.css" />
+}
+<div class="row">
+    @*The appropriate width and height should be 640 and 480 respectively
+        canvas size on js file should be the same with cshtml file to avoid croping*@
+    <div class="col-md-8">
+        <video id="videoM" width="720" height="480" autoplay></video>
+    </div>
+
+    @*Webcam buttons div copied from down*@
+    <div id="webcamButtons" class="col-md-4">
+        <div class="row">
+
+            <div class="col-md-12">
+                <h2>Camera Alternatives</h2>
+                
+            </div>
+           
+
+
+
+            </div>
+        <div class="row">
+            <div class="col-md-4">
+                <input id="webcamM" type="submit" name="cam" value="Start" />
+            </div>
+
+            <div class="col-md-4">
+                <input id="stopM" type="submit" name="cam" value="Stop" />
+            </div>
+
+
+            <div class="col-md-4">
+                <input id="captureM" type="submit" name="cam" value="Capture" />
+            </div>
+            </div>
+        <div class="row">
+            <div class="col-md-4">
+
+            </div>
+
+
+
+                @*Reloads the webcam page*@
+
+                <div class="col-md-6">
+                    @using (Html.BeginForm("ReloadCam", "Webcam"))
+                    {
+                        <input id="buttonWebcam" type="submit" name="cam" value="Reload" />
+
+                    }
+
+
+            </div>
+            </div>
+
+        </div> 
+    @*Webcam buttons finish, copied from down*@
+
+    <div id="controlButtons" class="col-md-4">
+        @*Robot controllers to into the webcam page*@
+        @using (Html.BeginForm("WebCamMain", "Webcam"))
+        {
+            <div class="row">
+                <div class="col-md-4">
+
+                </div>
+                <div class="col-md-4">
+
+                    <input id="forwardBtn" type="submit" name="submit" value="Forward" />
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <input id="leftBtn" type="submit" name="submit" value="Left" />
+
+                </div>
+                <div class="col-md-4">
+
+                    <input id="stopBtn" type="submit" name="submit" value="Stop" />
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <input id="rightBtn" type="submit" name="submit" value="Right" />
+
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+
+                </div>
+                <div class="col-md-4">
+
+                    <input id="backBtn" type="submit" name="submit" value="Back" />
+
+                </div>
+            </div>
+
+        }
+
+        @*Camera buttons here*@
+
+        </div>
+   
+    <div id="changeRobot_Cam" class="col-md-4">
+        @*
+    <a id="previous" href="#" class="previous round">&#8249;</a>
+    <a id="next" href="#" class="next round">&#8250;</a>
+        *@
+
+     @*   <a id="robot_" href="#" class="robot_class">Move Robot</a>*@
+        <a id="webcam_" href="#" class="webcam_class">Change to Webcam Options</a>
+    </div>
+
+    
+</div>
+
+
+
+
+
+
+@*The modal itsel*@
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+        <div class="row">
+            <div class="col-md-6">
+                <canvas id="popupCanvas" width="500" height="330"></canvas>
+            </div>
+        </div>
+        <div id="popupButtons" class="row">
+            <div class="col-md-4">
+                <button id="popupSave">Save</button>
+            </div>
+            <div class="col-md-4">
+                <button id="popupCancel">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+

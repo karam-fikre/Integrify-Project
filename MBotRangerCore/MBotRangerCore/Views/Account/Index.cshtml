@@ -24,25 +24,25 @@
             First Name:
         </dt>
         <dd>
-            @UserManager.Users.Select(u => u.FirstName).FirstOrDefault()
+            @UserManager.GetUserAsync(User).Result.FirstName
         </dd>
         <dt>
             Last Name:
         </dt>
         <dd>
-            @UserManager.Users.Select(u => u.LastName).FirstOrDefault()
+            @UserManager.GetUserAsync(User).Result.LastName
         </dd>
         <dt>
             Email:
         </dt>
         <dd>
-            @UserManager.Users.Select(u => u.Email).FirstOrDefault()
+            @UserManager.GetUserAsync(User).Result.Email
         </dd>
         <dt>
             Birhday:
         </dt>
         <dd>
-            @UserManager.Users.Select(u => u.DateOfBirth).FirstOrDefault()
+           @UserManager.GetUserAsync(User).Result.DateOfBirth.ToShortDateString()
         </dd>
     </dl>
 </div>

@@ -44,7 +44,15 @@
             </div>
             <button type="submit" class="btn btn-default">Register</button>
         </form>
+
+        <div class="form-group">
+            <br />
+            <p>
+                <a asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]">Back to Login Page</a>
+            </p>
+        </div>
     </div>
+   
 </div>
 
 @section Scripts {
