@@ -78,7 +78,7 @@ namespace MBotRangerCore
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=About}/{id?}");
+                    template: "{controller=Account}/{action=Login}/{id?}");
             });
         }
     }
