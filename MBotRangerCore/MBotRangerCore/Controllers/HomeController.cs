@@ -24,6 +24,12 @@ namespace MBotRangerCore.Controllers
             return View();
         }
 
+        public IActionResult Start()
+        {
+
+            return View();
+        }
+
         public IActionResult About()
         {
             HttpContext.Session.SetString("MyVar", "This is var");
