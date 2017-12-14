@@ -44,7 +44,12 @@ namespace MBotRangerCore.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            bool aaa = User.Identity.IsAuthenticated;
+            if (!aaa)
+            {
+                return RedirectToAction(nameof(HomeController.Start), "Home");
 
+            }
             HttpContext.Session.SetInt32("Counter", 0);
 
                return View();

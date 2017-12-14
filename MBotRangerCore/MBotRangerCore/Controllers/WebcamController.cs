@@ -44,12 +44,17 @@ namespace MBotRangerCore.Controllers
 
         public IActionResult ReloadCam()
         {
+            bool aaa = User.Identity.IsAuthenticated;
+            if (!aaa)
+            {
+                return RedirectToAction(nameof(HomeController.Start), "Home");
 
-            
+            }
+
             // DateTime.Now - DateTime.Now;
             //var diffrencebetweentime = DateTime.Now - Convert.ToDateTime(Intial);
             //ViewData["timespent"] = diffrencebetweentime;
-           
+
             return View("WebCamMain");
         }
     }
