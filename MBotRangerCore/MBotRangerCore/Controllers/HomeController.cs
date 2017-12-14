@@ -35,6 +35,10 @@ namespace MBotRangerCore.Controllers
             return View();
         }
 
+        public void Session_Start()
+        {
+            HttpContext.Session.SetInt32("Counter", 1);
+        }
 
         public IActionResult About()
         {
@@ -49,7 +53,7 @@ namespace MBotRangerCore.Controllers
                 return RedirectToAction(nameof(HomeController.Start), "Home");
 
             }
-
+            /*
             HttpContext.Session.SetString("MyVar", "This is var");
             HttpContext.Session.SetString("SVTime", startT.ToString());
             ViewData["Message"] = "Your application description page.";
@@ -63,7 +67,7 @@ namespace MBotRangerCore.Controllers
 
         public IActionResult Contact()
         {
-<<<<<<<
+
             ViewData["Status"] = HttpContext.Session.GetInt32("Counter");
             //real ones
             if (HttpContext.Session.GetInt32("Counter") == 0)
