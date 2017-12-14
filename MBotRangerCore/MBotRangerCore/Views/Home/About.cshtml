@@ -5,6 +5,15 @@
 <h5>@ViewData["Message"]</h5>
 
 
+@using (Html.BeginForm("Contact", "Home"))
+{
+    <input type="submit" id="GoInput" name="submit" value="Go Contact" />
+
+}
+
+<h5>@ViewData["Wait"]</h5>
+Bottom is status
+<h5>@ViewData["Status"]</h5>
 <p>Use this area to provide additional information.</p>
 
 

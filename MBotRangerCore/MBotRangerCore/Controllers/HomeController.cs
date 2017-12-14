@@ -24,8 +24,24 @@ namespace MBotRangerCore.Controllers
             return View();
         }
 
+        protected void Session_Start()
+        {
+            HttpContext.Session.SetInt32("Counter", 1);
+        }
+
         public IActionResult About()
         {
+            //real ones
+            ViewData["Status"] = HttpContext.Session.GetInt32("Counter");
+            Session_Start();
+            return View();
+
+           
+
+
+
+            //older
+            /*
             HttpContext.Session.SetString("MyVar", "This is var");
             
 
@@ -35,14 +51,41 @@ namespace MBotRangerCore.Controllers
             HttpContext.Session.SetDouble("Percentage", 75.56);
             HttpContext.Session.SetBoolean("IsIt", false);
             return View();
+            */
         }
 
         public IActionResult Contact()
         {
+            ViewData["Status"] = HttpContext.Session.GetInt32("Counter");
+            //real ones
+            if (HttpContext.Session.GetInt32("Counter") == 0)
+            {
+                HttpContext.Session.SetInt32("Counter", 1);
+
+                return View();
+            }
+            else if (HttpContext.Session.GetInt32("Counter") == 1)
+            {
+                HttpContext.Session.SetInt32("Counter", 0);
+                ViewData["Wait"] = "In Use";
+                return View("About");
+            }
+            else
+
+            {
+                HttpContext.Session.SetInt32("Counter", 1);
+                return View("About");
+            }
+
+
+            //older
+
+
+            /*
             endT = DateTime.Now;
             TimeSpan diff = DateTime.Now - startT;
             double seconds = diff.TotalSeconds;
-            /*ViewData["timespent"] = endT - startT;*/
+            //ViewData["timespent"] = endT - startT;
             ViewData["Timespent"] = seconds;
             HttpContext.Session.SetString("SVTimeEnd", DateTime.Now.ToString());
 
@@ -59,7 +102,7 @@ namespace MBotRangerCore.Controllers
                                DateTime.Now.Month + "/" +
                                DateTime.Now.Day + HttpContext.Session.GetString("MyVar");
 
-            return View();
+            return View();*/
         }
 
         public IActionResult Error()

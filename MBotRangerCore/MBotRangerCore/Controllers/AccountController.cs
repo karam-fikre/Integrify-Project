@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http;
 
 namespace MBotRangerCore.Controllers
 {
@@ -37,7 +38,9 @@ namespace MBotRangerCore.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-           
+            HttpContext.Session.SetInt32("Counter", 0);
+
+            
 
             return View();
         }
@@ -47,11 +50,30 @@ namespace MBotRangerCore.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login(string returnUrl = null)
         {
-            // Clear the existing external cookie to ensure a clean login process
+            HttpContext.Session.SetInt32("Counter", 0);
+
+
+            if (HttpContext.Session.GetInt32("Counter") == 0)
+            {
+                ViewData["Status"] = "No Logged in User";
+            }
+            else
+            {
+                ViewData["Status"] = "The Page is in Use";
+            }
+
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
             ViewData["ReturnUrl"] = returnUrl;
             return View();
+            // Clear the existing external cookie to ensure a clean login process
+            //Orginal Code Down
+            /*
+             *await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+
+             ViewData["ReturnUrl"] = returnUrl;
+             return View();
+             */
         }
 
 
@@ -63,28 +85,44 @@ namespace MBotRangerCore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
         {
-
-            ViewData["ReturnUrl"] = returnUrl;
-            if (ModelState.IsValid)
+            
+            if (HttpContext.Session.GetInt32("Counter") == 0)
             {
-                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
-                if (result.Succeeded)
+                
+                HttpContext.Session.SetInt32("Counter", 1);
+                ViewData["ReturnUrl"] = returnUrl;
+                if (ModelState.IsValid)
                 {
-                    _logger.LogInformation("User logged in.");
-                    return RedirectToAction(nameof(RobotController.Index), "Robot");
+                    var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
+                    if (result.Succeeded)
+                    {
+                        _logger.LogInformation("User logged in.");
+                        return RedirectToAction(nameof(RobotController.Index), "Robot");
 
+                    }
+
+
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                        return View();
+                    }
                 }
-
-
-                else
-                {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                    return View();
-                }
+                return View();
+            }
+            else if (HttpContext.Session.GetInt32("Counter") == 1)
+            {
+                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                return View();
             }
 
-            
+
+
+
+
             return View();
+            
+           
         }
 
 
