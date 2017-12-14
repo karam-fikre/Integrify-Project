@@ -8,7 +8,7 @@ using MBotRangerCore.Models;
 using Microsoft.AspNetCore.Http;
 using System.Globalization;
 
-// Tobis comment #3
+
 
 namespace MBotRangerCore.Controllers
 {
@@ -18,27 +18,54 @@ namespace MBotRangerCore.Controllers
        
         public DateTime endT;
 
+
+
         public IActionResult Index()
         {
             
             return View();
         }
 
+
+        //The Start Page 
+
+        public IActionResult Start()
+        {
+
+            return View();
+        }
+
+
         public IActionResult About()
         {
+
+            bool aaa = User.Identity.IsAuthenticated;
+            if (!aaa)
+            {
+                return RedirectToAction(nameof(HomeController.Start), "Home");
+
+            }
+
             HttpContext.Session.SetString("MyVar", "This is var");
-            
-
             HttpContext.Session.SetString("SVTime", startT.ToString());
-
             ViewData["Message"] = "Your application description page.";
             HttpContext.Session.SetDouble("Percentage", 75.56);
             HttpContext.Session.SetBoolean("IsIt", false);
             return View();
         }
 
+
+
         public IActionResult Contact()
         {
+
+            bool aaa = User.Identity.IsAuthenticated;
+            if (!aaa)
+            {
+                return RedirectToAction(nameof(HomeController.Start), "Home");
+
+            }
+
             endT = DateTime.Now;
             TimeSpan diff = DateTime.Now - startT;
             double seconds = diff.TotalSeconds;
@@ -61,6 +88,9 @@ namespace MBotRangerCore.Controllers
 
             return View();
         }
+
+
+
 
         public IActionResult Error()
         {
