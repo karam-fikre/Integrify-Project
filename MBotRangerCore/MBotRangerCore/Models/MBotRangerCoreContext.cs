@@ -14,7 +14,7 @@ namespace MBotRangerCore.Models
         public MBotRangerCoreContext(DbContextOptions<MBotRangerCoreContext> options)
             : base(options)
         { }
-        public DbSet<User> Users { get; set; }
+  
         public DbSet<MBotRangerCore.Models.LoginViewModel> LoginViewModel { get; set; }
 
          

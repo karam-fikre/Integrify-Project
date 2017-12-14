@@ -15,7 +15,13 @@ namespace MBotRangerCore.Controllers
        
         public IActionResult Index()
         {
-            
+            bool aaa = User.Identity.IsAuthenticated;
+            if (!aaa)
+            {
+                return RedirectToAction(nameof(HomeController.Start), "Home");
+
+            }
+
             return View();
         }
 
@@ -23,8 +29,13 @@ namespace MBotRangerCore.Controllers
         public IActionResult WebCamMain()
         {
             //ViewData["timespent"] = DateTime.Now -DateTime.Now;
-            
-            
+            bool aaa = User.Identity.IsAuthenticated;
+            if (!aaa)
+            {
+                return RedirectToAction(nameof(HomeController.Start), "Home");
+
+            }
+
 
             return View();
         }

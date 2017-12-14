@@ -31,21 +31,31 @@ namespace MBotRangerCore.Controllers
             _logger = logger;
         }
 
+
         [TempData]
         public string ErrorMessage { get; set; }
 
 
+
+
+
+        //GET: get the User Account Inforamtion
+
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
+
             HttpContext.Session.SetInt32("Counter", 0);
 
-            
-
-            return View();
+               return View();
         }
-        // GET: Users/Login
 
+
+
+
+
+        // GET: Users/Login
+        
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> Login(string returnUrl = null)
@@ -75,6 +85,8 @@ namespace MBotRangerCore.Controllers
              return View();
              */
         }
+
+
 
 
 
@@ -130,6 +142,7 @@ namespace MBotRangerCore.Controllers
 
 
         // GET: Users/Register
+
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Register(string returnUrl = null)
@@ -138,6 +151,9 @@ namespace MBotRangerCore.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
+
+
+
 
 
         // POST: Users/Register
@@ -166,7 +182,10 @@ namespace MBotRangerCore.Controllers
         }
 
 
+
+
         //Logout
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
@@ -175,6 +194,9 @@ namespace MBotRangerCore.Controllers
             _logger.LogInformation("User logged out.");
             return RedirectToAction(nameof(AccountController.Login));
         }
+
+
+
 
 
         #region Helpers

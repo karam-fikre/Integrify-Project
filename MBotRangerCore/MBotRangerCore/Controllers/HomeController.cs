@@ -8,7 +8,7 @@ using MBotRangerCore.Models;
 using Microsoft.AspNetCore.Http;
 using System.Globalization;
 
-// Tobis comment #3
+
 
 namespace MBotRangerCore.Controllers
 {
@@ -18,16 +18,23 @@ namespace MBotRangerCore.Controllers
        
         public DateTime endT;
 
+
+
         public IActionResult Index()
         {
             
             return View();
         }
 
-        protected void Session_Start()
+
+        //The Start Page 
+
+        public IActionResult Start()
         {
-            HttpContext.Session.SetInt32("Counter", 1);
+
+            return View();
         }
+
 
         public IActionResult About()
         {
@@ -36,17 +43,15 @@ namespace MBotRangerCore.Controllers
             Session_Start();
             return View();
 
-           
+            bool aaa = User.Identity.IsAuthenticated;
+            if (!aaa)
+            {
+                return RedirectToAction(nameof(HomeController.Start), "Home");
 
+            }
 
-
-            //older
-            /*
             HttpContext.Session.SetString("MyVar", "This is var");
-            
-
             HttpContext.Session.SetString("SVTime", startT.ToString());
-
             ViewData["Message"] = "Your application description page.";
             HttpContext.Session.SetDouble("Percentage", 75.56);
             HttpContext.Session.SetBoolean("IsIt", false);
@@ -54,8 +59,11 @@ namespace MBotRangerCore.Controllers
             */
         }
 
+
+
         public IActionResult Contact()
         {
+<<<<<<<
             ViewData["Status"] = HttpContext.Session.GetInt32("Counter");
             //real ones
             if (HttpContext.Session.GetInt32("Counter") == 0)
@@ -82,6 +90,16 @@ namespace MBotRangerCore.Controllers
 
 
             /*
+
+
+            bool aaa = User.Identity.IsAuthenticated;
+            if (!aaa)
+            {
+                return RedirectToAction(nameof(HomeController.Start), "Home");
+
+            }
+
+
             endT = DateTime.Now;
             TimeSpan diff = DateTime.Now - startT;
             double seconds = diff.TotalSeconds;
@@ -104,6 +122,9 @@ namespace MBotRangerCore.Controllers
 
             return View();*/
         }
+
+
+
 
         public IActionResult Error()
         {
