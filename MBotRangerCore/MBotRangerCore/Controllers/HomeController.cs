@@ -64,7 +64,7 @@ namespace MBotRangerCore.Controllers
 
             //real ones
             ViewData["Status"] = HttpContext.Session.GetInt32("Counter");
-            Session_Start();
+            //Session_Start();
             return View();
 
           

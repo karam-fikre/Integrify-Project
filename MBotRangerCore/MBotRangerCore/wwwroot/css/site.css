@@ -53,3 +53,14 @@ hr[id="bottomLine"] {
 h2,h5,p,span,label {
     color:aliceblue;
 }
+
+.header-text {
+    font-size: 50px;
+    font-weight: 700;
+    color: white;
+    text-shadow: 1px 1px 1px #000;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+    position: absolute;
+    padding: 10px;
+}

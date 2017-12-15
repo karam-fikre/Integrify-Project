@@ -1,6 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using MBotRangerCore.Models
 
+
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 @{
@@ -97,7 +98,7 @@
 
 
         function bb() {
-            Document(this.click(this.value='Back'));
+            Document(this.click(this.value = 'Back'));
         }
         function rr() {
             Document(this.click(this.value = 'Go Right'));
@@ -107,7 +108,7 @@
         }
         function mouseUp() {
             Document(this.click(this.value = 'Stop'));
-            
+
         }
 
         function RedirectAfterDelayFn() {
@@ -121,10 +122,17 @@
                 lblCount.innerHTML = seconds;
                 if (seconds == 0) {
                     dvCountDown.style.display = "none";
-                    document.location.href = '/Home/Start'
+                    
+                    //document.location.href = '/Home/Start'
+
                 }
             }, 1000);
-        }  
+        }
+
+
+      
+       
+
 
     </script>
 }

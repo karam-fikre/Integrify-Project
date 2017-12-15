@@ -131,5 +131,8 @@ namespace MBotRangerCore.Controllers
             s.SendTo(sendbuf, ep);
             return View();
         }
+
+
+
     }
 }
