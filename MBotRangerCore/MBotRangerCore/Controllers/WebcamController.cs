@@ -13,6 +13,7 @@ namespace MBotRangerCore.Controllers
     public class WebcamController : Controller
     {
        
+
         public IActionResult Index()
         {
             bool aaa = User.Identity.IsAuthenticated;
@@ -28,7 +29,6 @@ namespace MBotRangerCore.Controllers
 
         public IActionResult WebCamMain()
         {
-            //ViewData["timespent"] = DateTime.Now -DateTime.Now;
             bool aaa = User.Identity.IsAuthenticated;
             if (!aaa)
             {
@@ -59,11 +59,6 @@ namespace MBotRangerCore.Controllers
                 return RedirectToAction(nameof(HomeController.Start), "Home");
 
             }
-
-            // DateTime.Now - DateTime.Now;
-            //var diffrencebetweentime = DateTime.Now - Convert.ToDateTime(Intial);
-            //ViewData["timespent"] = diffrencebetweentime;
-
             return View("WebCamMain");
         }
     }

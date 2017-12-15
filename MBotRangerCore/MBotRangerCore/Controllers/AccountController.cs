@@ -20,14 +20,7 @@ namespace MBotRangerCore.Controllers
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private ISession ourSession => _httpContextAccessor.HttpContext.Session;
-        //public AccountController(IHttpContextAccessor httpContextAccessor)
-        //{
-        //    _httpContextAccessor = httpContextAccessor;
-        //}
-
-        
-
-
+     
 
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
@@ -83,32 +76,7 @@ namespace MBotRangerCore.Controllers
         public async Task<IActionResult> Login(string returnUrl = null)
         {
             ViewData["HowMany"] = _mData.Counter;
-            // HttpContext.Session.SetInt32("Counter", 0);
-            /* 
-
-             if (HttpContext.Session.GetInt32("Counter") == 0)
-             {
-                 ViewData["Status"] = "No Logged in User";
-             }
-             else
-             {
-                 ViewData["Status"] = "The Page is in Use";
-             }
-             */
-            /* if (ViewBag.isUsed)
-             {
-                 return RedirectToAction(nameof(AccountController.Login));
-             }
-             else
-             {
-                 await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
-
-                 ViewData["ReturnUrl"] = returnUrl;
-                 return View();
-
-               }*/
-
-            // Clear the existing external cookie to ensure a clean login process
+       
 
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
              ViewData["ReturnUrl"] = returnUrl;
