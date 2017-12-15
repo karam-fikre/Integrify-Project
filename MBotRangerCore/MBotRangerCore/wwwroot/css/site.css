@@ -49,6 +49,7 @@ hr[id="bottomLine"] {
 
 /*Mbot addition*/
 
-h2,h5,label {
+
+h2,h5,p,span,label {
     color:aliceblue;
 }

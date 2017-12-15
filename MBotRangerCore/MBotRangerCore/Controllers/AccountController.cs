@@ -44,7 +44,12 @@ namespace MBotRangerCore.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            bool aaa = User.Identity.IsAuthenticated;
+            if (!aaa)
+            {
+                return RedirectToAction(nameof(HomeController.Start), "Home");
 
+            }
             HttpContext.Session.SetInt32("Counter", 0);
 
                return View();
@@ -163,10 +168,18 @@ namespace MBotRangerCore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(ConfirmViewModel model, string returnUrl = null)
         {
+            List<string> _allowedEmailDomains = new List<string> { "outlook.com", "hotmail.com", "gmail.com", "yahoo.com" };
+            var emailDomain = model.Email.Split('@')[1];
+
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { FirstName = model.FirstName, LastName = model.LastName,DateOfBirth=model.DateOfBirth, Email = model.Email, UserName = model.Email};
+                if (!_allowedEmailDomains.Contains(emailDomain.ToLower()))
+                {
+                    ModelState.AddModelError(string.Empty, "Email domain is not allowed it's should be one of these (gmail,yahoo,outlock,hotmail)");
+                    return View();
+                }
+                var user = new ApplicationUser { FirstName = model.FirstName, LastName = model.LastName, DateOfBirth = model.DateOfBirth, Email = model.Email, UserName = model.Email };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -180,6 +193,7 @@ namespace MBotRangerCore.Controllers
 
             return View(model);
         }
+
 
 
 
