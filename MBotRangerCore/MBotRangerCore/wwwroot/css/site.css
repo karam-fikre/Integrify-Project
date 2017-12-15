@@ -10,9 +10,10 @@
     background-size: cover;
 }
 
-hr{
-    margin-top:500px;
+hr[id="bottomLine"] {
+    margin-top: 500px;
 }
+    
 
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
@@ -48,6 +49,7 @@ hr{
 
 /*Mbot addition*/
 
-h2,h5 {
+
+h2,h5,p,span,label {
     color:aliceblue;
 }

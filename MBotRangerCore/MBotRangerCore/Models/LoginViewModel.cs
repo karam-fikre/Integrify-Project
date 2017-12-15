@@ -8,6 +8,8 @@ namespace MBotRangerCore.Models
 {
     public class LoginViewModel
     {
+        public bool IsUsed { get; set; }
+
         [Key]
         public int UserId { get; set; }
 
@@ -25,4 +27,6 @@ namespace MBotRangerCore.Models
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
     }
+
+    
 }

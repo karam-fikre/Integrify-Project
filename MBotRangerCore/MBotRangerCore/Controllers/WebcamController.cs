@@ -15,7 +15,13 @@ namespace MBotRangerCore.Controllers
        
         public IActionResult Index()
         {
-            
+            bool aaa = User.Identity.IsAuthenticated;
+            if (!aaa)
+            {
+                return RedirectToAction(nameof(HomeController.Start), "Home");
+
+            }
+
             return View();
         }
 
@@ -23,22 +29,41 @@ namespace MBotRangerCore.Controllers
         public IActionResult WebCamMain()
         {
             //ViewData["timespent"] = DateTime.Now -DateTime.Now;
-            
-            
+            bool aaa = User.Identity.IsAuthenticated;
+            if (!aaa)
+            {
+                return RedirectToAction(nameof(HomeController.Start), "Home");
+
+            }
+
 
             return View();
+        }
+
+        public IActionResult WebCamMain_ToMock(WebcamController web)
+        {
+            if (!web.Equals(null))
+            {
+                return View("WebCamMain");
+            }
+            return null;
         }
 
 
 
         public IActionResult ReloadCam()
         {
+            bool aaa = User.Identity.IsAuthenticated;
+            if (!aaa)
+            {
+                return RedirectToAction(nameof(HomeController.Start), "Home");
 
-            
+            }
+
             // DateTime.Now - DateTime.Now;
             //var diffrencebetweentime = DateTime.Now - Convert.ToDateTime(Intial);
             //ViewData["timespent"] = diffrencebetweentime;
-           
+
             return View("WebCamMain");
         }
     }

@@ -10,6 +10,8 @@
 {
 
 <h2>Mouse</h2>
+    <body value="Redirect to another Page"  onload="RedirectAfterDelayFn()"></body>
+
 <link rel="stylesheet" href="~/css/robot.css" />
 <!-- 5 Buttons to control the robot-->
 @using (Html.BeginForm("Mouse", "Robot"))
@@ -45,6 +47,8 @@
 
         </div>
 
+        
+
     </div>
 
     <div class="row">
@@ -57,6 +61,18 @@
 
         </div>
     </div>
+    <div id="CountDown" class="row" style="display: none">
+        <div class="col-md-8">
+
+        </div>
+        <div class="col-md-4">
+            <p>You will be redirected after</p>
+            <br />
+            <span id="CountDownLabel"></span> <p>seconds.</p>
+        </div>
+
+    </div>
+
     <script>
         //Forward button
         document.getElementById("forwardBtn").addEventListener("mousedown", ff);
@@ -90,13 +106,28 @@
             Document(this.click(this.value = 'Go Left'));
         }
         function mouseUp() {
-            Document(this.click(this.value='Stop'));
+            Document(this.click(this.value = 'Stop'));
+            
         }
 
-
+        function RedirectAfterDelayFn() {
+            var seconds = 10;
+            var dvCountDown = document.getElementById("CountDown");
+            var lblCount = document.getElementById("CountDownLabel");
+            dvCountDown.style.display = "block";
+            lblCount.innerHTML = seconds;
+            setInterval(function () {
+                seconds--;
+                lblCount.innerHTML = seconds;
+                if (seconds == 0) {
+                    dvCountDown.style.display = "none";
+                    document.location.href = '/Home/Start'
+                }
+            }, 1000);
+        }  
 
     </script>
 }
 
-    }
+}
 

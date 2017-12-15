@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewData["Title"] = "";
+}
+
+<h2>Welcome to the project</h2>
+
+
+@using Microsoft.AspNetCore.Identity
+@using MBotRangerCore.Models
+@model MBotRangerCore.Models.ConfirmViewModel
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@if (SignInManager.IsSignedIn(User))
+{
+    
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+
+            @await Html.PartialAsync("_LoginPartial")
+
+        </div>
+    </nav>
+   
+}
+else
+{
+if (!ViewBag.Type)
+    {
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <ul class="nav navbar-nav navbar-right">
+            <li><a asp-area="" asp-controller="Account" asp-action="Login">Login</a></li>
+            <li><a asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>
+        </ul>
+</div>
+</nav>
+    }
+    else
+    {
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><h5>This is Guest mode</h5></li>
+                    <li>
+                        <button type="submit" class="btn btn-link navbar-btn navbar-link">Log out</button>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    }
+}

@@ -1,7 +1,10 @@
-﻿//Ourmaster branch edit
+﻿
+
+//Ourmaster branch edit
 document.onkeydown = function (e) {
     switch (e.keyCode) {
         case 37:
+           // $.post("/Robot/RobotArrows", { id: 3 });
             location.href = '/Robot/RobotArrows?id=' + 3;//left
             break;
         case 38:

@@ -14,4 +14,12 @@
 <h5>@ViewData["zare"]</h5>
 <h5>@ViewData["Timespent"] </h5>
 
+@using (Html.BeginForm("About", "Home"))
+{
+    <input type="submit" id="BackInput" name="submit" value="Back" />
+
+}
+
+Bottom is status
+<h5>@ViewData["Status"]</h5>
 

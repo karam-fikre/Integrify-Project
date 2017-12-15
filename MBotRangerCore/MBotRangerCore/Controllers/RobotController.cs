@@ -34,7 +34,13 @@ namespace MBotRangerCore.Controllers
 
         public IActionResult Index(string submit)
         {
-           //Button Options
+            bool aaa = User.Identity.IsAuthenticated;
+            if (!aaa)
+            {
+                return RedirectToAction(nameof(HomeController.Start), "Home");
+
+            }
+            //Button Options
             switch (submit)
             {
                 case "Forward":
@@ -69,6 +75,12 @@ namespace MBotRangerCore.Controllers
 
         public ActionResult RobotArrows(int? id)
         {
+            bool aaa = User.Identity.IsAuthenticated;
+            if (!aaa)
+            {
+                return RedirectToAction(nameof(HomeController.Start), "Home");
+
+            }
             ViewData["Key"] = id.ToString();
             sendbuf = Encoding.ASCII.GetBytes(id.ToString());
 
@@ -83,7 +95,12 @@ namespace MBotRangerCore.Controllers
         }
         public IActionResult Mouse(string submit)
         {
+            bool aaa = User.Identity.IsAuthenticated;
+            if (!aaa)
+            {
+                return RedirectToAction(nameof(HomeController.Start), "Home");
 
+            }
             switch (submit)
             {
                 case "Forward":
