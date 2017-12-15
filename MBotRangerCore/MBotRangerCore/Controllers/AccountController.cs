@@ -206,6 +206,7 @@ namespace MBotRangerCore.Controllers
             _logger.LogInformation("User logged out.");
             _mData.InUse = false;
             _mData.Counter--;
+            _mData.LoginType = false;
             return RedirectToAction(nameof(AccountController.Login));
             
         }

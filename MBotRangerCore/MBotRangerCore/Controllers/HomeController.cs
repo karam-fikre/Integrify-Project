@@ -25,8 +25,6 @@ namespace MBotRangerCore.Controllers
             _mm = mm;
             
         }
-
-
         public IActionResult Index()
         {
             
@@ -38,16 +36,26 @@ namespace MBotRangerCore.Controllers
 
         public IActionResult Start()
         {
-            
-            ViewBag.Type = _mm.LoginType;
+            // HttpContext.Session.SetString("Type", "0");
+           ViewBag.Type = _mm.LoginType;
+
             return View();
         }
 
-        
+        //public void Session_Start()
+        //{
+        //    HttpContext.Session.SetInt32("Counter", 1);
+        //}
 
         public IActionResult About()
         {
+
+            //real ones
             ViewData["Status"] = HttpContext.Session.GetInt32("Counter");
+          //  Session_Start();
+            
+
+
             bool aaa = User.Identity.IsAuthenticated;
             if (!aaa)
             {
@@ -55,11 +63,20 @@ namespace MBotRangerCore.Controllers
 
             }
 
-            
+            //real ones
             ViewData["Status"] = HttpContext.Session.GetInt32("Counter");
-         
+            //Session_Start();
             return View();
 
+          
+            /*
+            HttpContext.Session.SetString("MyVar", "This is var");
+            HttpContext.Session.SetString("SVTime", startT.ToString());
+            ViewData["Message"] = "Your application description page.";
+            HttpContext.Session.SetDouble("Percentage", 75.56);
+            HttpContext.Session.SetBoolean("IsIt", false);
+            return View();
+            */
         }
 
 
