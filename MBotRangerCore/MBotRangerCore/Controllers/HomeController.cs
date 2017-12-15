@@ -18,8 +18,13 @@ namespace MBotRangerCore.Controllers
        
         public DateTime endT;
 
+        MbotAppData _mm;
 
-
+        public HomeController(MbotAppData mm)
+        {
+            _mm = mm;
+            
+        }
         public IActionResult Index()
         {
             
@@ -31,21 +36,22 @@ namespace MBotRangerCore.Controllers
 
         public IActionResult Start()
         {
-
+            // HttpContext.Session.SetString("Type", "0");
+            ViewBag.Type = _mm.LoginType;
             return View();
         }
 
-        public void Session_Start()
-        {
-            HttpContext.Session.SetInt32("Counter", 1);
-        }
+        //public void Session_Start()
+        //{
+        //    HttpContext.Session.SetInt32("Counter", 1);
+        //}
 
         public IActionResult About()
         {
             //real ones
             ViewData["Status"] = HttpContext.Session.GetInt32("Counter");
-            Session_Start();
-            return View();
+          //  Session_Start();
+            
 
             bool aaa = User.Identity.IsAuthenticated;
             if (!aaa)
@@ -53,6 +59,7 @@ namespace MBotRangerCore.Controllers
                 return RedirectToAction(nameof(HomeController.Start), "Home");
 
             }
+            return View();
             /*
             HttpContext.Session.SetString("MyVar", "This is var");
             HttpContext.Session.SetString("SVTime", startT.ToString());

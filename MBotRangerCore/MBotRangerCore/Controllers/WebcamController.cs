@@ -40,6 +40,15 @@ namespace MBotRangerCore.Controllers
             return View();
         }
 
+        public IActionResult WebCamMain_ToMock(WebcamController web)
+        {
+            if (!web.Equals(null))
+            {
+                return View("WebCamMain");
+            }
+            return null;
+        }
+
 
 
         public IActionResult ReloadCam()

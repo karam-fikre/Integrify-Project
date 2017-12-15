@@ -13,6 +13,7 @@
 @inject UserManager<ApplicationUser> UserManager
 @if (SignInManager.IsSignedIn(User))
 {
+    
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
 
@@ -20,9 +21,12 @@
 
         </div>
     </nav>
+   
 }
 else
 {
+if (!ViewBag.Type)
+    {
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <ul class="nav navbar-nav navbar-right">
@@ -31,4 +35,18 @@ else
         </ul>
 </div>
 </nav>
+    }
+    else
+    {
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><h5>This is Guest mode</h5></li>
+                    <li>
+                        <button type="submit" class="btn btn-link navbar-btn navbar-link">Log out</button>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    }
 }

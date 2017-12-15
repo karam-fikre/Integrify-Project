@@ -50,8 +50,12 @@ namespace MBotRangerCore
             services.AddDistributedMemoryCache();
             services.AddSession();
             services.AddSession(options => {
-                options.IdleTimeout = TimeSpan.FromMinutes(30);
+                options.IdleTimeout = TimeSpan.FromSeconds(3);
             });
+            //services.AddSession(options => {
+            //    options.IdleTimeout = TimeSpan.FromMinutes(30);
+            //});
+            services.AddSingleton<MbotAppData>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
