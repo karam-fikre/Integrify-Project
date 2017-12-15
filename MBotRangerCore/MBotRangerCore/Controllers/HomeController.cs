@@ -37,7 +37,8 @@ namespace MBotRangerCore.Controllers
         public IActionResult Start()
         {
             // HttpContext.Session.SetString("Type", "0");
-            ViewBag.Type = _mm.LoginType;
+           ViewBag.Type = _mm.LoginType;
+
             return View();
         }
 

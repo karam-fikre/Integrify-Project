@@ -1,19 +1,48 @@
 ﻿@{
-    ViewData["Title"] = "";
+	ViewData["Title"] = "About";
 }
 <h2>@ViewData["Title"]</h2>
-<h5>@ViewData["Message"]</h5>
+<h3>@ViewData["Message"]</h3>
 
-
-@using (Html.BeginForm("Contact", "Home"))
-{
-    <input type="submit" id="GoInput" name="submit" value="Go Contact" />
-
-}
-
-<h5>@ViewData["Wait"]</h5>
-Bottom is status
-<h5>@ViewData["Status"]</h5>
-<p>Use this area to provide additional information.</p>
-
-
+<div id="aboutID">
+<p id="aboutID" >
+	<h3>About this project</h3>
+	@*<img src="~/images/RobotPic.png" align="right" />*@
+	This project is about controlling a robot from a web application. The app sends control messages to the robot and receives streaming film from the web camera attached on the robot. The control messages are “go forward”, “go backward”, “turn left”, “turn right”, and “stop”.
+	<br /><br />
+	The robot itself is a mBot Ranger Educational Robot Kit from MakeBlock Company. Its on-board computer is based on an Arduino card which is programmable in C++, using  mBlock programming environment. With Bluetooth or radio the program is transferred to the robot and is ready to run according to the program.
+	<br /><br />
+	But we did more than this. We attached a WiFi-card to the robot in order to send commands from the browser and we attach a web camera in order to receive streaming film so we can see what the robot sees on our browser. The robot is turned into a drown-on-wheels! If you sit at a browser (of course you are), even you can control the robot! You can run it on our office floor, see what it sees, explore our area, yes you can!
+	<br /><br />
+	<h3>How this is done</h3>
+	We have used our knowledge and competence in
+	<ul>
+		<li>Visual Studio 2017</li>
+		<li>C#</li>
+		<li>C</li>
+		<li>.Net</li> 
+		<li>ASP.NET Core using MVC</li>
+		<li>Razor</li>
+		<li>JavaScript</li>
+		<li>CSS</li>
+		<li>HTML</li>
+		<li>EF and SQL</li>
+		<li>IP- and TCP-protocolls</li>
+		<li>and much more...</li>
+	</ul>
+	for this project. What we didn't know from before, we've learned. Some things we even had to invent ourselves.
+	<br /><br />
+	In our project we used Agile methods such as Scrum. We used a flat organization with responsibilities that changed from week to week. This included the role of being Scrum-master. As a help for handling the sprints we jused Favro. For the program source revision handling we used GitHub in Visual Studio making it very easy to collaborate in the process of developing the system of software needed for the project.
+	<br /><br />
+	<h3>In the view of the user</h3>
+	When some user wants to explore our floor area he will turn to our webpage and see if anyone else is using the robot. If so, he can just lean back and enjoy the ride of the other user. If the user want to run the robot himself, he just has to log-on. (If he hasn't an user account already, he can easily create one.) When prperly logged in, he is placed in a queue. When it's his turn he has five minutes to run the robot for himself. Perhaps he will take on a mission, like “find the teddy bear” or something similar exciting. When his time is over the next user in queue takes over the robot. If noone is waiting, he just continues as long as he wants (and the batteries last).
+	<h3>Who are we?</h3>
+	We who have worked in this project are
+	<ul>
+		<li>Ahed AbuSharekh</li>
+		<li>Torbjörn Einegren</li>
+		<li>Karam Aldulaimi</li>
+		<li>Daniel Mekonnen</li>
+	</ul>
+</p>
+    </div>
