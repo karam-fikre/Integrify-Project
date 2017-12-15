@@ -48,10 +48,12 @@ namespace MBotRangerCore.Controllers
 
         public IActionResult About()
         {
+
             //real ones
             ViewData["Status"] = HttpContext.Session.GetInt32("Counter");
           //  Session_Start();
             
+
 
             bool aaa = User.Identity.IsAuthenticated;
             if (!aaa)
@@ -59,7 +61,13 @@ namespace MBotRangerCore.Controllers
                 return RedirectToAction(nameof(HomeController.Start), "Home");
 
             }
+
+            //real ones
+            ViewData["Status"] = HttpContext.Session.GetInt32("Counter");
+            Session_Start();
             return View();
+
+          
             /*
             HttpContext.Session.SetString("MyVar", "This is var");
             HttpContext.Session.SetString("SVTime", startT.ToString());
@@ -74,6 +82,13 @@ namespace MBotRangerCore.Controllers
 
         public IActionResult Contact()
         {
+
+            bool aaa = User.Identity.IsAuthenticated;
+            if (!aaa)
+            {
+                return RedirectToAction(nameof(HomeController.Start), "Home");
+
+            }
 
             ViewData["Status"] = HttpContext.Session.GetInt32("Counter");
             //real ones
@@ -103,12 +118,7 @@ namespace MBotRangerCore.Controllers
             /*
 
 
-            bool aaa = User.Identity.IsAuthenticated;
-            if (!aaa)
-            {
-                return RedirectToAction(nameof(HomeController.Start), "Home");
-
-            }
+           
 
 
             endT = DateTime.Now;
