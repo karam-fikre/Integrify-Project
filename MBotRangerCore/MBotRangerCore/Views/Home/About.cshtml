@@ -4,9 +4,10 @@
 <h2>@ViewData["Title"]</h2>
 <h3>@ViewData["Message"]</h3>
 
-<p>
+<div id="aboutID">
+<p id="aboutID" >
 	<h3>About this project</h3>
-	<img src="~/images/RobotPic.png" align="right" />
+	@*<img src="~/images/RobotPic.png" align="right" />*@
 	This project is about controlling a robot from a web application. The app sends control messages to the robot and receives streaming film from the web camera attached on the robot. The control messages are “go forward”, “go backward”, “turn left”, “turn right”, and “stop”.
 	<br /><br />
 	The robot itself is a mBot Ranger Educational Robot Kit from MakeBlock Company. Its on-board computer is based on an Arduino card which is programmable in C++, using  mBlock programming environment. With Bluetooth or radio the program is transferred to the robot and is ready to run according to the program.
@@ -44,3 +45,4 @@
 		<li>Daniel Mekonnen</li>
 	</ul>
 </p>
+    </div>

@@ -38,15 +38,28 @@ if (!ViewBag.Type)
     }
     else
     {
-        <nav class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><h5>This is Guest mode</h5></li>
-                    <li>
-                        <button type="submit" class="btn btn-link navbar-btn navbar-link">Log out</button>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+        <h5>Guest mode, Please Login</h5>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <ul class="nav navbar-nav navbar-right">
+            <li><a asp-area="" asp-controller="Account" asp-action="Login">Login</a></li>
+            <li><a asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>
+        </ul>
+    </div>
+</nav>
+        @*
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="navbar-right">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <h5>Guest Mode</h5>
+                </li>
+                <li>
+                    <button type="submit" class="btn btn-link navbar-btn navbar-link">Log out</button>
+                </li>
+            </ul>
+        </form>
+    </nav>*@
     }
 }
