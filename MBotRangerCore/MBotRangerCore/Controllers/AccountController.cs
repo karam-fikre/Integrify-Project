@@ -55,9 +55,9 @@ namespace MBotRangerCore.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-
-            bool aaa = User.Identity.IsAuthenticated;
-            if (!aaa)
+            //Check if the user Logged in
+            bool IsAuthenticated = User.Identity.IsAuthenticated;
+            if (!IsAuthenticated)
             {
                 return RedirectToAction(nameof(HomeController.Start), "Home");
 

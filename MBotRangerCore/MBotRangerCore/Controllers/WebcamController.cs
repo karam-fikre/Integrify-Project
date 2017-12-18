@@ -16,8 +16,9 @@ namespace MBotRangerCore.Controllers
 
         public IActionResult Index()
         {
-            bool aaa = User.Identity.IsAuthenticated;
-            if (!aaa)
+            //Check if the user Logged in
+            bool IsAuthenticated = User.Identity.IsAuthenticated;
+            if (!IsAuthenticated)
             {
                 return RedirectToAction(nameof(HomeController.Start), "Home");
 
@@ -29,8 +30,9 @@ namespace MBotRangerCore.Controllers
 
         public IActionResult WebCamMain()
         {
-            bool aaa = User.Identity.IsAuthenticated;
-            if (!aaa)
+            //Check if the user Logged in
+            bool IsAuthenticated = User.Identity.IsAuthenticated;
+            if (!IsAuthenticated)
             {
                 return RedirectToAction(nameof(HomeController.Start), "Home");
 
@@ -53,8 +55,9 @@ namespace MBotRangerCore.Controllers
 
         public IActionResult ReloadCam()
         {
-            bool aaa = User.Identity.IsAuthenticated;
-            if (!aaa)
+            //Check if the user Logged in
+            bool IsAuthenticated = User.Identity.IsAuthenticated;
+            if (!IsAuthenticated)
             {
                 return RedirectToAction(nameof(HomeController.Start), "Home");
 

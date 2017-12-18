@@ -55,9 +55,9 @@ namespace MBotRangerCore.Controllers
           //  Session_Start();
             
 
-
-            bool aaa = User.Identity.IsAuthenticated;
-            if (!aaa)
+            //Check if the user logged in
+            bool IsAuthenticated = User.Identity.IsAuthenticated;
+            if (!IsAuthenticated)
             {
                 return RedirectToAction(nameof(HomeController.Start), "Home");
 
@@ -83,9 +83,9 @@ namespace MBotRangerCore.Controllers
 
         public IActionResult Contact()
         {
-
-            bool aaa = User.Identity.IsAuthenticated;
-            if (!aaa)
+            //Check if the user Logged in
+            bool IsAuthenticated = User.Identity.IsAuthenticated;
+            if (!IsAuthenticated)
             {
                 return RedirectToAction(nameof(HomeController.Start), "Home");
 
