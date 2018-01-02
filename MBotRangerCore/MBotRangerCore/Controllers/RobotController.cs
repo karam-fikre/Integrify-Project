@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using System.Text;
 using System.Net.Sockets;
 using System.Net;
+using MBotRangerCore.Models;
+using System.Diagnostics;
+using Microsoft.AspNetCore.Http;
 
 namespace MBotRangerCore.Controllers
 {
@@ -13,29 +16,89 @@ namespace MBotRangerCore.Controllers
     {
         public byte[] sendbuf;
 
-        public bool ForXUnit()
+        MbotAppData robotAppData;
+
+        public RobotController(MbotAppData robotAppData)
         {
-            return true;
+            this.robotAppData = robotAppData;
         }
 
-        public IActionResult ForXUnit2(RobotController result)
+        [HttpPost]
+        public IActionResult Some(string submit)
         {
-            if (!result.Equals(null))
+
+            return RedirectToAction("Index");
+            //do something
+        }
+
+        [HttpPost]
+        public string MoveRobotOption(string option)
+        {
+            if (!String.IsNullOrEmpty(option))
             {
-                return View("Index");
+                switch (option)
+                {
+                    case "1":
+                        sendbuf = Encoding.ASCII.GetBytes("1");
+                        break;
+                    case "2":
+                        sendbuf = Encoding.ASCII.GetBytes("2");
+                        break;
+                    case "3":
+                        sendbuf = Encoding.ASCII.GetBytes("3");
+                        break;
+                    case "4":
+                        sendbuf = Encoding.ASCII.GetBytes("4");
+                        break;
+                    case "5":
+                        sendbuf = Encoding.ASCII.GetBytes("5");
+                        break;
+                    default:
+                        sendbuf = Encoding.ASCII.GetBytes("0");
+                        break;
+                }
+
+                Socket s = new Socket(AddressFamily.InterNetwork, SocketType.Dgram,
+                  ProtocolType.Udp);
+
+                IPAddress broadcast = IPAddress.Parse("192.168.4.1");
+                IPEndPoint ep = new IPEndPoint(broadcast, 1025);
+                s.SendTo(sendbuf, ep);
+
+                return option;
             }
-            return null;
+            return "Unsuccesful";
+
         }
 
-        public virtual IActionResult ForXUnitIndex(string str)
+        [HttpPost]
+        public string MoveRobotArrowsOption(string str)
         {
-            return null;
+            if (!string.IsNullOrEmpty(str))
+            {
+                RobotArrows(str);
+                return str;
+            }
+            return "Unsuccesful";
+
         }
 
+
+        [SessionTimeOut(1)]
         public IActionResult Index(string submit)
         {
+
+            string ss1 = HttpContext.Session.GetString("Current");
+            string ss2 = robotAppData.CurrentUser;
+            bool areUserEqual = !String.IsNullOrEmpty(ss1) && 
+                                !String.IsNullOrEmpty(ss2) && 
+                                ss1.Equals(ss2);
+
+            TempData["robV"] = "1";
+
+
             bool aaa = User.Identity.IsAuthenticated;
-            if (!aaa)
+            if (!aaa || !areUserEqual)
             {
                 return RedirectToAction(nameof(HomeController.Start), "Home");
 
@@ -43,19 +106,19 @@ namespace MBotRangerCore.Controllers
             //Button Options
             switch (submit)
             {
-                case "Forward":
+                case "1":
                     sendbuf = Encoding.ASCII.GetBytes("1");
                     break;
-                case "Back":
+                case "2":
                     sendbuf = Encoding.ASCII.GetBytes("2");
                     break;
-                case "Go Left":
+                case "3":
                     sendbuf = Encoding.ASCII.GetBytes("3");
                     break;
-                case "Go Right":
+                case "4":
                     sendbuf = Encoding.ASCII.GetBytes("4");
                     break;
-                case "Stop":
+                case "5":
                     sendbuf = Encoding.ASCII.GetBytes("5");
                     break;
                 default:
@@ -69,27 +132,32 @@ namespace MBotRangerCore.Controllers
             IPAddress broadcast = IPAddress.Parse("192.168.4.1");
             IPEndPoint ep = new IPEndPoint(broadcast, 1025);
             s.SendTo(sendbuf, ep);
+            
             return View();
         }
 
 
-        public ActionResult RobotArrows(int? id)
+        public IActionResult RobotArrows(string str)
         {
-            bool aaa = User.Identity.IsAuthenticated;
-            if (!aaa)
+            if (!string.IsNullOrEmpty(str))
             {
-                return RedirectToAction(nameof(HomeController.Start), "Home");
+                bool aaa = User.Identity.IsAuthenticated;
+                if (!aaa)
+                {
+                    return RedirectToAction(nameof(HomeController.Start), "Home");
+
+                }
+                ViewData["Key"] = str;
+                sendbuf = Encoding.ASCII.GetBytes(str);
+
+                Socket s = new Socket(AddressFamily.InterNetwork, SocketType.Dgram,
+                  ProtocolType.Udp);
+
+                IPAddress broadcast = IPAddress.Parse("192.168.4.1");
+                IPEndPoint ep = new IPEndPoint(broadcast, 1025);
+                s.SendTo(sendbuf, ep);
 
             }
-            ViewData["Key"] = id.ToString();
-            sendbuf = Encoding.ASCII.GetBytes(id.ToString());
-
-            Socket s = new Socket(AddressFamily.InterNetwork, SocketType.Dgram,
-              ProtocolType.Udp);
-
-            IPAddress broadcast = IPAddress.Parse("192.168.4.1");
-            IPEndPoint ep = new IPEndPoint(broadcast, 1025);
-            s.SendTo(sendbuf, ep);
 
             return View();
         }
@@ -132,6 +200,45 @@ namespace MBotRangerCore.Controllers
             return View();
         }
 
+        public IActionResult Reload()
+        {
+            bool aaa = User.Identity.IsAuthenticated;
+            if (!aaa)
+            {
+                return RedirectToAction(nameof(HomeController.Start), "Home");
+
+            }
+            //DateTime.Now - DateTime.Now;
+            //var diffrencebetweentime = DateTime.Now - Convert.ToDateTime(Intial);
+            //ViewData["timespent"] = diffrencebetweentime;
+            return View("Index");
+        }
+
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+
+
+        public bool ForXUnit()
+        {
+            return true;
+        }
+
+        public IActionResult ForXUnit2(RobotController result)
+        {
+            if (!result.Equals(null))
+            {
+                return View("Index");
+            }
+            return null;
+        }
+
+        public virtual IActionResult ForXUnitIndex(string str)
+        {
+            return null;
+        }
 
 
     }

@@ -19,7 +19,7 @@ namespace XUnitMbot
         [Fact]
         public void TestNotNullWebCamMain()
         {
-            WebcamController webCon = new WebcamController();
+            WebcamController webCon = new WebcamController(null);
             ViewResult result = webCon.WebCamMain() as ViewResult;
             Assert.NotNull(result);
         }
@@ -36,7 +36,7 @@ namespace XUnitMbot
         //Testing if the Relaodcam Action returns expected view
         public void TestWebcamReload()
         {
-            var webcamCon = new WebcamController();
+            var webcamCon = new WebcamController(null);
             ViewResult result = webcamCon.ReloadCam() as ViewResult;
             Assert.Equal(result.ViewName, "WebCamMain");
         }
@@ -47,7 +47,7 @@ namespace XUnitMbot
             var result = new ViewResult();
             Mock<WebcamController> webcamMock = new Mock<WebcamController>();
             webcamMock.Setup(x => x.WebCamMain()).Returns(result);
-            var controller = new WebcamController();
+            var controller = new WebcamController(null);
             var expected = controller.WebCamMain_ToMock(webcamMock.Object);
             Assert.NotNull(expected);
 

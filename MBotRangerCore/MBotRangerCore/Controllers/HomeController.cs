@@ -8,26 +8,21 @@ using MBotRangerCore.Models;
 using Microsoft.AspNetCore.Http;
 using System.Globalization;
 
-
-
 namespace MBotRangerCore.Controllers
 {
     public class HomeController : Controller
     {
-        public DateTime startT = DateTime.Now;
-       
+        public DateTime startT = DateTime.Now;       
         public DateTime endT;
+        MbotAppData homeAppData;
 
-        MbotAppData _mm;
-
-        public HomeController(MbotAppData mm)
+        public HomeController(MbotAppData _homeAppData)
         {
-            _mm = mm;
+            homeAppData = _homeAppData;
             
         }
         public IActionResult Index()
         {
-            
             return View();
         }
 
@@ -35,11 +30,10 @@ namespace MBotRangerCore.Controllers
         //The Start Page 
 
         public IActionResult Start()
-        {
-            // HttpContext.Session.SetString("Type", "0");
-           ViewBag.Type = _mm.LoginType;
-
-            return View();
+        {            
+                ViewBag.Type = homeAppData.LoginType;
+            
+                return View();            
         }
 
         //public void Session_Start()
@@ -49,13 +43,6 @@ namespace MBotRangerCore.Controllers
 
         public IActionResult About()
         {
-
-            //real ones
-            ViewData["Status"] = HttpContext.Session.GetInt32("Counter");
-          //  Session_Start();
-            
-
-
             bool aaa = User.Identity.IsAuthenticated;
             if (!aaa)
             {
@@ -63,9 +50,6 @@ namespace MBotRangerCore.Controllers
 
             }
 
-            //real ones
-            ViewData["Status"] = HttpContext.Session.GetInt32("Counter");
-            //Session_Start();
             return View();
 
           
@@ -83,6 +67,14 @@ namespace MBotRangerCore.Controllers
 
         public IActionResult Contact()
         {
+            string allT = "";
+
+            foreach (LoginViewModel lls in homeAppData.users)
+            {
+                allT = allT + " " + lls.Email;
+            }
+
+            ViewBag.Lists = allT;
 
             bool aaa = User.Identity.IsAuthenticated;
             if (!aaa)
@@ -91,37 +83,10 @@ namespace MBotRangerCore.Controllers
 
             }
 
-            ViewData["Status"] = HttpContext.Session.GetInt32("Counter");
-            //real ones
-            if (HttpContext.Session.GetInt32("Counter") == 0)
-            {
-                HttpContext.Session.SetInt32("Counter", 1);
-
-                return View();
-            }
-            else if (HttpContext.Session.GetInt32("Counter") == 1)
-            {
-                HttpContext.Session.SetInt32("Counter", 0);
-                ViewData["Wait"] = "In Use";
-                return View("About");
-            }
-            else
-
-            {
-                HttpContext.Session.SetInt32("Counter", 1);
-                return View("About");
-            }
-
-
-            //older
-
-
-            /*
-
-
+            return View();
            
 
-
+            /*
             endT = DateTime.Now;
             TimeSpan diff = DateTime.Now - startT;
             double seconds = diff.TotalSeconds;

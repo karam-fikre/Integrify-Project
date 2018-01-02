@@ -75,7 +75,7 @@ namespace XUnitMbot
         //Testing if the Relaodcam Action returns expected view
         public void TestWebcamReload()
         {
-            var webcamCon = new WebcamController();
+            var webcamCon = new WebcamController(null);
             ViewResult result = webcamCon.ReloadCam() as ViewResult;
             Assert.Equal(result.ViewName, "Index");
         }

@@ -1,7 +1,7 @@
 ﻿body {
+    /*overflow: hidden;*/
     padding-top: 50px;
     padding-bottom: 20px;
-
     /*The following are added for the robot page*/
     background-image: url("/images/dark.jpg");
     background-repeat: no-repeat;
@@ -18,8 +18,8 @@ hr[id="bottomLine"] {
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 /* Carousel */
