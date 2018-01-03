@@ -61,6 +61,7 @@ div[id="aboutID"]{
     font-size: 50px;
     font-weight: 700;
     color: white;
+    font-family:'Times New Roman';
     text-shadow: 1px 1px 1px #000;
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: black;
