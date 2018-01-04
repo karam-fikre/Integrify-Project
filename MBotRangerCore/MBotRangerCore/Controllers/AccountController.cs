@@ -216,6 +216,8 @@ namespace MBotRangerCore.Controllers
         }
 
 
+
+        //Confirm Email
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> ConfirmEmail(string userId, string code)
@@ -234,6 +236,8 @@ namespace MBotRangerCore.Controllers
         }
 
 
+
+        // GET: Users/Forgot Password
         [HttpGet]
         [AllowAnonymous]
         public IActionResult ForgotPassword()
@@ -241,6 +245,9 @@ namespace MBotRangerCore.Controllers
             return View();
         }
 
+
+
+        // POST: Users/Forgot Password
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -268,6 +275,9 @@ namespace MBotRangerCore.Controllers
             return View(model);
         }
 
+
+
+        // GET: Users/Forgot Password Confirm
         [HttpGet]
         [AllowAnonymous]
         public IActionResult ForgotPasswordConfirmation()
@@ -275,6 +285,9 @@ namespace MBotRangerCore.Controllers
             return View();
         }
 
+
+
+        // GET: Users/Reset Password
         [HttpGet]
         [AllowAnonymous]
         public IActionResult ResetPassword(string code = null)
@@ -287,6 +300,9 @@ namespace MBotRangerCore.Controllers
             return View();
         }
 
+
+
+        // POST: Users/Reset Password
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -311,6 +327,9 @@ namespace MBotRangerCore.Controllers
             return View();
         }
 
+
+
+        // GET: Users/Reset Password Confirm Password
         [HttpGet]
         [AllowAnonymous]
         public IActionResult ResetPasswordConfirmation()

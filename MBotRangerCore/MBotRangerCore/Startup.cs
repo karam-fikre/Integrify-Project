@@ -57,8 +57,12 @@ namespace MBotRangerCore
             services.AddSession(options => {
                 options.IdleTimeout = TimeSpan.FromSeconds(3);
             });
+
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
+
+
+
             services.AddSingleton<MbotAppData>();
 
             services.Configure<AuthMessageSenderOptions>(Configuration);
