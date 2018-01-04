@@ -50,7 +50,7 @@ hr[id="bottomLine"] {
 /*Mbot addition*/
 
 
-h2,h3,li,h5,p,span,label {
+h2,h3,h4,li,h5,p,span,label {
     color:aliceblue;
 }
 div[id="aboutID"]{

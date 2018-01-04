@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using MBotRangerCore.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using MBotRangerCore.Services;
 
 namespace MBotRangerCore
 {
@@ -19,6 +20,7 @@ namespace MBotRangerCore
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
         }
 
         public IConfiguration Configuration { get; }
@@ -29,7 +31,10 @@ namespace MBotRangerCore
           
            
             services.AddDbContext<MBotRangerCoreContext>(options => options.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=MBotRangerCore;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
-            services.AddIdentity<ApplicationUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>(config =>
+            {
+                config.SignIn.RequireConfirmedEmail = false;
+            })
                .AddEntityFrameworkStores<MBotRangerCoreContext>()
                .AddDefaultTokenProviders();
             services.Configure<IdentityOptions>(options =>
@@ -52,8 +57,11 @@ namespace MBotRangerCore
             services.AddSession(options => {
                 options.IdleTimeout = TimeSpan.FromSeconds(3);
             });
-        
+            // Add application services.
+            services.AddTransient<IEmailSender, EmailSender>();
             services.AddSingleton<MbotAppData>();
+
+            services.Configure<AuthMessageSenderOptions>(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
