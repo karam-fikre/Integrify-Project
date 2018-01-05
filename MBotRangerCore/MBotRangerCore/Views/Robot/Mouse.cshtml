@@ -75,40 +75,38 @@
     </div>
 
     <script>
+
         //Forward button
-        document.getElementById("forwardBtn").addEventListener("mousedown", ff);
+        document.getElementById("forwardBtn").addEventListener("mousedown", forward);
         document.getElementById("forwardBtn").addEventListener("mouseup", mouseUp);
-        document.getElementById("forwardBtn").addEventListener("dblclick", ff);
-        function ff() {
+        function forward() {
             Document(this.click(this.value = 'Forward'));
-
         }
+
         //Back button
-        document.getElementById("backBtn").addEventListener("mousedown", bb);
+        document.getElementById("backBtn").addEventListener("mousedown", back);
         document.getElementById("backBtn").addEventListener("mouseup", mouseUp);
-        document.getElementById("backBtn").addEventListener("dblclick", bb);
+
         //Right button
-        document.getElementById("rightBtn").addEventListener("mousedown", rr);
+        document.getElementById("rightBtn").addEventListener("mousedown", right);
         document.getElementById("rightBtn").addEventListener("mouseup", mouseUp);
-        document.getElementById("rightBtn").addEventListener("dblclick", rr);
+
         //Left button
-        document.getElementById("leftBtn").addEventListener("mousedown", ll);
+        document.getElementById("leftBtn").addEventListener("mousedown", left);
         document.getElementById("leftBtn").addEventListener("mouseup", mouseUp);
-        document.getElementById("leftBtn").addEventListener("dd", ll);
 
 
-        function bb() {
+        function back() {
             Document(this.click(this.value = 'Back'));
         }
-        function rr() {
+        function right() {
             Document(this.click(this.value = 'Go Right'));
         }
-        function ll() {
+        function left() {
             Document(this.click(this.value = 'Go Left'));
         }
         function mouseUp() {
             Document(this.click(this.value = 'Stop'));
-
         }
 
         function RedirectAfterDelayFn() {
@@ -123,7 +121,7 @@
                 if (seconds == 0) {
                     dvCountDown.style.display = "none";
                     
-                    //document.location.href = '/Home/Start'
+                    document.location.href = '/Home/Start'
 
                 }
             }, 1000);

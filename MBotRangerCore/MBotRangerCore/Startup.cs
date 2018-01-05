@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using MBotRangerCore.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using MBotRangerCore.Services;
 
 namespace MBotRangerCore
 {
@@ -19,6 +20,7 @@ namespace MBotRangerCore
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
         }
 
         public IConfiguration Configuration { get; }
@@ -29,7 +31,10 @@ namespace MBotRangerCore
           
            
             services.AddDbContext<MBotRangerCoreContext>(options => options.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=MBotRangerCore;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
-            services.AddIdentity<ApplicationUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>(config =>
+            {
+                config.SignIn.RequireConfirmedEmail = false;
+            })
                .AddEntityFrameworkStores<MBotRangerCoreContext>()
                .AddDefaultTokenProviders();
             services.Configure<IdentityOptions>(options =>
@@ -45,23 +50,39 @@ namespace MBotRangerCore
 
             });
 
+            services.Configure<SecurityStampValidatorOptions>(options =>
+            options.ValidationInterval = TimeSpan.FromSeconds(1)
+            );
+            services.AddAuthentication().Services.ConfigureApplicationCookie(
+                options=>
+                {
+                    options.SlidingExpiration = true;
+                    options.ExpireTimeSpan = TimeSpan.FromSeconds(600);
+                });
+
 
             services.AddMvc();
             services.AddDistributedMemoryCache();
-            services.AddSession();
+          //  services.AddSession();
             services.AddSession(options => {
-                options.IdleTimeout = TimeSpan.FromSeconds(3);
+                options.IdleTimeout = TimeSpan.FromSeconds(600);
             });
-            //services.AddSession(options => {
-            //    options.IdleTimeout = TimeSpan.FromMinutes(30);
-            //});
+
+            // Add application services.
+            services.AddTransient<IEmailSender, EmailSender>();
+
+
+
             services.AddSingleton<MbotAppData>();
+
+            services.Configure<AuthMessageSenderOptions>(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            
+
+            app.UseSession();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -72,10 +93,7 @@ namespace MBotRangerCore
                 app.UseExceptionHandler(" / Home/Error");
             }
 
-            app.UseStaticFiles();
-
-
-            app.UseSession();
+            app.UseStaticFiles();           
             app.UseAuthentication();
 
             app.UseMvc(routes =>

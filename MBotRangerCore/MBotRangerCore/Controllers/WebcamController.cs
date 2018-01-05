@@ -12,11 +12,20 @@ namespace MBotRangerCore.Controllers
 {
     public class WebcamController : Controller
     {
-       
+        MbotAppData appDatas;
+
+        public WebcamController(MbotAppData appd)
+        {
+            appDatas = appd;
+
+        }
+
+
         public IActionResult Index()
         {
-            bool aaa = User.Identity.IsAuthenticated;
-            if (!aaa)
+            //Check if the user Logged in
+            bool IsAuthenticated = User.Identity.IsAuthenticated;
+            if (!IsAuthenticated)
             {
                 return RedirectToAction(nameof(HomeController.Start), "Home");
 
@@ -27,16 +36,15 @@ namespace MBotRangerCore.Controllers
 
 
         public IActionResult WebCamMain()
-        {
-            //ViewData["timespent"] = DateTime.Now -DateTime.Now;
-            bool aaa = User.Identity.IsAuthenticated;
-            if (!aaa)
+        {           
+
+            //Check if the user Logged in
+            bool IsAuthenticated = User.Identity.IsAuthenticated;
+            if (!IsAuthenticated)
             {
                 return RedirectToAction(nameof(HomeController.Start), "Home");
-
             }
-
-
+            appDatas.LoginState = 1;
             return View();
         }
 
@@ -53,17 +61,13 @@ namespace MBotRangerCore.Controllers
 
         public IActionResult ReloadCam()
         {
-            bool aaa = User.Identity.IsAuthenticated;
-            if (!aaa)
+            //Check if the user Logged in
+            bool IsAuthenticated = User.Identity.IsAuthenticated;
+            if (!IsAuthenticated)
             {
                 return RedirectToAction(nameof(HomeController.Start), "Home");
 
             }
-
-            // DateTime.Now - DateTime.Now;
-            //var diffrencebetweentime = DateTime.Now - Convert.ToDateTime(Intial);
-            //ViewData["timespent"] = diffrencebetweentime;
-
             return View("WebCamMain");
         }
     }

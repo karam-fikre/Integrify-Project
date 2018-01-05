@@ -1,7 +1,7 @@
 ﻿body {
+    /*overflow: hidden;*/
     padding-top: 50px;
     padding-bottom: 20px;
-
     /*The following are added for the robot page*/
     background-image: url("/images/dark.jpg");
     background-repeat: no-repeat;
@@ -18,8 +18,8 @@ hr[id="bottomLine"] {
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 /* Carousel */
@@ -50,8 +50,18 @@ hr[id="bottomLine"] {
 /*Mbot addition*/
 
 
-h2,h3,li,h5,p,span,label {
+h2,h3,h1,li,h5,p,span,label {
     color:aliceblue;
+}
+
+h3[id="logoutWarn"] {
+     color: #ff6a00;
+     align-content:flex-end;
+     font-size:larger;
+}
+
+h4 {
+    color: green;
 }
 div[id="aboutID"]{
     color: aliceblue;
@@ -61,9 +71,28 @@ div[id="aboutID"]{
     font-size: 50px;
     font-weight: 700;
     color: white;
+    font-family:'Times New Roman';
     text-shadow: 1px 1px 1px #000;
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: black;
     position: absolute;
     padding: 10px;
+}
+
+table,tr {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width:auto;
+    border:solid;
+    border-width:thin;
+    border-color:azure;
+}
+
+td, th {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 150px;
+    border: solid;
+    border-width: thin;
+    border-color: azure;
 }
