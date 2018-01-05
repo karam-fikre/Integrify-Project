@@ -12,7 +12,7 @@ var play = document.getElementById("playVideo");
 
 //Capture the image through streaming
 capture.addEventListener("click", function () {
-    ctx.drawImage(img, 0, 0 ,500,330)
+    ctx.drawImage(img, 0, 0, 500, 330);
     canvas.src = canvas.toDataURL('image/jpeg', 1.0);
 });
 

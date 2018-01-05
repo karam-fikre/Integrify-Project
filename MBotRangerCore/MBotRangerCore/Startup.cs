@@ -50,12 +50,22 @@ namespace MBotRangerCore
 
             });
 
+            services.Configure<SecurityStampValidatorOptions>(options =>
+            options.ValidationInterval = TimeSpan.FromSeconds(1)
+            );
+            services.AddAuthentication().Services.ConfigureApplicationCookie(
+                options=>
+                {
+                    options.SlidingExpiration = true;
+                    options.ExpireTimeSpan = TimeSpan.FromSeconds(600);
+                });
+
 
             services.AddMvc();
             services.AddDistributedMemoryCache();
-            services.AddSession();
+          //  services.AddSession();
             services.AddSession(options => {
-                options.IdleTimeout = TimeSpan.FromSeconds(3);
+                options.IdleTimeout = TimeSpan.FromSeconds(600);
             });
 
             // Add application services.
@@ -71,7 +81,8 @@ namespace MBotRangerCore
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            
+
+            app.UseSession();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -82,10 +93,7 @@ namespace MBotRangerCore
                 app.UseExceptionHandler(" / Home/Error");
             }
 
-            app.UseStaticFiles();
-
-
-            app.UseSession();
+            app.UseStaticFiles();           
             app.UseAuthentication();
 
             app.UseMvc(routes =>

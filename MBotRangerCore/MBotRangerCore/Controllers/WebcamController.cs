@@ -12,7 +12,14 @@ namespace MBotRangerCore.Controllers
 {
     public class WebcamController : Controller
     {
-       
+        MbotAppData appDatas;
+
+        public WebcamController(MbotAppData appd)
+        {
+            appDatas = appd;
+
+        }
+
 
         public IActionResult Index()
         {
@@ -29,16 +36,15 @@ namespace MBotRangerCore.Controllers
 
 
         public IActionResult WebCamMain()
-        {
+        {           
+
             //Check if the user Logged in
             bool IsAuthenticated = User.Identity.IsAuthenticated;
             if (!IsAuthenticated)
             {
                 return RedirectToAction(nameof(HomeController.Start), "Home");
-
             }
-
-
+            appDatas.LoginState = 1;
             return View();
         }
 

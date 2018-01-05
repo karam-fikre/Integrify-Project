@@ -3,6 +3,13 @@
 @model MBotRangerCore.Models.ConfirmViewModel
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
+
+@section Scripts
+    {
+
+    <script src="~/js/Robot_JQuery.js"></script>
+}
+
 @if (SignInManager.IsSignedIn(User))
 {
     <div class="navbar-header">
@@ -12,15 +19,15 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a asp-area="" asp-controller="Home" asp-action="Start" class="navbar-brand">Home Page</a>
+        <a asp-area="" asp-controller="Home" asp-action="Start" class="navbar-brand"><b>Home</b></a>
     </div>
     <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
-            <li><a asp-area="" asp-controller="Webcam" asp-action="WebCamMain">Web Cam</a></li>
-            <li><a asp-area="" asp-controller="Robot" asp-action="RobotArrows">Robot Arrows</a></li>
-            <li><a asp-area="" asp-controller="Robot" asp-action="Mouse">Mouse Control</a></li>
-            <li><a asp-area="" asp-controller="MobileCam" asp-action="Index">Mobile Camera</a></li>
-            <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+            <li><a asp-area="" asp-controller="Robot" asp-action="Index" class="navbar-brand"><b>Robot Main</b></a></li>
+           @* <li><a asp-area="" asp-controller="Robot" asp-action="RobotArrows">Robot Arrows</a></li>
+    <li><a asp-area="" asp-controller="Robot" asp-action="Mouse">Mouse Control</a></li>
+    <li><a asp-area="" asp-controller="MobileCam" asp-action="Index">Mobile Camera</a></li>*@
+            <li><a asp-area="" asp-controller="Home" asp-action="About" class="navbar-brand"><b>About</b></a></li>
             @*<li><a asp-area="" asp-controller="Home" asp-action="Contact">About</a></li>*@
         </ul>
 
@@ -32,8 +39,10 @@
                 </li>
                 <li>
                     <button type="submit" class="btn btn-link navbar-btn navbar-link">Log out</button>
-                </li>
+                </li>                
             </ul>
+            @*This input field passes which is logged out via their email*@
+            <input type="hidden" name="loggedOutEmail" value="@UserManager.GetUserAsync(User).Result.Email" id="loggedUser"/>
         </form>
     </div>
 }
