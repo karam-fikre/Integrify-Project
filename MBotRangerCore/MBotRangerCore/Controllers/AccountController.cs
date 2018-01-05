@@ -39,17 +39,9 @@ namespace MBotRangerCore.Controllers
         private readonly ILogger _logger;
         private readonly MbotAppData mBotAppVar;
 
-
-            UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager,
-            IEmailSender emailSender,
-            ILogger<AccountController> logger,
-            MbotAppData mData
-            )
-
         public AccountController( UserManager<ApplicationUser> userManager,
                                   SignInManager<ApplicationUser> signInManager,
-                                  ILogger<AccountController> logger,
+                                  ILogger<AccountController> logger, IEmailSender emailSender,
                                   MbotAppData _mBotAppVar )
 
         {
@@ -123,17 +115,26 @@ namespace MBotRangerCore.Controllers
                     if (!mBotAppVar.IsItInUse)
                     {
                         ViewBag.CountDown = 0;
-                        // mBotAppVar.testList.Add(model.Email.ToString());                        
-                        mBotAppVar.users.Add(new LoginViewModel() { Email = model.Email });                       
-                        HttpContext.Session.SetString("User", model.Email);
-                        HttpContext.Session.SetString("UserTemp", model.Email);
-                        mBotAppVar.CurrentUser = model.Email;
-                        wholeAccess = model.Email;
-                        ////App variables
+                        // mBotAppVar.testList.Add(model.Email.ToString());
+                        bool userAdded = EmailAlreadyExist(model.Email.ToString());
+                        if (userAdded == true)
+                        {
+                            
+                        }
+                        else
+                        {
+                            mBotAppVar.users.Add(new LoginViewModel() { Email = model.Email });
+                            HttpContext.Session.SetString("User", model.Email);
+                            HttpContext.Session.SetString("UserTemp", model.Email);
+                            mBotAppVar.CurrentUser = model.Email;
+                            wholeAccess = model.Email;
+                            ////App variables
 
-                        mBotAppVar.LoggedInCounter++;
-                        mBotAppVar.IsItInUse = true;
-                        ConstructorsAssigner(mBotAppVar);
+                            mBotAppVar.LoggedInCounter++;
+                            mBotAppVar.IsItInUse = true;
+                            ConstructorsAssigner(mBotAppVar);
+                        }
+
 
                         _logger.LogInformation("User logged in.");
                         return RedirectToAction(nameof(RobotController.Index), "Robot");
@@ -143,14 +144,21 @@ namespace MBotRangerCore.Controllers
                         //Log the main user out when 2nd user request
                         ViewBag.CountDown = 5;
 
+                        bool userAdded = EmailAlreadyExist(model.Email.ToString());
+                        if (userAdded == true)
+                        {
+                            HttpContext.Session.SetString("User", model.Email);
+                        }
+                        else
+                        {
+                            mBotAppVar.testList.Add(model.Email.ToString());
+                            mBotAppVar.users.Add(new LoginViewModel() { Email = model.Email });
+                            HttpContext.Session.SetString("User", model.Email);
 
-                        mBotAppVar.testList.Add(model.Email.ToString());
-                        mBotAppVar.users.Add(new LoginViewModel() { Email = model.Email });
-                        HttpContext.Session.SetString("User", model.Email);
-
-                        //App variables
-                        mBotAppVar.LoggedInCounter++;
-                        ConstructorsAssigner(mBotAppVar);
+                            //App variables
+                            mBotAppVar.LoggedInCounter++;
+                            ConstructorsAssigner(mBotAppVar);
+                        }
 
 
                         ModelState.AddModelError(string.Empty, "Someone has logged in");
@@ -165,7 +173,19 @@ namespace MBotRangerCore.Controllers
                 }
                 return View();          
            
-        }       
+        }
+
+        private bool EmailAlreadyExist(string v)
+        {
+            bool ItExist = false;
+
+            foreach (var mm in mBotAppVar.users)
+            {
+                if (v.Equals(mm.Email))
+                    ItExist = true;
+            }
+            return ItExist;
+        }
 
         // GET: Users/Register
         [HttpGet]
