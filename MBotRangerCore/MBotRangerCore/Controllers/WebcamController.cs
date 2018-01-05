@@ -12,7 +12,15 @@ namespace MBotRangerCore.Controllers
 {
     public class WebcamController : Controller
     {
-       
+
+        MbotAppData appDatas;
+
+        public WebcamController(MbotAppData appd)
+        {
+            appDatas = appd;
+
+        }
+
         public IActionResult Index()
         {
             bool aaa = User.Identity.IsAuthenticated;
@@ -30,13 +38,11 @@ namespace MBotRangerCore.Controllers
         {
             //ViewData["timespent"] = DateTime.Now -DateTime.Now;
             bool aaa = User.Identity.IsAuthenticated;
-            if (!aaa)
+            if (!aaa || appDatas.LoginState!=0) //more than 1 user go to Home
             {
                 return RedirectToAction(nameof(HomeController.Start), "Home");
-
             }
-
-
+            appDatas.LoginState = 1;
             return View();
         }
 

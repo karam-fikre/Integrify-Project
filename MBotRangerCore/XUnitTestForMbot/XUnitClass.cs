@@ -13,7 +13,7 @@ namespace XUnitMbot
         [Fact]
         public void XTest1()
         {
-            RobotController robot = new RobotController();
+            RobotController robot = new RobotController(null);
             Assert.True(robot.ForXUnit());
         }
         [Fact]
@@ -55,7 +55,7 @@ namespace XUnitMbot
             var result = new ViewResult();
             Mock<RobotController> robotMock = new Mock<RobotController>();
             robotMock.Setup(x => x.ForXUnitIndex("")).Returns(result);
-            var controller = new RobotController();
+            var controller = new RobotController(null);
             var expected = controller.ForXUnit2(robotMock.Object);
             Assert.NotNull(expected);
 
@@ -65,7 +65,7 @@ namespace XUnitMbot
         //Testing if the Robot Index action returns a non null view
         public void TestNotNullRobotIndex()
         {
-            var robCon = new RobotController();
+            var robCon = new RobotController(null);
             ViewResult result = robCon.Index("") as ViewResult;
             Assert.NotNull(result);
         }
@@ -75,7 +75,7 @@ namespace XUnitMbot
         //Testing if the Relaodcam Action returns expected view
         public void TestWebcamReload()
         {
-            var webcamCon = new WebcamController();
+            var webcamCon = new WebcamController(null);
             ViewResult result = webcamCon.ReloadCam() as ViewResult;
             Assert.Equal(result.ViewName, "Index");
         }
@@ -84,8 +84,8 @@ namespace XUnitMbot
         //Testing if the Robot RobotArrows action returns a non null view
         public void TestNotNullRobotArrows()
         {
-            var controller = new RobotController();
-            ViewResult result = controller.RobotArrows(1) as ViewResult;
+            var controller = new RobotController(null);
+            ViewResult result = controller.RobotArrows("1") as ViewResult;
             Assert.NotNull(result);
         }
 

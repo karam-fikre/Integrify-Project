@@ -1,37 +1,17 @@
-﻿
+﻿//Ourmaster branch edit
 
-//Ourmaster branch edit
-document.onkeydown = function (e) {
-    switch (e.keyCode) {
-        case 37:
-           // $.post("/Robot/RobotArrows", { id: 3 });
-            location.href = '/Robot/RobotArrows?id=' + 3;//left
-            break;
-        case 38:
-            location.href = '/Robot/RobotArrows?id=' + 1;//up
-            break;
-        case 39:
-            location.href = '/Robot/RobotArrows?id=' + 4;//right
-            break;
-        case 40:
-            location.href = '/Robot/RobotArrows?id=' + 2;//down
-            break;
-    }
-};
+     // $.post("/Robot/RobotArrows", { id: 3 });
+         //   jQuery('[id$="myHiddenField"]').val(param);
 
-document.onkeyup = function (e) {
-    switch (e.keyCode) {
-        case 37:
-            location.href = '/Robot/RobotArrows?id=' + 5;//left
-            break;
-        case 38:
-            location.href = '/Robot/RobotArrows?id=' + 5;//up
-            break;
-        case 39:
-            location.href = '/Robot/RobotArrows?id=' + 5;//right
-            break;
-        case 40:
-            location.href = '/Robot/RobotArrows?id=' + 5;//down
-            break;
-    }
-};
+                //$.ajax({
+                //    url: '@Url.Action("RobotArrows","Robot")',
+                //    data: JSON.stringify({ "id": 3 }),
+                //    type: 'POST',
+                //    contentType: 'application/json; charset=utf-8',
+                //    success: function (data) {
+                //        // return values 
+                //        console.log("Success!" + data.id);
+                //    },
+                //    error: function () { console.log('error!!'); }
+                //});
+//Original

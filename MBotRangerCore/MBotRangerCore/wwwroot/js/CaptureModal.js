@@ -1,7 +1,6 @@
-﻿
-var popCanvas = document.getElementById('popupCanvas');
+﻿var popCanvas = document.getElementById('popupCanvas');
 var popContext = popCanvas.getContext('2d');
-var captureByModal = document.getElementById("captureM");
+var captureByModal = document.getElementById("captureModal");
 
 
 
@@ -40,7 +39,7 @@ function vidOff() {
     video.pause();
     video.src = "";
     localstream.getTracks()[0].stop();
-};
+}
 
 
 /////*********Webcam start end
@@ -56,10 +55,27 @@ captureByModal.addEventListener("click", function () {
 
 
 
+
 //Modals
-var modal = document.getElementById('myModal');
+var modal = document.getElementById('myModalRobot');
 var savePop = document.getElementById("popupSave");
 var cancelPop = document.getElementById("popupCancel");
+
+cancelPop.onclick = function () {
+    modal.style.display = "none";
+};
+savePop.onclick = function () {
+    modal.style.display = "none";
+};
+
+window.onclick = function (event) {
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+};
+
+
+//Below not needed
 //var changeToRobot = document.getElementById("robot_");
 var changeToWebcam = document.getElementById("webcam_");
 var controlButtons = document.getElementById("controlButtons");
@@ -77,32 +93,18 @@ changeToRobot.onclick = function () {
 changeToWebcam.onclick = function () {
     //controlButtons.style.display = "none";
     // webcamButtons.style.display = "block";
-    if (counter == false) {
+    if (counter === false) {
         controlButtons.style.display = "none";
         webcamButtons.style.display = "block";
-        changeToWebcam.innerHTML = "Change to Robot Options"
+        changeToWebcam.innerHTML = "Change to Robot Options";
         counter = true;
     }
-    else
-    {
+    else {
         controlButtons.style.display = "block";
         webcamButtons.style.display = "none";
-        changeToWebcam.innerHTML = "Change to Webcam Options"
+        changeToWebcam.innerHTML = "Change to Webcam Options";
         counter = false;
     }
 
-};
-
-savePop.onclick = function () {
-};
-
-cancelPop.onclick = function () {
-    modal.style.display = "none";
-};
-
-window.onclick = function (event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
 };
 

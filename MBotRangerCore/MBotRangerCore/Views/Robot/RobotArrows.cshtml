@@ -4,7 +4,7 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
-<script src="~/lib/jquery/dist/jquery.js"></script>
+
 
 @{
     ViewData["Title"] = "RobotArrows";
@@ -17,8 +17,13 @@
 
 @section Scripts
 {
+    
     <script src="~/js/RobotArrowsNavigation.js"></script>
     <link rel="stylesheet" href="~/css/robot.css" />
 }
+    <script src="~/lib/jquery/dist/jquery.js"></script>
 
-    }
+    <span id="msg"/>
+}
+
+
