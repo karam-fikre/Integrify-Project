@@ -4,9 +4,14 @@
 }
 
 <h2 class="header-text">Welcome to the project</h2>
+
 <div calss="container">
     <img src="~/images/IMG_20171213_155030_1.jpg" width="1200" height="600" class="rounded" />
 </div>
+
+    {
+<script src="~/js/Robot_JQuery.js"></script>
+}
 
 
 @using Microsoft.AspNetCore.Identity
@@ -24,11 +29,12 @@
 
         </div>
     </nav>
-   
+    <div><h3 id="logoutWarn"></h3></div>
+
 }
 else
 {
-if (!ViewBag.Type)
+    if (!ViewBag.Type)
     {
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">

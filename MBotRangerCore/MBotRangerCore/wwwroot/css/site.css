@@ -50,8 +50,18 @@ hr[id="bottomLine"] {
 /*Mbot addition*/
 
 
-h2,h3,li,h5,p,span,label {
+h2,h3,h1,li,h5,p,span,label {
     color:aliceblue;
+}
+
+h3[id="logoutWarn"] {
+     color: #ff6a00;
+     align-content:flex-end;
+     font-size:larger;
+}
+
+h4 {
+    color: green;
 }
 div[id="aboutID"]{
     color: aliceblue;
@@ -66,4 +76,22 @@ div[id="aboutID"]{
     -webkit-text-stroke-color: black;
     position: absolute;
     padding: 10px;
+}
+
+table,tr {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width:auto;
+    border:solid;
+    border-width:thin;
+    border-color:azure;
+}
+
+td, th {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 150px;
+    border: solid;
+    border-width: thin;
+    border-color: azure;
 }

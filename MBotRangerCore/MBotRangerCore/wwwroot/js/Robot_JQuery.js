@@ -1,16 +1,16 @@
-﻿var time = new Date().getTime();
-$(document.body).bind("mousemove keypress", function (e) {
-    time = new Date().getTime();
-});
+﻿//var time = new Date().getTime();
+//$(document.body).bind("mousemove keypress", function (e) {
+//    time = new Date().getTime();
+//});
 
-function refresh() {
-    if ((new Date().getTime() - time) >= 300000)
-        window.location.reload(true);
-    else
-        setTimeout(refresh, 2000);
-}
+//function refresh() {
+//    if ((new Date().getTime() - time) >= 300000)
+//        window.location.reload(true);
+//    else
+//        setTimeout(refresh, 2000);
+//}
 
-setTimeout(refresh, 2000);
+//setTimeout(refresh, 2000);
 
 
 
@@ -18,21 +18,21 @@ setTimeout(refresh, 2000);
 //Button control options with Jquery
 $('#forwardBtn').click(function () {
     RobotBtnOptions("1");
-})
+});
 $('#leftBtn').click(function () {
     RobotBtnOptions("3");
-})
+});
 $('#rightBtn').click(function () {
     RobotBtnOptions("4");
-})
+});
 
 $('#backBtn').click(function () {
     RobotBtnOptions("2");
-})
+});
 
 $('#stopBtn').click(function () {
     RobotBtnOptions("5");
-})
+});
 
 
 function RobotBtnOptions(_option) {
@@ -46,14 +46,14 @@ function RobotBtnOptions(_option) {
 //Arrow Options with Jquery
 
 document.onkeydown = function (e) {
-    if (e.keyCode == 37)
+    if (e.keyCode === 37)       // left
         KeyOptions("3");
-    else if (e.keyCode == 38)
+    else if (e.keyCode === 38)  // forward
         KeyOptions("1");
-    else if (e.keyCode == 39)
-        KeyOptions("4");
-    else if (e.keyCode == 40)
-        KeyOptions("2");
+    else if (e.keyCode === 39) //right
+        KeyOptions("4"); 
+    else if (e.keyCode === 40) //back
+        KeyOptions("2"); 
 };
 
 function KeyOptions(_option) {
@@ -64,11 +64,10 @@ function KeyOptions(_option) {
 }
 
 document.onkeyup = function (e) {
-    if (e.keyCode === 37 || e.keyCode === 38 || e.keyCode === 39 || e.keyCode === 40) {
-        {
-            KeyOptions("6");
-        }
-    }
+    if (e.keyCode === 37 || e.keyCode === 38 || e.keyCode === 39 || e.keyCode === 40) 
+    {
+        KeyOptions("5"); //Stop
+    }    
 };
 
 
@@ -126,11 +125,16 @@ function idleLogout() {
     window.onkeypress = resetTimer;
 
     function logout() {
-        //confirmation();     
-        window.location = '/Account/Logout';
+        //confirmation(); 
+        var loggedOutEmail = document.getElementById("loggedUser").value;
+        //location.href = '/Account/Logout?loggedOutEmail=' + loggedOutEmail;
+       
+        window.location = '/Account/Logout?loggedOutEmail=' + loggedOutEmail;
+        
+       // window.location = '/Account/Logout';
     }
     function warn() {
-      /*  var seconds = 4;
+    /*  var seconds = 4;
         setInterval(function () {
             document.getElementById("logoutWarn").innerHTML = "You will be logged out in " + seconds + " seconds";
             seconds--;
@@ -138,9 +142,10 @@ function idleLogout() {
                 document.getElementById("logoutWarn").innerHTML = "";
                 return;
             }
+            return;
         }, 1000);*/
 
-        document.getElementById("logoutWarn").innerHTML = "You will be logged out in 4 seconds";
+       document.getElementById("logoutWarn").innerHTML = "You will be logged out in 2 seconds";
     }
 
     function resetTimer() {
@@ -148,23 +153,30 @@ function idleLogout() {
         clearTimeout(timeIdle);
         clearTimeout(warnTime);
         warnTime = setTimeout(warn, 3000);
-        timeIdle = setTimeout(logout, 700000);  // time is in milliseconds
+        timeIdle = setTimeout(logout, 11117000);  // time is in milliseconds
     }
 }
 idleLogout();
 
 
+$('#logInIN').click(function () {
+    var timerID = document.getElementById("timerID").value;
+    var msg = timerID;
+    if (msg && msg.length > 0)
+        alert(msg);
+});
 
 function confirmation() {
-    var answer = confirm("You are about to be logged out, would you like to stay")
+    var answer = confirm("You are about to be logged out, would you like to stay");
     if (answer) {
         window.location = '/Robot/Index';
     }
     else {
+        window.location = '/Robot/Index';
     }
-};
+}
 
-var xx = "ffw"
+var xx = "ffw";
 window.onbeforeunload = function dd()
 {
    // xx = xx + xx;

@@ -3,6 +3,13 @@
 @model MBotRangerCore.Models.ConfirmViewModel
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
+
+@section Scripts
+    {
+
+    <script src="~/js/Robot_JQuery.js"></script>
+}
+
 @if (SignInManager.IsSignedIn(User))
 {
     <div class="navbar-header">
@@ -32,8 +39,10 @@
                 </li>
                 <li>
                     <button type="submit" class="btn btn-link navbar-btn navbar-link">Log out</button>
-                </li>
+                </li>                
             </ul>
+            @*This input field passes which is logged out via their email*@
+            <input type="hidden" name="loggedOutEmail" value="@UserManager.GetUserAsync(User).Result.Email" id="loggedUser"/>
         </form>
     </div>
 }

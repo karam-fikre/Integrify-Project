@@ -24,51 +24,14 @@ namespace MBotRangerCore.Controllers
         }
 
         [HttpPost]
-        public IActionResult Some(string submit)
-        {
-
-            return RedirectToAction("Index");
-            //do something
-        }
-
-        [HttpPost]
         public string MoveRobotOption(string option)
         {
             if (!String.IsNullOrEmpty(option))
             {
-                switch (option)
-                {
-                    case "1":
-                        sendbuf = Encoding.ASCII.GetBytes("1");
-                        break;
-                    case "2":
-                        sendbuf = Encoding.ASCII.GetBytes("2");
-                        break;
-                    case "3":
-                        sendbuf = Encoding.ASCII.GetBytes("3");
-                        break;
-                    case "4":
-                        sendbuf = Encoding.ASCII.GetBytes("4");
-                        break;
-                    case "5":
-                        sendbuf = Encoding.ASCII.GetBytes("5");
-                        break;
-                    default:
-                        sendbuf = Encoding.ASCII.GetBytes("0");
-                        break;
-                }
-
-                Socket s = new Socket(AddressFamily.InterNetwork, SocketType.Dgram,
-                  ProtocolType.Udp);
-
-                IPAddress broadcast = IPAddress.Parse("192.168.4.1");
-                IPEndPoint ep = new IPEndPoint(broadcast, 1025);
-                s.SendTo(sendbuf, ep);
-
+                AssignToArduino(option);
                 return option;
             }
             return "Unsuccesful";
-
         }
 
         [HttpPost]
@@ -83,56 +46,37 @@ namespace MBotRangerCore.Controllers
 
         }
 
+        public void ShowWaitingList()
+        {
+           /* string all_U = "";
+            foreach (var allUsers in robotAppData.users)
+            {
+                all_U = all_U + "\n | " + allUsers.Email + " |";
+            }
+
+            ViewBag.TheList = all_U;*/
+            ViewBag.WaitList = robotAppData.users;
+        }
 
         [SessionTimeOut(1)]
         public IActionResult Index(string submit)
         {
 
-            string ss1 = HttpContext.Session.GetString("Current");
-            string ss2 = robotAppData.CurrentUser;
-            bool areUserEqual = !String.IsNullOrEmpty(ss1) && 
-                                !String.IsNullOrEmpty(ss2) && 
-                                ss1.Equals(ss2);
-
-            TempData["robV"] = "1";
-
-
+            string loggedInUser      = HttpContext.Session.GetString("User");
+            string mainUser          = robotAppData.CurrentUser; //The user who has the access to control the robot
+            bool isUserSameAsCurrent = !String.IsNullOrEmpty(loggedInUser) && 
+                                       !String.IsNullOrEmpty(mainUser) &&
+                                       loggedInUser.Equals(mainUser);
+            
             bool aaa = User.Identity.IsAuthenticated;
-            if (!aaa || !areUserEqual)
+            if (!aaa || !isUserSameAsCurrent)
             {
                 return RedirectToAction(nameof(HomeController.Start), "Home");
-
-            }
-            //Button Options
-            switch (submit)
-            {
-                case "1":
-                    sendbuf = Encoding.ASCII.GetBytes("1");
-                    break;
-                case "2":
-                    sendbuf = Encoding.ASCII.GetBytes("2");
-                    break;
-                case "3":
-                    sendbuf = Encoding.ASCII.GetBytes("3");
-                    break;
-                case "4":
-                    sendbuf = Encoding.ASCII.GetBytes("4");
-                    break;
-                case "5":
-                    sendbuf = Encoding.ASCII.GetBytes("5");
-                    break;
-                default:
-                    sendbuf = Encoding.ASCII.GetBytes("0");
-                    break;
             }
 
-            Socket s = new Socket(AddressFamily.InterNetwork, SocketType.Dgram,
-              ProtocolType.Udp);
 
-            IPAddress broadcast = IPAddress.Parse("192.168.4.1");
-            IPEndPoint ep = new IPEndPoint(broadcast, 1025);
-            s.SendTo(sendbuf, ep);
-            
+            ShowWaitingList();
+            AssignToArduino(submit);
             return View();
         }
 
@@ -147,20 +91,15 @@ namespace MBotRangerCore.Controllers
                     return RedirectToAction(nameof(HomeController.Start), "Home");
 
                 }
+
                 ViewData["Key"] = str;
-                sendbuf = Encoding.ASCII.GetBytes(str);
-
-                Socket s = new Socket(AddressFamily.InterNetwork, SocketType.Dgram,
-                  ProtocolType.Udp);
-
-                IPAddress broadcast = IPAddress.Parse("192.168.4.1");
-                IPEndPoint ep = new IPEndPoint(broadcast, 1025);
-                s.SendTo(sendbuf, ep);
-
+                AssignToArduino(str);
             }
 
             return View();
         }
+
+       
         public IActionResult Mouse(string submit)
         {
             bool aaa = User.Identity.IsAuthenticated;
@@ -169,35 +108,22 @@ namespace MBotRangerCore.Controllers
                 return RedirectToAction(nameof(HomeController.Start), "Home");
 
             }
-            switch (submit)
-            {
-                case "Forward":
-                    sendbuf = Encoding.ASCII.GetBytes("1");
-                    break;
-                case "Back":
-                    sendbuf = Encoding.ASCII.GetBytes("2");
-                    break;
-                case "Go Left":
-                    sendbuf = Encoding.ASCII.GetBytes("3");
-                    break;
-                case "Go Right":
-                    sendbuf = Encoding.ASCII.GetBytes("4");
-                    break;
-                case "Stop":
-                    sendbuf = Encoding.ASCII.GetBytes("5");
-                    break;
-                default:
-                    sendbuf = Encoding.ASCII.GetBytes("0");
-                    break;
-            }
-
-            Socket s = new Socket(AddressFamily.InterNetwork, SocketType.Dgram,
-              ProtocolType.Udp);
-
-            IPAddress broadcast = IPAddress.Parse("192.168.4.1");
-            IPEndPoint ep = new IPEndPoint(broadcast, 1025);
-            s.SendTo(sendbuf, ep);
+            AssignToArduino(submit);
             return View();
+        }
+
+        public void AssignToArduino(string option)
+        {
+            if (!String.IsNullOrEmpty(option))
+            {
+                sendbuf = Encoding.ASCII.GetBytes(option);
+
+                Socket s = new Socket(AddressFamily.InterNetwork, SocketType.Dgram,
+                 ProtocolType.Udp);
+                IPAddress broadcast = IPAddress.Parse("192.168.4.1");
+                IPEndPoint ep = new IPEndPoint(broadcast, 1025);
+                s.SendTo(sendbuf, ep);
+            }
         }
 
         public IActionResult Reload()

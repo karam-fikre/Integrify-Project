@@ -60,7 +60,7 @@ namespace MBotRangerCore
             services.AddDistributedMemoryCache();
           //  services.AddSession();
             services.AddSession(options => {
-                options.IdleTimeout = TimeSpan.FromSeconds(500);
+                options.IdleTimeout = TimeSpan.FromSeconds(600);
             });
             //services.AddSession(options => {
             //    options.IdleTimeout = TimeSpan.FromMinutes(30);

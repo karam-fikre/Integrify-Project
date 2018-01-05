@@ -25,7 +25,7 @@ webcamStart.addEventListener("click", function () {
 
 // Stop the Webcam
 webcamStop.addEventListener("click", function () {
-    vidOff();
+    videoOff();
 });
 
 // Capture a photo from the webcamstream.
@@ -33,7 +33,7 @@ webcamCapture.addEventListener("click", function () {
     context.drawImage(video, 0, 0, 500, 330);
 });
 
-function vidOff() {
+function videoOff() {
     video.pause();
     video.src = "";
     localstream.getTracks()[0].stop();

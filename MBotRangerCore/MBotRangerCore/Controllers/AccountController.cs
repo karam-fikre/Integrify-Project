@@ -19,6 +19,7 @@ namespace MBotRangerCore.Controllers
     public class AccountController : Controller
     {
         //Session accessor variables
+        public string wholeAccess="";
         const string S_counter = "counter";
         const string S_state = "state";
         const string S_tester = "test";
@@ -34,13 +35,10 @@ namespace MBotRangerCore.Controllers
         private readonly ILogger _logger;
         private readonly MbotAppData mBotAppVar;
 
-        public AccountController(
-
-            UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager,
-            ILogger<AccountController> logger,
-            MbotAppData _mBotAppVar
-            )
+        public AccountController( UserManager<ApplicationUser> userManager,
+                                  SignInManager<ApplicationUser> signInManager,
+                                  ILogger<AccountController> logger,
+                                  MbotAppData _mBotAppVar )
         {
             mBotAppVar = _mBotAppVar;
             _userManager = userManager;
@@ -64,10 +62,10 @@ namespace MBotRangerCore.Controllers
 
 
         //GET: get the User Account Inforamtion
-
         [HttpGet]
         public IActionResult Index()
         {
+            HttpContext.Session.SetInt32(S_counter, 0);
 
             bool aaa = User.Identity.IsAuthenticated;
             if (!aaa)
@@ -75,60 +73,15 @@ namespace MBotRangerCore.Controllers
                 return RedirectToAction(nameof(HomeController.Start), "Home");
 
             }
-
-            HttpContext.Session.SetInt32(S_counter, 0);
-            
-
             return View();
         }
 
-        // GET: Users/Login
-        
+        // GET: Users/Login        
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> Login(string returnUrl = null)
         {
-            ViewData["HowMany"] = mBotAppVar.LoggedInCounter;
-            // HttpContext.Session.SetInt32("Counter", 0);
-            /* 
-
-             if (HttpContext.Session.GetInt32("Counter") == 0)
-             {
-                 ViewData["Status"] = "No Logged in User";
-             }
-             else
-             {
-                 ViewData["Status"] = "The Page is in Use";
-             }
-             */
-            /* if (ViewBag.isUsed)
-             {
-                 return RedirectToAction(nameof(AccountController.Login));
-             }
-             else
-             {
-                 await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
-
-                 ViewData["ReturnUrl"] = returnUrl;
-                 return View();
-
-               }*/
-
-            // Clear the existing external cookie to ensure a clean login process
-
-            /* if (TempData["LLL"]!=null)
-             {
-                 _logger.LogInformation("User logged in.");
-                 return RedirectToAction(nameof(RobotController.Index), "Robot");
-
-
-             }
-             else
-             {
-                 await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
-                 ViewData["ReturnUrl"] = returnUrl;
-                 return View();
-             }*/
+            ViewData["HowMany"] = mBotAppVar.LoggedInCounter; 
 
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
             ViewData["ReturnUrl"] = returnUrl;
@@ -136,76 +89,67 @@ namespace MBotRangerCore.Controllers
         }
 
         // POST: Users/Login
-
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
         {
-            ViewData["HowMany"] = mBotAppVar.LoggedInCounter;     
-                
-                ViewData["ReturnUrl"] = returnUrl;
-                if (ModelState.IsValid)
-                {                    
-                    var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
-                    if (result.Succeeded)
+            ViewData["HowMany"] = mBotAppVar.LoggedInCounter;
+
+            ViewData["ReturnUrl"] = returnUrl;
+            if (ModelState.IsValid)
+            {
+                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
+                if (result.Succeeded)
+                {
+                    if (!mBotAppVar.IsItInUse)
                     {
-                      if (!mBotAppVar.IsItInUse)
-                         {
-                        mBotAppVar.testList.Add("added");
-                        mBotAppVar.users.Add(new LoginViewModel(){ Email = model.Email });
-                        HttpContext.Session.SetString("Current", model.Email);
+                        ViewBag.CountDown = 0;
+                        // mBotAppVar.testList.Add(model.Email.ToString());                        
+                        mBotAppVar.users.Add(new LoginViewModel() { Email = model.Email });                       
+                        HttpContext.Session.SetString("User", model.Email);
+                        HttpContext.Session.SetString("UserTemp", model.Email);
                         mBotAppVar.CurrentUser = model.Email;
+                        wholeAccess = model.Email;
                         ////App variables
 
-                        //mBotAppVar.users.Add(new LoginViewModel() { UserId =0});
                         mBotAppVar.LoggedInCounter++;
                         mBotAppVar.IsItInUse = true;
                         ConstructorsAssigner(mBotAppVar);
-                        
-                        //     //Session variables
-                        //     TempData["LLL"] = "yes";
-                        //     HttpContext.Session.SetInt32(S_counter, 1);
-                        // ViewBag.isUsed = true;                   
 
                         _logger.LogInformation("User logged in.");
-                             return RedirectToAction(nameof(RobotController.Index), "Robot");
-                        }
+                        return RedirectToAction(nameof(RobotController.Index), "Robot");
+                    }
                     else
                     {
-                        mBotAppVar.testList.Add("AddedGuest");
-                        mBotAppVar.users.Add(new LoginViewModel() { UserId = model.UserId });
-                        HttpContext.Session.SetString("Current", model.Email);
+                        //Log the main user out when 2nd user request
+                        ViewBag.CountDown = 5;
+
+
+                        mBotAppVar.testList.Add(model.Email.ToString());
+                        mBotAppVar.users.Add(new LoginViewModel() { Email = model.Email });
+                        HttpContext.Session.SetString("User", model.Email);
 
                         //App variables
-
                         mBotAppVar.LoggedInCounter++;
-                        /*mBotAppVar.LoginType = true;
                         ConstructorsAssigner(mBotAppVar);
-                        //Session variables
-                        HttpContext.Session.SetString(S_state, "1"); */
 
-                        ModelState.AddModelError(string.Empty, "Someone has logged in");                        
+
+                        ModelState.AddModelError(string.Empty, "Someone has logged in");
                         return RedirectToAction(nameof(HomeController.Start), "Home");
                     }
                 }
-                    else
+                else
                     {
                         ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                         return View();
                     }
                 }
-                return View();
-               
+                return View();          
            
-            //return View();           
-           
-        }
-
-        
+        }       
 
         // GET: Users/Register
-
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Register(string returnUrl = null)
@@ -215,7 +159,6 @@ namespace MBotRangerCore.Controllers
         }
         
         // POST: Users/Register
-
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -239,16 +182,14 @@ namespace MBotRangerCore.Controllers
                 {
                     if (!mBotAppVar.IsItInUse)
                     {
-                        HttpContext.Session.SetString("Current", model.Email);
+                        mBotAppVar.users.Add(new LoginViewModel() { Email = model.Email });
+                        HttpContext.Session.SetString("User", model.Email);
                         mBotAppVar.CurrentUser = model.Email;
                         mBotAppVar.IsItInUse = true;
                         ConstructorsAssigner(mBotAppVar);
                         // TODO: id FSDAFDSA
                         mBotAppVar.LoggedInCounter++;
-                        /* //App variables
-
-                         //Session variables
-                         TempData["LLL"] = "yes";*/
+                        
 
                         await _signInManager.SignInAsync(user, isPersistent: false);
                         _logger.LogInformation("User created a new account with password.");
@@ -256,8 +197,14 @@ namespace MBotRangerCore.Controllers
                     }
                     else
                     {
-                        HttpContext.Session.SetString("Current", model.Email);
+                        mBotAppVar.testList.Add(model.Email.ToString());
+                        mBotAppVar.users.Add(new LoginViewModel() { Email = model.Email });
+                        mBotAppVar.LoggedInCounter++;
+                        ConstructorsAssigner(mBotAppVar);
+                        HttpContext.Session.SetString("User", model.Email);
                         ModelState.AddModelError(string.Empty, "Someone has logged in");
+                        await _signInManager.SignInAsync(user, isPersistent: false);
+                        _logger.LogInformation("User created a new account with password.");
                         return RedirectToAction(nameof(HomeController.Start), "Home");
                     }
                   
@@ -268,50 +215,71 @@ namespace MBotRangerCore.Controllers
             return View(model);
         }
 
+        //Automatic logout.
         [HttpGet]
-        public async Task<IActionResult> Logout(int? notUsedInt)
+        public async Task<IActionResult> Logout(int? notUsedInt, string loggedOutEmail)
         {
-            mBotAppVar.IsItInUse = false;
-            mBotAppVar.LoggedInCounter--;
-            await _signInManager.SignOutAsync();
-            _logger.LogInformation("User logged out.");
-           return RedirectToAction(nameof(AccountController.Login));
-        }
+            // LogoutHelper(loggedOutEmail);
+            string test = loggedOutEmail;
+            //if (mBotAppVar.LoggedInCounter > 0)
+            //    mBotAppVar.LoggedInCounter--;
+            //else
+            //    mBotAppVar.LoggedInCounter = 0;
 
-        //Logout
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Logout()
-        {
-
-            mBotAppVar.IsItInUse = false;
-            mBotAppVar.LoggedInCounter--;
-            /* //App variables
-             mBotAppVar.testList.RemoveAt(0);
-             
-             
-             mBotAppVar.LoginType = false;
-             mBotAppVar.LoginState = 0;
-            // mBotAppVar.users.RemoveAt(mBotAppVar.users.Count-1);
-             //Session variables
-             TempData["LLL"] = null;*/
-            //if (mBotAppVar.users.Count == 0)
-            //{
+            LogoutHelper(loggedOutEmail);
             await _signInManager.SignOutAsync();
                 _logger.LogInformation("User logged out.");
-
                 return RedirectToAction(nameof(AccountController.Login));
-            //}
-
-            //else
-            //{
-            //    LoginViewModel ll = new LoginViewModel();
-            //    await Login(ll, null);
-            //    return null;
-            //}
-
             
+            
+            
+        }
 
+        //When logout button is pressed
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Logout(string loggedOutEmail)
+        {
+             LogoutHelper(loggedOutEmail);
+
+             await _signInManager.SignOutAsync();
+            _logger.LogInformation("User logged out.");
+            return RedirectToAction(nameof(AccountController.Login));
+        }
+
+        public void LogoutHelper(string loggedOutEmail)
+        {
+            if (loggedOutEmail == mBotAppVar.users.ElementAt(0).Email)
+            {
+                if (mBotAppVar.LoggedInCounter > 1)
+                {
+                    mBotAppVar.users.RemoveAt(0);
+                    mBotAppVar.CurrentUser = mBotAppVar.users.ElementAt(0).Email;
+                    mBotAppVar.LoggedInCounter--;
+                    string oow = loggedOutEmail;
+                    string hh = HttpContext.Session.GetString("UserTemp");
+
+                }
+                else if (mBotAppVar.LoggedInCounter == 1)
+                {
+                    mBotAppVar.users.RemoveAt(0);
+                    mBotAppVar.IsItInUse = false;
+                    mBotAppVar.LoggedInCounter = 0;
+                }
+                //Not sure about this case
+                else
+                {
+                    mBotAppVar.LoggedInCounter = 0;
+                }
+            }
+            else
+            {
+                int index = mBotAppVar.users.FindIndex(a => a.Email == loggedOutEmail);
+                mBotAppVar.users.RemoveAt(index);
+                mBotAppVar.LoggedInCounter--;
+            }
+
+            ConstructorsAssigner(mBotAppVar);
         }
         
         #region Helpers
