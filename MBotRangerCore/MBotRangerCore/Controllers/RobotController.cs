@@ -123,8 +123,8 @@ namespace MBotRangerCore.Controllers
 
                 Socket s = new Socket(AddressFamily.InterNetwork, SocketType.Dgram,
                  ProtocolType.Udp);
-                IPAddress broadcast = IPAddress.Parse("192.168.4.1");
-                IPEndPoint ep = new IPEndPoint(broadcast, 1025);
+                IPAddress broadcast = IPAddress.Parse("195.198.161.214");
+                IPEndPoint ep = new IPEndPoint(broadcast, 80);
                 s.SendTo(sendbuf, ep);
             }
         }
