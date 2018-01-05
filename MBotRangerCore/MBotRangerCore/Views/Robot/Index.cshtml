@@ -78,7 +78,9 @@
                 <table>
                     <tr>
                         <th><h4>Postion</h4></th>
+                        <th><h4>Name</h4></th>
                         <th><h4>Email</h4></th>
+                        
                     </tr>
                     @{int dd = 0;
                     }
@@ -87,11 +89,12 @@
                         dd++;
                         <tr>
                             <td><p><b>@dd   </b></p></td>
+                            <td><p><b>@UserManager.FindByEmailAsync(wList.Email).Result.FirstName</b></p></td>
                             <td><p><b>@wList.Email</b></p></td>
                         </tr>
 
                     }
-
+                 
                    
                 </table>
 

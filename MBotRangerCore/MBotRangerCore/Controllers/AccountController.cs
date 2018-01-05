@@ -40,16 +40,11 @@ namespace MBotRangerCore.Controllers
         private readonly MbotAppData mBotAppVar;
 
 
-            UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager,
-            IEmailSender emailSender,
-            ILogger<AccountController> logger,
-            MbotAppData mData
-            )
 
         public AccountController( UserManager<ApplicationUser> userManager,
                                   SignInManager<ApplicationUser> signInManager,
                                   ILogger<AccountController> logger,
+                                  IEmailSender emailSender,
                                   MbotAppData _mBotAppVar )
 
         {
