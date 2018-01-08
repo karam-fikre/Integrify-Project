@@ -39,10 +39,12 @@ namespace MBotRangerCore.Controllers
         private readonly ILogger _logger;
         private readonly MbotAppData mBotAppVar;
 
+
         public AccountController( UserManager<ApplicationUser> userManager,
                                   SignInManager<ApplicationUser> signInManager,
-                                  ILogger<AccountController> logger, IEmailSender emailSender,
-                                  MbotAppData _mBotAppVar )
+                                  ILogger<AccountController> logger, 
+								  IEmailSender emailSender,
+								  MbotAppData _mBotAppVar )
 
         {
             mBotAppVar = _mBotAppVar;
