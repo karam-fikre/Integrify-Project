@@ -115,7 +115,7 @@ namespace MBotRangerCore.Controllers
                     if (!mBotAppVar.IsItInUse)
                     {
                         ViewBag.CountDown = 0;
-                        // mBotAppVar.testList.Add(model.Email.ToString());
+
                         bool userAdded = EmailAlreadyExist(model.Email.ToString());
                         if (userAdded == true)
                         {
@@ -142,12 +142,15 @@ namespace MBotRangerCore.Controllers
                     else
                     {
                         //Log the main user out when 2nd user request
-                        ViewBag.CountDown = 5;
+                        
 
                         bool userAdded = EmailAlreadyExist(model.Email.ToString());
                         if (userAdded == true)
                         {
-                            HttpContext.Session.SetString("User", model.Email);
+                            ViewBag.CountDown = 5;
+                            //HttpContext.Session.SetString("User", model.Email);
+                            //return RedirectToAction(nameof(RobotController.Index), "Robot");
+                            return View();
                         }
                         else
                         {
@@ -175,16 +178,16 @@ namespace MBotRangerCore.Controllers
            
         }
 
-        private bool EmailAlreadyExist(string v)
+        private bool EmailAlreadyExist(string newEmail)
         {
-            bool ItExist = false;
+            bool itExist = false;
 
-            foreach (var mm in mBotAppVar.users)
+            foreach (var i in mBotAppVar.users)
             {
-                if (v.Equals(mm.Email))
-                    ItExist = true;
+                if (newEmail.Equals(i.Email))
+                    itExist = true;
             }
-            return ItExist;
+            return itExist;
         }
 
         // GET: Users/Register
@@ -301,6 +304,7 @@ namespace MBotRangerCore.Controllers
                 else if (mBotAppVar.LoggedInCounter == 1)
                 {
                     mBotAppVar.users.RemoveAt(0);
+                    mBotAppVar.CurrentUser = "";
                     mBotAppVar.IsItInUse = false;
                     mBotAppVar.LoggedInCounter = 0;
                 }

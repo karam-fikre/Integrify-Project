@@ -3,8 +3,10 @@
     ViewData["Title"] = "";
 }
 
+@if (!SignInManager.IsSignedIn(User))
+{
 <h2 class="header-text">Welcome to the project</h2>
-
+}
 
 <div  style="position:relative;" calss="container">
     <img style="position:absolute; top:100px; left: 800px" src="~/images/90092_01.png" width="400"  class="rounded"/>
@@ -32,12 +34,34 @@
         </div>
     </nav>
     <div><h3 id="logoutWarn"></h3></div>
+    
+    <h3>Logged in Users List:</h3>
+    <h5>If you're not on position 1, please wait until your turn to access the robot</h5>
+    <table>
+        <tr>
+            <th><h4>Postion</h4></th>
+            <th><h4>Email</h4></th>
+        </tr>
+        @{int dd = 0;
+        }
+        @foreach (var wList in ViewBag.WaitList)
+        {
+            dd++;
+            <tr>
+                <td><p><b>@dd   </b></p></td>
+                <td><p><b>@wList.Email</b></p></td>
+            </tr>
 
-}
-else
-{
-    if (!ViewBag.Type)
-    {
+        }
+
+
+    </table>
+
+            }
+            else
+            {
+                if (!ViewBag.Type)
+                {
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <ul class="nav navbar-nav navbar-right">

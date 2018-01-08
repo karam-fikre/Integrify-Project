@@ -32,8 +32,9 @@ namespace MBotRangerCore.Controllers
         public IActionResult Start()
         {            
                 ViewBag.Type = homeAppData.LoginType;
-            
-                return View();            
+            ViewBag.WaitList = homeAppData.users;
+
+            return View();            
         }
 
         //public void Session_Start()
@@ -42,7 +43,8 @@ namespace MBotRangerCore.Controllers
         //}
 
         public IActionResult About()
-        {           
+        {
+            ViewBag.WaitList = homeAppData.users;
             //Check if the user logged in
             bool IsAuthenticated = User.Identity.IsAuthenticated;
             if (!IsAuthenticated)

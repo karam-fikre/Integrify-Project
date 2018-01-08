@@ -1,6 +1,8 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - MBotRangerCore</title>
@@ -17,6 +19,12 @@
     </environment>
 </head>
 <body>
+@if (SignInManager.IsSignedIn(User))
+{
+
+   @* <div><h5>Logged in users Email list:</h5></div>   *@
+
+}
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
                 

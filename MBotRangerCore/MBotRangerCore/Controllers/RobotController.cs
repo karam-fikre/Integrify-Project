@@ -46,18 +46,7 @@ namespace MBotRangerCore.Controllers
 
         }
 
-        public void ShowWaitingList()
-        {
-           /* string all_U = "";
-            foreach (var allUsers in robotAppData.users)
-            {
-                all_U = all_U + "\n | " + allUsers.Email + " |";
-            }
-
-            ViewBag.TheList = all_U;*/
-            ViewBag.WaitList = robotAppData.users;
-        }
-
+     
         [SessionTimeOut(1)]
         public IActionResult Index(string submit)
         {
@@ -75,7 +64,7 @@ namespace MBotRangerCore.Controllers
             }
 
 
-            ShowWaitingList();
+            ViewBag.WaitList = robotAppData.users;
             AssignToArduino(submit);
             return View();
         }
