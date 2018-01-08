@@ -17,9 +17,9 @@
     <h5>If you're not on position 1, please wait until your turn to access the robot</h5>
     <table id="usersTable">
         <tr>
-            <th><h4>Postion</h4></th>
-            <th><h4>Name</h4></th>
-            <th><h4>Email</h4></th>
+            <th><h4><b>Postion</b></h4></th>
+            <th><h4><b>Name</b></h4></th>
+            <th><h4><b>Email</b></h4></th>
         </tr>
         @{int dd = 0;
         }
@@ -27,9 +27,9 @@
         {
             dd++;
             <tr>
-                <td><h4><b>@dd   </b></h4></td>
-                <td><h4><b>@UserManager.FindByEmailAsync(wList.Email).Result.FirstName</b></h4></td>
-                <td><h4><b>@wList.Email</b></h4></td>
+                <td><h4>@dd   </h4></td>
+                <td><h4>@UserManager.FindByEmailAsync(wList.Email).Result.FirstName</h4></td>
+                <td><h4>@wList.Email</h4></td>
             </tr>
 
         }

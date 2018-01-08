@@ -107,7 +107,7 @@ td, th {
 
     #usersTable td, #usersTable th {
         border: 1px solid #ddd;
-        padding: 8px;
+        padding: 6px;
     }
 
     #usersTable tr:nth-child(even) {
