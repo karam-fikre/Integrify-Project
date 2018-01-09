@@ -9,6 +9,7 @@ using System.Net;
 using MBotRangerCore.Models;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 namespace MBotRangerCore.Controllers
 {
@@ -17,6 +18,7 @@ namespace MBotRangerCore.Controllers
         public byte[] sendbuf;
 
         MbotAppData robotAppData;
+    
 
         public RobotController(MbotAppData robotAppData)
         {
@@ -26,10 +28,11 @@ namespace MBotRangerCore.Controllers
         [HttpPost]
         public string MoveRobotOption(string option)
         {
+            string aa = robotAppData.Distance;
             if (!String.IsNullOrEmpty(option))
             {
                 AssignToArduino(option);
-                return option;
+                return aa;
             }
             return "Unsuccesful";
         }
@@ -63,8 +66,9 @@ namespace MBotRangerCore.Controllers
                 return RedirectToAction(nameof(HomeController.Start), "Home");
             }
 
-
+            
             ViewBag.WaitList = robotAppData.users;
+          ViewBag.dis=  robotAppData.Distance;
             AssignToArduino(submit);
             return View();
         }
@@ -108,13 +112,17 @@ namespace MBotRangerCore.Controllers
         {
             if (!String.IsNullOrEmpty(option))
             {
-                sendbuf = Encoding.ASCII.GetBytes(option);
+                byte[] data = new byte[1024];
+                string stringData;
+                UdpClient server = new UdpClient("195.198.161.214", 80);
 
-                Socket s = new Socket(AddressFamily.InterNetwork, SocketType.Dgram,
-                 ProtocolType.Udp);
-                IPAddress broadcast = IPAddress.Parse("195.198.161.214");
-                IPEndPoint ep = new IPEndPoint(broadcast, 80);
-                s.SendTo(sendbuf, ep);
+                IPEndPoint sender = new IPEndPoint(IPAddress.Any, 0);
+                data = Encoding.ASCII.GetBytes(option);
+                server.Send(data, data.Length);
+                data = server.Receive(ref sender);
+                stringData = Encoding.ASCII.GetString(data, 0, data.Length);
+                robotAppData.Distance = stringData;
+
             }
         }
 

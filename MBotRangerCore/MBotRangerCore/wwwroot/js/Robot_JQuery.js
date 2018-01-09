@@ -19,6 +19,8 @@
 $('#forwardBtn').click(function () {
     RobotBtnOptions("1");
 });
+
+
 $('#leftBtn').click(function () {
     RobotBtnOptions("3");
 });
@@ -37,8 +39,9 @@ $('#stopBtn').click(function () {
 
 function RobotBtnOptions(_option) {
     var url = "/Robot/MoveRobotOption";
+    
     $.post(url, { option: _option }, function (data) {
-        $("#msg").html(data);
+        $("#distance").html(data);
     });
 }
 
