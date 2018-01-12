@@ -11,7 +11,7 @@
 }
 
 hr[id="bottomLine"] {
-    margin-top: 500px;
+    margin-top: auto;
 }
     
 
@@ -84,7 +84,7 @@ table,tr {
     border-collapse: collapse;
     width:auto;
     border:solid;
-    color:brown;
+    color:#000;
     border-width:thin;
     border-color:azure;
 }
@@ -92,11 +92,13 @@ table,tr {
 td, th {
     font-family: arial, sans-serif;
     border-collapse: collapse;
-    width: 150px;
-    border: solid;
-    color: brown;
-    border-width: thin;
+    width: 60px;
+    color: #000;
+    border:hidden;
     border-color: azure;
+}
+th[id="pID"] {
+    width: 30px;
 }
 
 #usersTable {
@@ -107,7 +109,6 @@ td, th {
 
     #usersTable td, #usersTable th {
         border: 1px solid #ddd;
-        padding: 6px;
     }
 
     #usersTable tr:nth-child(even) {
@@ -125,3 +126,40 @@ td, th {
         background-color: #4CAF50;
         color: white;
     }
+
+div[id="homePageDiv"] {
+    margin-top:50px;
+}
+
+
+div[id="divLogged"] {
+    position: static;
+    height: 1300px;
+    background-color: #000;
+}
+
+#divLogged h4 {
+    font-size: smaller;
+    margin-left: 10px;
+color:white;
+
+}
+#divLogged tr:hover {
+    background-color:darkslategray;
+}
+div[id="innerDivLogged"] {
+    position: fixed;
+    margin-top: 180px;
+    background-color: black;
+    height: 400px;
+    width: 235px;
+}
+
+#innerDivLogged h5 {
+    position: fixed;
+    vertical-align: top;
+    margin-left:10px;
+}
+
+
+

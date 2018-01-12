@@ -2,8 +2,6 @@
  @using MBotRangerCore.Models
 @model MBotRangerCore.Models.ConfirmViewModel
 
-
-
     @inject SignInManager<ApplicationUser> SignInManager
     @inject UserManager<ApplicationUser> UserManager 
 @{
@@ -12,8 +10,6 @@
 
     @if (SignInManager.IsSignedIn(User))
     {
-
-
 @section Scripts
     {
     <script src="~/js/CaptureModal.js"></script>
@@ -134,10 +130,10 @@
             </div>
             <div id="popupButtons" class="row">
                 <div class="col-md-3">
-                    <button id="popupSave">Save</button>
+                    <input type="submit" id="popupSave" value="Save"/>
                 </div>
                 <div class="col-md-3">
-                    <button id="popupCancel">Cancel</button>
+                    <input type="submit" id="popupCancel" value="Cancel"/>
                 </div>
             </div>
         </div>
@@ -146,15 +142,18 @@
 
 
     <p>@ViewData["msg"]</p>
-    
+
     <div><p id="unload"></p></div>
-    <div><p>Keys Change </p><span id="msg" /></div>
-    <div><p>Arrows Change </p><span id="msg2" /></div>
+    <div><p>Keys Change </p><span id="msg"/></div>
+    <div><p>Arrows Change </p><span id="msg2"/></div>
+  
+    <div><p id="timerLog">@ViewBag.TimerLog</p></div>
+    <div><p id="json">testJson</p></div>
 
-    
-
-    
 
 
-    }
+
+
+
+                        }
 

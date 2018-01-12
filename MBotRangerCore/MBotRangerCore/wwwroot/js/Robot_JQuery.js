@@ -14,10 +14,9 @@
 
 
 
-
 //Button control options with Jquery
 $('#forwardBtn').click(function () {
-    RobotBtnOptions("1");
+    RobotBtnOptions("1");   
 });
 $('#leftBtn').click(function () {
     RobotBtnOptions("3");
@@ -31,7 +30,7 @@ $('#backBtn').click(function () {
 });
 
 $('#stopBtn').click(function () {
-    RobotBtnOptions("5");
+    RobotBtnOptions("5");   
 });
 
 
@@ -113,76 +112,108 @@ var inactivityTime = function () {
     }
 };
 */
+var timerLogOut = document.getElementById("timerLog").innerHTML;
+var intialWarn = 3000;
+var warnSeconds = (timerLogOut - intialWarn) / 1000;
+var interSeconds = warnSeconds;
+var logOutMsg;
+
+
 
 function idleLogout() {
     var timeIdle;
     var warnTime;
-    window.onload = resetTimer;
-    window.onmousemove = resetTimer;
-    window.onmousedown = resetTimer; 
-    window.onclick = resetTimer;     
-    window.onscroll = resetTimer;    
-    window.onkeypress = resetTimer;
+    if (timerLogOut > 30000) {
+        window.onload = resetTimer;
+        window.onmousemove = resetTimer;
+        window.onmousedown = resetTimer;
+        window.onclick = resetTimer;
+        window.onscroll = resetTimer;
+        window.onkeypress = resetTimer;
+        logOutMsg = "You have been away for " + intialWarn/1000 + " seconds and you will be log out in ";
+    }
+    else
+    {
+        resetTimer();
+        logOutMsg = "Someone requested to access, You will be log out in ";
+    }
+    
 
     function logout() {
-        //confirmation(); 
-        var loggedOutEmail = document.getElementById("loggedUser").value;
-        //location.href = '/Account/Logout?loggedOutEmail=' + loggedOutEmail;
-       
-        window.location = '/Account/Logout?loggedOutEmail=' + loggedOutEmail;
-        
-       // window.location = '/Account/Logout';
+        var x;
+        var loggedOutEmail = document.getElementById("loggedUser").value;       
+        window.location = '/Account/LoseAccess?loggedOutEmail=' + loggedOutEmail;
     }
+    var her; 
     function warn() {
-    /*  var seconds = 4;
-        setInterval(function () {
-            document.getElementById("logoutWarn").innerHTML = "You will be logged out in " + seconds + " seconds";
-            seconds--;
-            if (seconds < 0) {
-                document.getElementById("logoutWarn").innerHTML = "";
-                return;
+        
+        her = setInterval(function () {
+            
+            document.getElementById("logoutWarn").innerHTML = "You will be logged out in " + interSeconds + " seconds";
+            interSeconds--;
+            if (interSeconds == 0)
+            {
+                document.getElementById("logoutWarn").innerHTML = "Bye";
+                clearInterval(her);
             }
-            return;
-        }, 1000);*/
-
-       document.getElementById("logoutWarn").innerHTML = "You will be logged out in 2 seconds";
+        }, 1000);
+      //  document.getElementById("logoutWarn").innerHTML = logOutMsg + warnSeconds + " seconds";
+        
     }
+    
 
     function resetTimer() {
         document.getElementById("logoutWarn").innerHTML = "";
+        clearInterval(her);
+        interSeconds = warnSeconds;
         clearTimeout(timeIdle);
         clearTimeout(warnTime);
-        warnTime = setTimeout(warn, 3000);
-        timeIdle = setTimeout(logout, 11117000);  // time is in milliseconds
+        warnTime = setTimeout(warn, intialWarn);
+        timeIdle = setTimeout(logout, timerLogOut);  // time is in milliseconds
     }
 }
 idleLogout();
 
 
-$('#logInIN').click(function () {
-    var timerID = document.getElementById("timerID").value;
-    var msg = timerID;
-    if (msg && msg.length > 0)
-        alert(msg);
+setInterval(function () {
+    $("#waitingListTable").load("/Robot/Index #waitingListTable");
+}, 5000);
+
+setInterval(getMyData, 5000);
+
+function getMyData() {
+    $.post("/Robot/Index", { submit: "5" });
+   // document.getElementById("json").innerHTML = m;
+    // Using $.getJSON for simplicity, but try to use $.ajax or $.post
+    /*  $.ajax('/Robot/MyAction', function (response) {
+          var items = response.d.items;
+          document.getElementById("innerDivLogged").innerHTML = items;
+          document.getElementById("innerDivLogged").contentWindow.location.reload(true);
+          // Iterate through the items here and add the items to your web page
+      });*/
+}  
+
+
+$('button').click(function (e) {
+    $('#someID').data("key", "newValue").trigger('changeData');
 });
 
-function confirmation() {
-    var answer = confirm("You are about to be logged out, would you like to stay");
-    if (answer) {
-        window.location = '/Robot/Index';
-    }
-    else {
-        window.location = '/Robot/Index';
-    }
-}
+$('#someID').on('changeData', function (e) {
+    alert('My Custom Event - Change Data Called! for ' + this.id);
+});
+
+
+
+
+
+
 
 var xx = "ffw";
-window.onbeforeunload = function dd()
-{
-   // xx = xx + xx;
-     document.getElementById("unload").innerHTML = xx;
+window.onbeforeunload = function dd() {
+    // xx = xx + xx;
+    document.getElementById("unload").innerHTML = xx;
 
-    
+
 };
 
 

@@ -73,8 +73,9 @@ namespace MBotRangerCore.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            ViewBag.WaitList = mBotAppVar.users;
 
- HttpContext.Session.SetInt32(S_counter, 0);
+            HttpContext.Session.SetInt32(S_counter, 0);
 
             //Check if the user Logged in
             bool IsAuthenticated = User.Identity.IsAuthenticated;
@@ -107,7 +108,7 @@ namespace MBotRangerCore.Controllers
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
         {
             ViewData["HowMany"] = mBotAppVar.LoggedInCounter;
-
+            
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
@@ -136,7 +137,7 @@ namespace MBotRangerCore.Controllers
                             mBotAppVar.IsItInUse = true;
                             ConstructorsAssigner(mBotAppVar);
                         }
-
+                       
 
                         _logger.LogInformation("User logged in.");
                         return RedirectToAction(nameof(RobotController.Index), "Robot");
@@ -144,15 +145,15 @@ namespace MBotRangerCore.Controllers
                     else
                     {
                         //Log the main user out when 2nd user request
-                        
 
+                    //    mBotAppVar.TimerForLogout = 10000;
                         bool userAdded = EmailAlreadyExist(model.Email.ToString());
                         if (userAdded == true)
                         {
                             ViewBag.CountDown = 5;
                             //HttpContext.Session.SetString("User", model.Email);
-                            //return RedirectToAction(nameof(RobotController.Index), "Robot");
-                            return View();
+                          //  return RedirectToAction(nameof(RobotController.Index), "Robot");
+                           return View();
                         }
                         else
                         {
@@ -165,18 +166,21 @@ namespace MBotRangerCore.Controllers
                             ConstructorsAssigner(mBotAppVar);
                         }
 
-
+                       
                         ModelState.AddModelError(string.Empty, "Someone has logged in");
                         return RedirectToAction(nameof(HomeController.Start), "Home");
                     }
+                  
                 }
                 else
                     {
                         ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                         return View();
                     }
-                }
-                return View();          
+               
+            }
+            
+            return View();          
            
         }
 
@@ -258,6 +262,13 @@ namespace MBotRangerCore.Controllers
             return View(model);
         }
 
+        public IActionResult LoseAccess(string loggedOutEmail)
+        {
+            LogoutHelper(loggedOutEmail);
+            mBotAppVar.users.Add(new LoginViewModel() { Email = loggedOutEmail });
+            return RedirectToAction(nameof(HomeController.Start), "Home");
+        }
+
         //Automatic logout.
         [HttpGet]
         public async Task<IActionResult> Logout(int? notUsedInt, string loggedOutEmail)
@@ -271,11 +282,11 @@ namespace MBotRangerCore.Controllers
 
             LogoutHelper(loggedOutEmail);
             await _signInManager.SignOutAsync();
-                _logger.LogInformation("User logged out.");
-                return RedirectToAction(nameof(AccountController.Login));
-            
-            
-            
+            _logger.LogInformation("User logged out.");
+            return RedirectToAction(nameof(AccountController.Login));
+
+
+
         }
 
         //When logout button is pressed
@@ -292,6 +303,7 @@ namespace MBotRangerCore.Controllers
 
         public void LogoutHelper(string loggedOutEmail)
         {
+            
             if (loggedOutEmail == mBotAppVar.users.ElementAt(0).Email)
             {
                 if (mBotAppVar.LoggedInCounter > 1)

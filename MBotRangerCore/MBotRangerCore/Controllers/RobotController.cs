@@ -39,14 +39,21 @@ namespace MBotRangerCore.Controllers
         {
             if (!string.IsNullOrEmpty(str))
             {
-                RobotArrows(str);
+              //  RobotArrows(str);
+                AssignToArduino(str);
                 return str;
             }
             return "Unsuccesful";
 
         }
 
-     
+
+        public List<LoginViewModel> MyAction()
+        {
+
+            return robotAppData.users;
+        }
+
         [SessionTimeOut(1)]
         public IActionResult Index(string submit)
         {
@@ -64,6 +71,15 @@ namespace MBotRangerCore.Controllers
             }
 
 
+            if (robotAppData.users.Count > 1)
+            {
+                robotAppData.TimerForLogout = 10000;
+            }
+            else
+            {
+                robotAppData.TimerForLogout = 150000;
+            }
+            ViewBag.TimerLog = robotAppData.TimerForLogout; 
             ViewBag.WaitList = robotAppData.users;
             AssignToArduino(submit);
             return View();

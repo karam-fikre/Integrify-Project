@@ -19,6 +19,7 @@ namespace MBotRangerCore
         public List<LoginViewModel> users = new List<LoginViewModel>();
         public List<string> testList = new List<string>();
         public string CurrentUser { get; set; }
+        public int TimerForLogout { get; set; } = 150000;
 
 
 

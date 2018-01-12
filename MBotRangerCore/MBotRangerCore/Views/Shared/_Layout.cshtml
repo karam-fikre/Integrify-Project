@@ -1,8 +1,8 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-@inject SignInManager<ApplicationUser> SignInManager
-@inject UserManager<ApplicationUser> UserManager
+    @inject SignInManager<ApplicationUser> SignInManager
+    @inject UserManager<ApplicationUser> UserManager
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - MBotRangerCore</title>
@@ -19,55 +19,98 @@
     </environment>
 </head>
 <body>
-@if (SignInManager.IsSignedIn(User))
-{
-
-   @* <div><h5>Logged in users Email list:</h5></div>   *@
-
-}
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-                
-               
-
-
-
- @await Html.PartialAsync("_LoginPartial")
-            
-
+    <div id="divLogged" class="col-md-2">
+        <div style="position:fixed;" class="col-md-12">
+            <img style="margin-top:20px; margin-left:0px;" height="140" width="200" src="~/images/sample.gif" />
+            <p style="margin-top: 440px; color:aqua">FOR MORE</p>
+            <img style="margin-top:0px; margin-left:0px;" width="200" src="~/images/social.png" />
         </div>
-    </nav>
-    <div class="container body-content">
-        @RenderBody()
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <div id="innerDivLogged" class="col-md-12">
+                <h4 style="font-size:larger;"><b>LOGGED IN USERS:</b></h4>
+                @*  <ul>
+                        @{int dd = 0;
+                        }
+                        @foreach (var wList in ViewBag.WaitList)
+                        {
+                            dd++;
+                            <li><h5>@dd   </h5></li>
+                            <li><h5>@UserManager.FindByEmailAsync(wList.Email).Result.FirstName</h5></li>
+                            <li><h5>@wList.Email</h5></li>
 
-        <hr id="bottomLine" />
-        <footer>
-            <a href="https://integrifysweden.se/"> <img width="40" src="~/images/Integrify_logo.png" style="fill: #fff;" /></a>
-            <p>&copy; 2017 Integrify Sweden AB.</p>
-        </footer>
+                        }
+                    </ul>*@
+                <table id="waitingListTable">
+                    <tr>
+                        <th id="pID"><h4><b>Pos</b></h4></th>
+                        <th><h4><b>Name</b></h4></th>
+                        <th><h4><b>Email</b></h4></th>
+                    </tr>
+                    @{int dd = 0;}
+
+                    @foreach (var wList in ViewBag.WaitList)
+                       {
+                    dd++;
+                        <tr>
+                            <td><h4>@dd   </h4></td>
+                            <td><h4>@UserManager.FindByEmailAsync(wList.Email).Result.FirstName</h4></td>
+                            <td><h4>@wList.Email</h4></td>
+                        </tr>
+
+                    }
+                </table>
+            </div>
+                        }
     </div>
 
-    <environment include="Development">
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
-    </environment>
-    <environment exclude="Development">
-        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
-                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                asp-fallback-test="window.jQuery"
-                crossorigin="anonymous"
-                integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk">
-        </script>
-        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
-                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
-                crossorigin="anonymous"
-                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
-        </script>
-        <script src="~/js/site.min.js" asp-append-version="true"></script>
-    </environment>
 
-    @RenderSection("Scripts", required: false)
+
+    <div id="MainBody" class="col-md-10">
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+
+
+
+
+
+                @await Html.PartialAsync("_LoginPartial")
+
+
+            </div>
+        </nav>
+        <div class="container body-content">
+            @RenderBody()
+
+            <hr id="bottomLine" />
+            <footer>
+                <a href="https://integrifysweden.se/"> <img width="40" src="~/images/Integrify_logo.png" style="fill: #fff;" /></a>
+                <p>&copy; 2017 Integrify Sweden AB.</p>
+            </footer>
+        </div>
+
+        <environment include="Development">
+            <script src="~/lib/jquery/dist/jquery.js"></script>
+            <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+            <script src="~/js/site.js" asp-append-version="true"></script>
+        </environment>
+        <environment exclude="Development">
+            <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
+                    asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                    asp-fallback-test="window.jQuery"
+                    crossorigin="anonymous"
+                    integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk">
+            </script>
+            <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+                    asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                    asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                    crossorigin="anonymous"
+                    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+            </script>
+            <script src="~/js/site.min.js" asp-append-version="true"></script>
+        </environment>
+
+        @RenderSection("Scripts", required: false)
+    </div>
 </body>
 </html>

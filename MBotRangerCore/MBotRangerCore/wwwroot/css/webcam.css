@@ -1,5 +1,4 @@
-﻿
-input {
+﻿input {
     height: 60px;
 }
 
@@ -25,28 +24,11 @@ div[id="changeRobot_Cam"] {
     margin-top: 20px;
 }
 
-changeRobot_Cam 
 div[id="popupButtons"] {
     margin-top: 10px;
     border-left: 80px;
 }
-
-
-
-button {
-    clear: both;
-    margin-top: 10px;
-    border-style: solid;
-    font-size: larger;
-    border-radius: 20px;
-    font-weight: bolder;
-    background: #8A8575;
-    width: 100px;
-    height: 50px;
-    color: #000000;
-}
-    
-
+   
 
 input[type=submit] {
     clear: both;
@@ -70,7 +52,7 @@ input[type=submit] {
     z-index: 1; /* Sit on top */
     padding-top: 50px; /* Location of the box */
     left: 0;
-    top: 0;
+    margin-top: 50px;
     width: 100%; /* Full width */
     height: 100%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
@@ -88,13 +70,13 @@ input[type=submit] {
 }
 
 /** Robot and Webcam div changers*/
-a {
+a{
     text-decoration: none;
     display: inline-block;
     padding: 8px 16px;
 }
 
-a:hover {
+a:hover{
         background-color: #888;
 }
 /*
@@ -113,3 +95,5 @@ a:hover {
 .round {
     border-radius: 50%;
 }
+
+

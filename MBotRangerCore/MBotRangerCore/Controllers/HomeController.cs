@@ -30,8 +30,9 @@ namespace MBotRangerCore.Controllers
         //The Start Page 
 
         public IActionResult Start()
-        {            
-                ViewBag.Type = homeAppData.LoginType;
+        {
+            ViewBag.TimerLog = homeAppData.TimerForLogout;
+            ViewBag.Type = homeAppData.LoginType;
             ViewBag.WaitList = homeAppData.users;
 
             return View();            
@@ -45,6 +46,8 @@ namespace MBotRangerCore.Controllers
         public IActionResult About()
         {
             ViewBag.WaitList = homeAppData.users;
+            ViewBag.TimerLog = homeAppData.TimerForLogout;
+            ViewBag.Session = HttpContext.Session.GetString("User");
             //Check if the user logged in
             bool IsAuthenticated = User.Identity.IsAuthenticated;
             if (!IsAuthenticated)
@@ -71,8 +74,8 @@ namespace MBotRangerCore.Controllers
 
         public IActionResult Contact()
         {
-
-			 string allT = "";
+            ViewBag.WaitList = homeAppData.users;
+            string allT = "";
 
             foreach (LoginViewModel lls in homeAppData.users)
 
