@@ -16,20 +16,28 @@
 
 
 //Button control options with Jquery
-$('#forwardBtn').click(function () {
+
+$('#forwardBtn').on("mousedown", function () {
     RobotBtnOptions("1");
+}).on("mouseup", function () {
+    RobotBtnOptions("5");
 });
 
-
-$('#leftBtn').click(function () {
+$('#leftBtn').on("mousedown", function () {
     RobotBtnOptions("3");
+}).on("mouseup", function () {
+    RobotBtnOptions("5");
 });
-$('#rightBtn').click(function () {
+$('#rightBtn').on("mousedown", function () {
     RobotBtnOptions("4");
+}).on("mouseup", function () {
+    RobotBtnOptions("5");
 });
 
-$('#backBtn').click(function () {
+$('#backBtn').on("mousedown", function () {
     RobotBtnOptions("2");
+}).on("mouseup", function () {
+    RobotBtnOptions("5");
 });
 
 $('#stopBtn').click(function () {

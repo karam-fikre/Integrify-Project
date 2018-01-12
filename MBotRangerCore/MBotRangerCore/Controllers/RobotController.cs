@@ -28,11 +28,11 @@ namespace MBotRangerCore.Controllers
         [HttpPost]
         public string MoveRobotOption(string option)
         {
-            string aa = robotAppData.Distance;
+            string distan = robotAppData.Distance;
             if (!String.IsNullOrEmpty(option))
             {
                 AssignToArduino(option);
-                return aa;
+                return distan;
             }
             return "Unsuccesful";
         }
@@ -122,6 +122,7 @@ namespace MBotRangerCore.Controllers
                 data = server.Receive(ref sender);
                 stringData = Encoding.ASCII.GetString(data, 0, data.Length);
                 robotAppData.Distance = stringData;
+
 
             }
         }
