@@ -18,7 +18,7 @@ namespace MBotRangerCore.Controllers
         public byte[] sendbuf;
 
         MbotAppData robotAppData;
-    
+
 
         public RobotController(MbotAppData robotAppData)
         {
@@ -49,39 +49,39 @@ namespace MBotRangerCore.Controllers
 
         }
 
-     
+
         [SessionTimeOut(1)]
         public IActionResult Index(string submit)
         {
-
-            string loggedInUser      = HttpContext.Session.GetString("User");
-            string mainUser          = robotAppData.CurrentUser; //The user who has the access to control the robot
-            bool isUserSameAsCurrent = !String.IsNullOrEmpty(loggedInUser) && 
+            
+            string loggedInUser = HttpContext.Session.GetString("User");
+            string mainUser = robotAppData.CurrentUser; //The user who has the access to control the robot
+            bool isUserSameAsCurrent = !String.IsNullOrEmpty(loggedInUser) &&
                                        !String.IsNullOrEmpty(mainUser) &&
                                        loggedInUser.Equals(mainUser);
             //Check if the user Logged in
- 			bool IsAuthenticated = User.Identity.IsAuthenticated;
-            if (!IsAuthenticated  || !isUserSameAsCurrent)
+            bool IsAuthenticated = User.Identity.IsAuthenticated;
+            if (!IsAuthenticated || !isUserSameAsCurrent)
             {
                 return RedirectToAction(nameof(HomeController.Start), "Home");
             }
 
-            
+
             ViewBag.WaitList = robotAppData.users;
-          ViewBag.dis=  robotAppData.Distance;
+            ViewBag.dis = distanceread();
             AssignToArduino(submit);
             return View();
         }
-
+     
 
         public IActionResult RobotArrows(string str)
         {
             if (!string.IsNullOrEmpty(str))
 
             {
-               //Check if the user Logged in
-           		bool IsAuthenticated = User.Identity.IsAuthenticated;
-            	if (!IsAuthenticated)
+                //Check if the user Logged in
+                bool IsAuthenticated = User.Identity.IsAuthenticated;
+                if (!IsAuthenticated)
                 {
                     return RedirectToAction(nameof(HomeController.Start), "Home");
 
@@ -94,7 +94,7 @@ namespace MBotRangerCore.Controllers
             return View();
         }
 
-       
+
         public IActionResult Mouse(string submit)
         {
             //Check if the user Logged in
@@ -122,10 +122,25 @@ namespace MBotRangerCore.Controllers
                 data = server.Receive(ref sender);
                 stringData = Encoding.ASCII.GetString(data, 0, data.Length);
                 robotAppData.Distance = stringData;
-
-
             }
         }
+
+
+        public string distanceread()
+        {
+            byte[] data = new byte[1024];
+            string stringData;
+            UdpClient server = new UdpClient("195.198.161.214", 80);
+            IPEndPoint sender = new IPEndPoint(IPAddress.Any, 0);
+            data = Encoding.ASCII.GetBytes("");
+            server.Send(data, data.Length);
+            data = server.Receive(ref sender);
+            stringData = Encoding.ASCII.GetString(data, 0, data.Length);
+           // robotAppData.Distance = stringData;
+            // ViewBag.dis =stringData;
+            return stringData;
+        }
+
 
         public IActionResult Reload()
         {
