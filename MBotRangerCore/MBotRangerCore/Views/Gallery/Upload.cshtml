@@ -1,0 +1,32 @@
+﻿@model MBotRangerCore.Models.ImagesModels.UploadImageModel
+
+@{
+    ViewData["Title"] = "Upload";
+}
+
+<h2>Upload</h2>
+
+<div class="container body-content ">
+    <div class="row upload-container">
+        <div class="upload-form drop-shadow">
+            <form id="upload-form" asp-action="Upload" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label asp-for="Title">
+                        <input asp-for="Title" class="form-control" />
+                    </label>
+                </div>
+                <div>
+                    <label class="btn btn-default btn-file">
+                        <input type="file" name="file" style="display:none" />
+                    </label>
+                </div>
+                <div class="submit">
+                    <button type="submit" id="btn-upload" class="btn btn-info">
+                        Submit
+                    </button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>

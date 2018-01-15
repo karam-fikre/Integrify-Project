@@ -6,6 +6,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using MBotRangerCore.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.WindowsAzure.Storage.Blob;
+using Microsoft.WindowsAzure.Storage;
+using MBotRangerCore.Models.ImagesModels;
 
 namespace MBotRangerCore.Models
 {
@@ -16,9 +19,9 @@ namespace MBotRangerCore.Models
         { }
   
         public DbSet<MBotRangerCore.Models.LoginViewModel> LoginViewModel { get; set; }
-
-         
-
+        public DbSet<ImagesModels.GalleryImage> GalleryImage { get; set; }
+        
+        
     }
 
     public class User
