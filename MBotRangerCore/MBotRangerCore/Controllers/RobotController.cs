@@ -68,7 +68,7 @@ namespace MBotRangerCore.Controllers
 
 
             ViewBag.WaitList = robotAppData.users;
-            ViewBag.dis = distanceread();
+            //ViewBag.dis = distanceread();
             AssignToArduino(submit);
             return View();
         }
@@ -126,20 +126,20 @@ namespace MBotRangerCore.Controllers
         }
 
 
-        public string distanceread()
-        {
-            byte[] data = new byte[1024];
-            string stringData;
-            UdpClient server = new UdpClient("195.198.161.214", 80);
-            IPEndPoint sender = new IPEndPoint(IPAddress.Any, 0);
-            data = Encoding.ASCII.GetBytes("");
-            server.Send(data, data.Length);
-            data = server.Receive(ref sender);
-            stringData = Encoding.ASCII.GetString(data, 0, data.Length);
-           // robotAppData.Distance = stringData;
-            // ViewBag.dis =stringData;
-            return stringData;
-        }
+        //public string distanceread()
+        //{
+        //    byte[] data = new byte[1024];
+        //    string stringData;
+        //    UdpClient server = new UdpClient("195.198.161.214", 80);
+        //    IPEndPoint sender = new IPEndPoint(IPAddress.Any, 0);
+        //    data = Encoding.ASCII.GetBytes("");
+        //    server.Send(data, data.Length);
+        //    data = server.Receive(ref sender);
+        //    stringData = Encoding.ASCII.GetString(data, 0, data.Length);
+        //   // robotAppData.Distance = stringData;
+        //    // ViewBag.dis =stringData;
+        //    return stringData;
+        //}
 
 
         public IActionResult Reload()

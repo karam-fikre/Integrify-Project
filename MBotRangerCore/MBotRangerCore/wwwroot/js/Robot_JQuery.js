@@ -53,12 +53,12 @@ function RobotBtnOptions(_option) {
     });
 }
 
-setInterval(RobotDistance, 1000);
+//setInterval(RobotDistance, 1000);
 
 
-function RobotDistance() {
-    $("#distance").load("/Robot/Index/ #distance");
-}
+//function RobotDistance() {
+//    $("#distance").load("/Robot/Index/ #distance");
+//}
 //Arrow Options with Jquery
 
 document.onkeydown = function (e) {
