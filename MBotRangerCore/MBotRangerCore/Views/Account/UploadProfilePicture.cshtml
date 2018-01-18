@@ -1,0 +1,40 @@
+﻿@model MBotRangerCore.Models.ApplicationUser
+
+@{
+    ViewData["Title"] = "UploadProfilePicture";
+}
+
+<h2>Upload</h2>
+<form id="upload-form" asp-action="UploadProfilePicture" method="post" enctype="multipart/form-data">
+
+    <div id="profpicdiv" class="profile-pic" style="background-image: url('/images/robot-kit-makeblock-mbot-ranger-1.jpg')">
+
+        <label class="profile-pic">
+            <span class="glyphicon glyphicon-camera"></span>
+            <span id="piclabel"><input id="uploadlink" class="profile-pic" type="file" name="file" style="display:none" />Change Image</span>
+        </label>
+    </div>
+
+
+
+    <div class="submit">
+        <button type="submit" id="btn-upload" class="btn btn-info">
+            Save
+        </button>
+    </div>
+
+
+
+</form>
+
+
+
+@using (Html.BeginForm("Index", "Robot"))
+            {
+<div class="submit">
+    <button type="submit" id="btn-upload" class="btn btn-info">
+        Skip
+    </button>
+</div>
+
+}

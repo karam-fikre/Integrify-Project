@@ -11,9 +11,10 @@ using System;
 namespace MBotRangerCore.Migrations
 {
     [DbContext(typeof(MBotRangerCoreContext))]
-    partial class MBotRangerCoreContextModelSnapshot : ModelSnapshot
+    [Migration("20180118090938_ProfilePicture")]
+    partial class ProfilePicture
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
