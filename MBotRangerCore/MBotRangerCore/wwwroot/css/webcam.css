@@ -34,31 +34,33 @@ input[type=submit] {
     clear: both;
     display: inline-block;
     margin-top: 5px;
-    border-style: solid;
-    font-size: larger;
-    border-radius: 10px;
+    border-style: outset;
+    font-size: 20px;
+    font-family:Arial;
+    border-radius: 15px;
     font-weight: bolder;
-    background: #8A8575;
+    background: #5d6222;
     width: 115px;
     height: 60px;
     color: #000000;
 }
-
-
-/* The Modal (background) */
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    padding-top: 50px; /* Location of the box */
-    left: 0;
-    margin-top: 50px;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0, 255, 144); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+input[type=submit]:hover {
+    opacity:0.7;
 }
+    /* The Modal (background) */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        padding-top: 50px; /* Location of the box */
+        left: 0;
+        margin-top: 50px;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0, 255, 144); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
 
 /* Modal Content */
 .modal-content {
@@ -73,11 +75,11 @@ input[type=submit] {
 a{
     text-decoration: none;
     display: inline-block;
-    padding: 8px 16px;
+    opacity:0.7;
 }
 
 a:hover{
-        background-color: #888;
+        opacity:1;
 }
 /*
 .robot_class {
@@ -96,4 +98,11 @@ a:hover{
     border-radius: 50%;
 }
 
+.togglePrivate input {
+    margin-top: 2px;
+    height: 25px;
+    width: 75px;
+    font-weight: bolder;
+    border: none;
+}
 

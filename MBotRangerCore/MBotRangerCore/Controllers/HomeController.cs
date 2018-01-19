@@ -49,8 +49,7 @@ namespace MBotRangerCore.Controllers
             ViewBag.TimerLog = homeAppData.TimerForLogout;
             ViewBag.Session = HttpContext.Session.GetString("User");
             //Check if the user logged in
-            bool IsAuthenticated = User.Identity.IsAuthenticated;
-            if (!IsAuthenticated)
+            if (!User.Identity.IsAuthenticated)
 
             {
                 return RedirectToAction(nameof(HomeController.Start), "Home");

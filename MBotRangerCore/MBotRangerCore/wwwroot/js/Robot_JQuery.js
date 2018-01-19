@@ -1,17 +1,4 @@
-﻿//var time = new Date().getTime();
-//$(document.body).bind("mousemove keypress", function (e) {
-//    time = new Date().getTime();
-//});
-
-//function refresh() {
-//    if ((new Date().getTime() - time) >= 300000)
-//        window.location.reload(true);
-//    else
-//        setTimeout(refresh, 2000);
-//}
-
-//setTimeout(refresh, 2000);
-
+﻿
 
 
 //Button control options with Jquery
@@ -70,60 +57,37 @@ document.onkeyup = function (e) {
 };
 
 
+
+
+
 /*
-    var idleTime = 0;
-$(document).ready(function () {
-    //Increment the idle time counter every minute.
-    var idleInterval = setInterval(timerIncrement, 5000); // 5 seconds
-
-    //Zero the idle timer on mouse movement.
-    $(this).mousemove(function (e) {
-        idleTime = 0;
-    });
-    $(this).keypress(function (e) {
-        idleTime = 0;
-    });
-});
-
-function timerIncrement() {
-        idleTime = idleTime + 1;
-    if (idleTime > 1) { // 2 minutes
-        window.location.reload();
-    }
-}
+//change the seconds into Hour:Minute:Seconds Format
+// timeHours = parseInt(timerLogOut / 3600);
+var tempTimerLog = timerLogOut;
+var timeHours, timeMinutes, timeSeconds, timeAll;
+timeHours = Math.floor(tempTimerLog / 3600);
+tempTimerLog %= 3600;
+timeMinutes = Math.floor(tempTimerLog / 60);
+timeSeconds = tempTimerLog % 60;
+var warnSecondsw2 = timeHours + " " + timeMinutes + " " + timeSeconds;
 */
-/*
-var inactivityTime = function () {
-    var t;
-    window.onload = resetTimer;
-    // DOM Events
-    document.onmousemove = resetTimer;
-    document.onkeypress = resetTimer;
-
-    function logout() {
-        alert("You are now logged out.")
-        //location.href = 'logout.php'
-    }
-
-    function resetTimer() {
-        clearTimeout(t);
-        t = setTimeout(logout, 3000)
-        // 1000 milisec = 1 sec
-    }
-};
-*/
-var timerLogOut = document.getElementById("timerLog").innerHTML;
-var intialWarn = 3000;
+var temptime = document.getElementById("SecondsWait").innerHTML;
+var timerLogOut = temptime*1000;
+var intialWarn = 5000;
 var warnSeconds = (timerLogOut - intialWarn) / 1000;
+
+//Inactivity logging out and and take away Robot access from first user
+
+//var timerLogOut = document.getElementById("timerLog").innerHTML;
+//var intialWarn = 5000;
+//var warnSeconds = (timerLogOut - intialWarn) / 1000;
 var interSeconds = warnSeconds;
 var logOutMsg;
-
-
 
 function idleLogout() {
     var timeIdle;
     var warnTime;
-    if (timerLogOut > 30000) {
+    if (timerLogOut > 700000) {
         window.onload = resetTimer;
         window.onmousemove = resetTimer;
         window.onmousedown = resetTimer;
@@ -142,14 +106,15 @@ function idleLogout() {
     function logout() {
         var x;
         var loggedOutEmail = document.getElementById("loggedUser").value;       
-        window.location = '/Account/LoseAccess?loggedOutEmail=' + loggedOutEmail;
+        window.location = '/Account/Logout?loggedOutEmail=' + loggedOutEmail;
     }
     var her; 
-    function warn() {
-        
-        her = setInterval(function () {
-            
-            document.getElementById("logoutWarn").innerHTML = "You will be logged out in " + interSeconds + " seconds";
+    function warn() {        
+        her = setInterval(function () {            
+            document.getElementById("logoutWarn").innerHTML = logOutMsg + interSeconds + " seconds";
+          //  document.getElementById("GuestWaitTime").innerHTML = interSeconds + " seconds";
+            //$("#logoutWarn").clone().appendTo("#logoutWarn");
+           
             interSeconds--;
             if (interSeconds == 0)
             {
@@ -175,23 +140,24 @@ function idleLogout() {
 idleLogout();
 
 
+
 setInterval(function () {
-    $("#waitingListTable").load("/Robot/Index #waitingListTable");
+    $("#waitingListTable").load("/Home/About #waitingListTable");
 }, 5000);
 
+
+
+
+/*
 setInterval(getMyData, 5000);
 
 function getMyData() {
     $.post("/Robot/Index", { submit: "5" });
-   // document.getElementById("json").innerHTML = m;
-    // Using $.getJSON for simplicity, but try to use $.ajax or $.post
-    /*  $.ajax('/Robot/MyAction', function (response) {
-          var items = response.d.items;
-          document.getElementById("innerDivLogged").innerHTML = items;
-          document.getElementById("innerDivLogged").contentWindow.location.reload(true);
-          // Iterate through the items here and add the items to your web page
-      });*/
-}  
+
+}  */
+
+
+
 
 
 $('button').click(function (e) {
