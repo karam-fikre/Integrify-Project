@@ -43,8 +43,7 @@ namespace MBotRangerCore.Controllers
             if (!IsAuthenticated)
             {
                 return RedirectToAction(nameof(HomeController.Start), "Home");
-            }
-            appDatas.LoginState = 1;
+            }            
             return View();
         }
 

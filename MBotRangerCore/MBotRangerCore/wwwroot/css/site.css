@@ -1,4 +1,6 @@
-﻿body {
+﻿
+
+body {
     /*overflow: hidden;*/
     padding-top: 50px;
     padding-bottom: 20px;
@@ -11,7 +13,8 @@
 }
 
 hr[id="bottomLine"] {
-    margin-top: auto;
+   /* margin-top: 100px;*/
+    margin-bottom: 10px;
 }
     
 
@@ -86,7 +89,7 @@ table,tr {
     border:solid;
     color:#000;
     border-width:thin;
-    border-color:azure;
+    border-color:white;
 }
 
 td, th {
@@ -136,6 +139,7 @@ div[id="divLogged"] {
     position: static;
     height: 1300px;
     background-color: #000;
+  
 }
 
 #divLogged h4 {

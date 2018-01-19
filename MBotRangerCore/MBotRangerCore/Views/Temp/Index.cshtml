@@ -30,7 +30,7 @@
         var url = "/Temp/SubmitSubscription";
         var name = $("#Name").val();
         var address = $("#Address").val();
-        $.post(url, { Name: name, Address: address }, function (data) {
+        $.post(url, { Name: "Bill", Address: "Gate" }, function (data) {
             $("#msg").html(data);
         });
     })

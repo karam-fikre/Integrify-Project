@@ -75,36 +75,41 @@ window.onclick = function (event) {
 };
 
 
-//Below not needed
-//var changeToRobot = document.getElementById("robot_");
-var changeToWebcam = document.getElementById("webcam_");
-var controlButtons = document.getElementById("controlButtons");
-var webcamButtons = document.getElementById("webcamButtons");
-webcamButtons.style.display = "none";
-var counter = false;
+////Public private toggle
+var private = document.getElementById("private");
+var public = document.getElementById("public");
+var isPublic = false;
 
-/*
-changeToRobot.onclick = function () {
-    controlButtons.style.display = "block";
-    webcamButtons.style.display = "none";
+private.onclick = function () {
+    document.getElementById("public").style.backgroundColor = "black";
+    document.getElementById("public").style.color = "#262222"; 
+    document.getElementById("private").style.backgroundColor = "green"; 
+    document.getElementById("private").style.color = "white";
+    isPublic = false;
+    PublicPrivate(isPublic);
 };
-*/
 
-changeToWebcam.onclick = function () {
-    //controlButtons.style.display = "none";
-    // webcamButtons.style.display = "block";
-    if (counter === false) {
-        controlButtons.style.display = "none";
-        webcamButtons.style.display = "block";
-        changeToWebcam.innerHTML = "Change to Robot Options";
-        counter = true;
-    }
-    else {
-        controlButtons.style.display = "block";
-        webcamButtons.style.display = "none";
-        changeToWebcam.innerHTML = "Change to Webcam Options";
-        counter = false;
-    }
+
+public.onclick = function () {    
+    document.getElementById("private").style.backgroundColor = "black"; 
+    document.getElementById("private").style.color = "#262222"; 
+    document.getElementById("public").style.backgroundColor = "green"; 
+    document.getElementById("public").style.color = "white";
+    isPublic = true;
+    PublicPrivate(isPublic);
+
+    //$("#divVideo").clone().appendTo("#divVideoGuest");
 
 };
+
+//function PublicPrivate(_isPublic) {
+
+//    window.location = '/Robot/Index?isPublic=' + _isPublic;
+//}
+
+function PublicPrivate(_isPublic) {
+    var url = "/Robot/Index";
+    $.post(url, { submit: "8", isPublic: _isPublic });
+  //  $("#ppp").load("/Robot/Index #privateDiv");
+}
 
