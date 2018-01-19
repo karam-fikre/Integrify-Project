@@ -30,3 +30,24 @@
 
     </div>
 </div>
+
+<script>
+
+
+
+    $("#button").click(function () {
+        html2canvas(document.body, {
+            onrendered: function (canvas) {
+                var image = canvas.toDataURL("image/png");
+                image = image.replace('data:image/png;base64,', '');
+                $.ajax({
+                    type: "POST",
+                    url: '../../HomeController/SaveSnapshot',
+                    dataType: 'text',
+                    data: { base64data: image },
+                    success: function (result) { alert(result); }
+                });
+            }
+        });
+
+</script>

@@ -60,16 +60,32 @@ captureByModal.addEventListener("click", function () {
 var modal = document.getElementById('myModalRobot');
 var savePop = document.getElementById("popupSave");
 var cancelPop = document.getElementById("popupCancel");
+var image = popCanvas.toDataURL("image/png").replace("image/png", "image/octet-stream");  // here is the most important part because if you dont replace you will get a DOM 18 exception.
 
 cancelPop.onclick = function () {
     modal.style.display = "none";
 };
 savePop.onclick = function () {
     modal.style.display = "none";
-    var image = popCanvas.toDataURL("image/png").replace("image/png", "image/octet-stream");  // here is the most important part because if you dont replace you will get a DOM 18 exception.
     // window.location.href = image; // 
-    window.location = "/Gallery/Upload?file=" + image;
-};
+//window.location = "/Gallery/Upload?file=" + image;
+  
+    $.ajax({
+        type: "POST",
+        url: '../../Gallery/SaveSnapshot',
+        dataType: 'text',
+        data: { dataType: image },
+        success: function (result) { alert(result); }
+    });
+}
+
+
+    
+         
+        
+   
+
+
 
 window.onclick = function (event) {
     if (event.target === modal) {
