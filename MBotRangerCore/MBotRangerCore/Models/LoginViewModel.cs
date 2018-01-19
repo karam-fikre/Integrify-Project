@@ -26,6 +26,9 @@ namespace MBotRangerCore.Models
 
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
+
+        public DateTime LoggedInTime { get; set; }
+
     }
 
     

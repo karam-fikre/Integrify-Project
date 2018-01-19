@@ -14,13 +14,13 @@ namespace MBotRangerCore
         public int LoggedInCounter { get; set; } = 0;           //  Handles how many users are there.
         public DateTime StartTime { get; set; } = DateTime.Now;
         public DateTime EndTime { get; set; }
-        public int LoginState = 0;             //How to show the start page
         public bool LoginType { get; set; } = false;   //Guest or logged in Mode
         public List<LoginViewModel> users = new List<LoginViewModel>();
-        public List<string> testList = new List<string>();
         public string CurrentUser { get; set; }
         public string Distance { get; set; }
 
 
+        public int TimerForLogout { get; set; } = 1500055000;
+        public bool IsRobotVideoPublic { get; set; } = false;
     }
 }

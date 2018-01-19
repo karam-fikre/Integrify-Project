@@ -1,37 +1,15 @@
-﻿//var time = new Date().getTime();
-//$(document.body).bind("mousemove keypress", function (e) {
-//    time = new Date().getTime();
-//});
-
-//function refresh() {
-//    if ((new Date().getTime() - time) >= 300000)
-//        window.location.reload(true);
-//    else
-//        setTimeout(refresh, 2000);
-//}
-
-//setTimeout(refresh, 2000);
-
-
+﻿
 
 
 //Button control options with Jquery
-
-$('#forwardBtn').on("mousedown", function () {
-    RobotBtnOptions("1");
-}).on("mouseup", function () {
-    RobotBtnOptions("5");
+$('#forwardBtn').click(function () {
+    RobotBtnOptions("1");   
 });
-
-$('#leftBtn').on("mousedown", function () {
+$('#leftBtn').click(function () {
     RobotBtnOptions("3");
-}).on("mouseup", function () {
-    RobotBtnOptions("5");
 });
-$('#rightBtn').on("mousedown", function () {
+$('#rightBtn').click(function () {
     RobotBtnOptions("4");
-}).on("mouseup", function () {
-    RobotBtnOptions("5");
 });
 
 $('#backBtn').on("mousedown", function () {
@@ -41,7 +19,7 @@ $('#backBtn').on("mousedown", function () {
 });
 
 $('#stopBtn').click(function () {
-    RobotBtnOptions("5");
+    RobotBtnOptions("5");   
 });
 
 
@@ -87,118 +65,129 @@ document.onkeyup = function (e) {
 };
 
 
+
+
+
 /*
-    var idleTime = 0;
-$(document).ready(function () {
-    //Increment the idle time counter every minute.
-    var idleInterval = setInterval(timerIncrement, 5000); // 5 seconds
-
-    //Zero the idle timer on mouse movement.
-    $(this).mousemove(function (e) {
-        idleTime = 0;
-    });
-    $(this).keypress(function (e) {
-        idleTime = 0;
-    });
-});
-
-function timerIncrement() {
-        idleTime = idleTime + 1;
-    if (idleTime > 1) { // 2 minutes
-        window.location.reload();
-    }
-}
+//change the seconds into Hour:Minute:Seconds Format
+// timeHours = parseInt(timerLogOut / 3600);
+var tempTimerLog = timerLogOut;
+var timeHours, timeMinutes, timeSeconds, timeAll;
+timeHours = Math.floor(tempTimerLog / 3600);
+tempTimerLog %= 3600;
+timeMinutes = Math.floor(tempTimerLog / 60);
+timeSeconds = tempTimerLog % 60;
+var warnSecondsw2 = timeHours + " " + timeMinutes + " " + timeSeconds;
 */
-/*
-var inactivityTime = function () {
-    var t;
-    window.onload = resetTimer;
-    // DOM Events
-    document.onmousemove = resetTimer;
-    document.onkeypress = resetTimer;
+var temptime = document.getElementById("SecondsWait").innerHTML;
+var timerLogOut = temptime*1000;
+var intialWarn = 5000;
+var warnSeconds = (timerLogOut - intialWarn) / 1000;
 
-    function logout() {
-        alert("You are now logged out.")
-        //location.href = 'logout.php'
-    }
+//Inactivity logging out and and take away Robot access from first user
 
-    function resetTimer() {
-        clearTimeout(t);
-        t = setTimeout(logout, 3000)
-        // 1000 milisec = 1 sec
-    }
-};
-*/
+//var timerLogOut = document.getElementById("timerLog").innerHTML;
+//var intialWarn = 5000;
+//var warnSeconds = (timerLogOut - intialWarn) / 1000;
+var interSeconds = warnSeconds;
+var logOutMsg;
 
 function idleLogout() {
     var timeIdle;
     var warnTime;
-    window.onload = resetTimer;
-    window.onmousemove = resetTimer;
-    window.onmousedown = resetTimer; 
-    window.onclick = resetTimer;     
-    window.onscroll = resetTimer;    
-    window.onkeypress = resetTimer;
+    if (timerLogOut > 700000) {
+        window.onload = resetTimer;
+        window.onmousemove = resetTimer;
+        window.onmousedown = resetTimer;
+        window.onclick = resetTimer;
+        window.onscroll = resetTimer;
+        window.onkeypress = resetTimer;
+        logOutMsg = "You have been away for " + intialWarn/1000 + " seconds and you will be log out in ";
+    }
+    else
+    {
+        resetTimer();
+        logOutMsg = "Someone requested to access, You will be log out in ";
+    }
+    
 
     function logout() {
-        //confirmation(); 
-        var loggedOutEmail = document.getElementById("loggedUser").value;
-        //location.href = '/Account/Logout?loggedOutEmail=' + loggedOutEmail;
-       
+        var x;
+        var loggedOutEmail = document.getElementById("loggedUser").value;       
         window.location = '/Account/Logout?loggedOutEmail=' + loggedOutEmail;
-        
-       // window.location = '/Account/Logout';
     }
-    function warn() {
-    /*  var seconds = 4;
-        setInterval(function () {
-            document.getElementById("logoutWarn").innerHTML = "You will be logged out in " + seconds + " seconds";
-            seconds--;
-            if (seconds < 0) {
-                document.getElementById("logoutWarn").innerHTML = "";
-                return;
+    var her; 
+    function warn() {        
+        her = setInterval(function () {            
+            document.getElementById("logoutWarn").innerHTML = logOutMsg + interSeconds + " seconds";
+          //  document.getElementById("GuestWaitTime").innerHTML = interSeconds + " seconds";
+            //$("#logoutWarn").clone().appendTo("#logoutWarn");
+           
+            interSeconds--;
+            if (interSeconds == 0)
+            {
+                document.getElementById("logoutWarn").innerHTML = "Bye";
+                clearInterval(her);
             }
-            return;
-        }, 1000);*/
-
-       document.getElementById("logoutWarn").innerHTML = "You will be logged out in 2 seconds";
+        }, 1000);
+      //  document.getElementById("logoutWarn").innerHTML = logOutMsg + warnSeconds + " seconds";
+        
     }
+    
 
     function resetTimer() {
         document.getElementById("logoutWarn").innerHTML = "";
+        clearInterval(her);
+        interSeconds = warnSeconds;
         clearTimeout(timeIdle);
         clearTimeout(warnTime);
-        warnTime = setTimeout(warn, 3000);
-        timeIdle = setTimeout(logout, 11117000);  // time is in milliseconds
+        warnTime = setTimeout(warn, intialWarn);
+        timeIdle = setTimeout(logout, timerLogOut);  // time is in milliseconds
     }
 }
 idleLogout();
 
 
-$('#logInIN').click(function () {
-    var timerID = document.getElementById("timerID").value;
-    var msg = timerID;
-    if (msg && msg.length > 0)
-        alert(msg);
+
+setInterval(function () {
+    $("#waitingListTable").load("/Home/About #waitingListTable");
+}, 5000);
+
+
+
+
+/*
+setInterval(getMyData, 5000);
+
+function getMyData() {
+    $.post("/Robot/Index", { submit: "5" });
+
+}  */
+
+
+
+
+
+$('button').click(function (e) {
+    $('#someID').data("key", "newValue").trigger('changeData');
 });
 
-function confirmation() {
-    var answer = confirm("You are about to be logged out, would you like to stay");
-    if (answer) {
-        window.location = '/Robot/Index';
-    }
-    else {
-        window.location = '/Robot/Index';
-    }
-}
+$('#someID').on('changeData', function (e) {
+    alert('My Custom Event - Change Data Called! for ' + this.id);
+});
+
+
+
+
+
+
 
 var xx = "ffw";
-window.onbeforeunload = function dd()
-{
-   // xx = xx + xx;
-     document.getElementById("unload").innerHTML = xx;
+window.onbeforeunload = function dd() {
+    // xx = xx + xx;
+    document.getElementById("unload").innerHTML = xx;
 
-    
+
 };
 
 
