@@ -14,6 +14,9 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using MBotRangerCore;
 using MBotRangerCore.Services;
+using CloudinaryDotNet;
+using System.IO;
+using CloudinaryDotNet.Actions;
 using MBotRangerCore.Helpers;
 
 namespace MBotRangerCore.Controllers
@@ -28,18 +31,24 @@ namespace MBotRangerCore.Controllers
         const string S_tester = "test";
 
 
+
+        private readonly MBotRangerCoreContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
         private readonly MbotAppData mBotAppVar;
-
+        private Account account = new Account(
+                                           "dlxazvufc",
+                                           "152192368129483",
+                                           "gOgstsNVkTW8-lSAj3KptLwmgNM");
 
         public AccountController( UserManager<ApplicationUser> userManager,
                                   SignInManager<ApplicationUser> signInManager,
                                   ILogger<AccountController> logger, 
 								  IEmailSender emailSender,
-								  MbotAppData _mBotAppVar )
+								  MbotAppData _mBotAppVar,
+                                  MBotRangerCoreContext context)
 
         {
             mBotAppVar = _mBotAppVar;
@@ -47,7 +56,7 @@ namespace MBotRangerCore.Controllers
             _signInManager = signInManager;
             _emailSender = emailSender;
             _logger = logger;
-            
+            _context = context;
         }
 
 
@@ -210,7 +219,7 @@ namespace MBotRangerCore.Controllers
                     ModelState.AddModelError(string.Empty, "Email domain is not allowed it's should be one of these (gmail,yahoo,outlock,hotmail)");
                     return View();
                 }
-                var user = new ApplicationUser { FirstName = model.FirstName, LastName = model.LastName, DateOfBirth = model.DateOfBirth, Email = model.Email, UserName = model.Email ,EmailConfirmed=true};
+                var user = new ApplicationUser { FirstName = model.FirstName, LastName = model.LastName, DateOfBirth = model.DateOfBirth, Email = model.Email, UserName = model.Email, EmailConfirmed=true};
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -227,7 +236,7 @@ namespace MBotRangerCore.Controllers
 
                         await _signInManager.SignInAsync(user, isPersistent: false);
                         _logger.LogInformation("User created a new account with password.");
-                        return RedirectToAction(nameof(RobotController.Index), "Robot");
+                        return RedirectToAction(nameof(AccountController.UploadProfilePicture), "Account");
                     }
                     else
                     {
@@ -427,10 +436,58 @@ namespace MBotRangerCore.Controllers
 
 
 
+        [HttpGet]
+        public IActionResult UploadProfilePicture()
+        {
+            bool IsAuthenticated = User.Identity.IsAuthenticated;
+            if (!IsAuthenticated)
+            {
+                return RedirectToAction(nameof(HomeController.Start), "Home");
+            }
+            return View();
+        }
 
 
-     
-        
+
+
+        [HttpPost]
+        public async Task<IActionResult> UploadProfilePicture(IFormFile file)
+        {
+            bool IsAuthenticated = User.Identity.IsAuthenticated;
+            if (!IsAuthenticated)
+            {
+                return RedirectToAction(nameof(HomeController.Start), "Home");
+            }
+            var user = await GetCurrentUserAsync();
+            Cloudinary cloudinary = new Cloudinary(account);
+            if (User.Identity.IsAuthenticated)
+            {
+                var filePath = Path.GetTempFileName();
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await file.CopyToAsync(stream);
+                }
+                var uploadParams = new ImageUploadParams()
+                {
+                    File = new FileDescription(filePath)
+                };
+                var uploadResult = cloudinary.Upload(uploadParams);
+
+                user.ProfilePicture = uploadResult.SecureUri.AbsoluteUri;
+               
+                _context.Update(user);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(RobotController.Index), "Robot");
+            }
+            return View();
+        }
+
+
+
+        private Task<ApplicationUser> GetCurrentUserAsync()
+        {
+            return _userManager.GetUserAsync(HttpContext.User);
+        }
 
         #region Helpers
 

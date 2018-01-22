@@ -1,6 +1,5 @@
 @using Microsoft.AspNetCore.Identity
 @using MBotRangerCore.Models
-@model MBotRangerCore.Models.ConfirmViewModel
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
@@ -34,6 +33,34 @@
         
         <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="navbar-right">
             <ul class="nav navbar-nav navbar-right">
+               @if (UserManager.GetUserAsync(User).Result.ProfilePicture ==null) {
+                <li>
+                    
+                    <img src="~/images/robot-kit-makeblock-mbot-ranger-1.jpg" class="img-circle"
+                         style="max-width:50px;
+            height:auto;
+            background: #FFFFFF;
+            margin: auto;
+            margin-top :10px;
+            border-radius: 100px;
+            padding: 2px;
+            box-shadow: 0px 0px 10px #888;" />
+                </li>
+               }
+               else
+               {
+                <li>
+                    <img src="@UserManager.GetUserAsync(User).Result.ProfilePicture" class="img-circle"
+                         style="max-width:50px;
+            height:auto;
+            background: #FFFFFF;
+            margin: auto;
+            margin-top :10px;
+            border-radius: 100px;
+            padding: 2px;
+            box-shadow: 0px 0px 10px #888;" />
+                </li>
+               }
                 <li>
                     <a asp-area="" asp-controller="Account" asp-action="Index">Hello @UserManager.GetUserAsync(User).Result.FirstName !</a>
                 </li>

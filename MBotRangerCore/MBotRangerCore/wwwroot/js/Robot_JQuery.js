@@ -12,8 +12,10 @@ $('#rightBtn').click(function () {
     RobotBtnOptions("4");
 });
 
-$('#backBtn').click(function () {
+$('#backBtn').on("mousedown", function () {
     RobotBtnOptions("2");
+}).on("mouseup", function () {
+    RobotBtnOptions("5");
 });
 
 $('#stopBtn').click(function () {
@@ -23,12 +25,18 @@ $('#stopBtn').click(function () {
 
 function RobotBtnOptions(_option) {
     var url = "/Robot/MoveRobotOption";
+    
     $.post(url, { option: _option }, function (data) {
-        $("#msg").html(data);
+     //   $("#distance").html(data);
     });
 }
 
+//setInterval(RobotDistance, 1000);
 
+
+//function RobotDistance() {
+//    $("#distance").load("/Robot/Index/ #distance");
+//}
 //Arrow Options with Jquery
 
 document.onkeydown = function (e) {

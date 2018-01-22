@@ -50,28 +50,7 @@ namespace MBotRangerCore.Helpers
 
         {
             int seconds = 79999;
-            if (users.Count == 1)
-            {
-                DateTime user1 = users[0].LoggedInTime;
-                //If only one user is active, assign 10 hours
-                DateTime assignTime = new DateTime(user1.Year,
-                                                    user1.Month,
-                                                    user1.Day,
-                                                    user1.Hour+10, 
-                                                    user1.Minute,
-                                                    user1.Second,
-                                                    user1.Millisecond,
-                                                    DateTimeKind.Local);
-
-                DateTime dtNow = DateTime.Now;
-
-                TimeSpan result = assignTime.Subtract(dtNow);
-
-                seconds = Convert.ToInt32(result.TotalSeconds);
-                if (seconds <= 0)
-                    return 0;
-            }
-            else if (users.Count > 1)
+           if (users.Count > 1)
             {
                 DateTime user2 = users[1].LoggedInTime;
                 //if there are more than one user, assign 5 minutes from the second user signed in

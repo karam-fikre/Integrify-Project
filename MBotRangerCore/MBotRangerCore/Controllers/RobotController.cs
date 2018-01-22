@@ -10,6 +10,8 @@ using MBotRangerCore.Models;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using MBotRangerCore.Helpers;
+using System.Text.RegularExpressions;
+using System.IO;
 
 namespace MBotRangerCore.Controllers
 {
@@ -42,15 +44,15 @@ namespace MBotRangerCore.Controllers
         {
             if (!string.IsNullOrEmpty(str))
             {
-              //  RobotArrows(str);
-               // AssignToArduino(str);
+                //  RobotArrows(str);
+                // AssignToArduino(str);
                 return str;
             }
             return "Unsuccesful";
 
         }
 
-        
+
 
         public List<LoginViewModel> MyAction()
         {
@@ -60,7 +62,7 @@ namespace MBotRangerCore.Controllers
         ConfirmViewModel rob = new ConfirmViewModel();
         //public IActionResult ISPublic(bool isPublic)
         //{
-           
+
         //ViewBag.IsPublic = isPublic;
         //    bool ff = ViewBag.IsPublic;
         //    rob.Is_Public = isPublic;
@@ -79,20 +81,20 @@ namespace MBotRangerCore.Controllers
                 return RedirectToAction(nameof(HomeController.Start), "Home");
             }
 
-            ViewBag.Public = "No";             
-            string loggedInUser      = HttpContext.Session.GetString("User");
-            string mainUser          = robotAppData.CurrentUser; //The user who has the access to control the robot
-            bool isUserSameAsCurrent = !String.IsNullOrEmpty(loggedInUser) && 
+            ViewBag.Public = "No";
+            string loggedInUser = HttpContext.Session.GetString("User");
+            string mainUser = robotAppData.CurrentUser; //The user who has the access to control the robot
+            bool isUserSameAsCurrent = !String.IsNullOrEmpty(loggedInUser) &&
                                        !String.IsNullOrEmpty(mainUser) &&
                                        loggedInUser.Equals(mainUser);
-            
+
             //The user is not main user.
             if (!isUserSameAsCurrent)
             {
 
                 rob.IsWaitingUser = true;
                 ViewBag.Public = (robotAppData.IsRobotVideoPublic) ? "Yes" : "No";
-               // ViewBag.YouWait = waitListObj.GetTimeDifference(robotAppData.users,robotAppData.users[1].LoggedInTime);
+                // ViewBag.YouWait = waitListObj.GetTimeDifference(robotAppData.users,robotAppData.users[1].LoggedInTime);
                 ViewBag.YouWait = waitListObj.GetWaitingTimeInSeconds(robotAppData.users);
 
 
@@ -119,10 +121,10 @@ namespace MBotRangerCore.Controllers
 
 
 
-           
+
             //ViewBag.Time = waitListObj.usersTime[robotAppData.users[0].ToString()];
             return View(rob);
-            
+
             //Orginal before Monday is here down
             /*
  			bool IsAuthenticated = User.Identity.IsAuthenticated;
@@ -130,8 +132,6 @@ namespace MBotRangerCore.Controllers
             {
                 return RedirectToAction(nameof(HomeController.Start), "Home");
             }
-
-
             if (robotAppData.users.Count > 1)
             {
                 robotAppData.TimerForLogout = 10000;
@@ -160,9 +160,9 @@ namespace MBotRangerCore.Controllers
             if (!string.IsNullOrEmpty(str))
 
             {
-               //Check if the user Logged in
-           		bool IsAuthenticated = User.Identity.IsAuthenticated;
-            	if (!IsAuthenticated)
+                //Check if the user Logged in
+                bool IsAuthenticated = User.Identity.IsAuthenticated;
+                if (!IsAuthenticated)
                 {
                     return RedirectToAction(nameof(HomeController.Start), "Home");
 
@@ -175,7 +175,7 @@ namespace MBotRangerCore.Controllers
             return View();
         }
 
-       
+
         public IActionResult Mouse(string submit)
         {
             //Check if the user Logged in
@@ -220,7 +220,7 @@ namespace MBotRangerCore.Controllers
         }
 
 
-#region XUnit Action/Methods
+        #region XUnit Action/Methods
 
         public bool ForXUnit()
         {
@@ -241,6 +241,36 @@ namespace MBotRangerCore.Controllers
             return null;
         }
 
-#endregion
+        #endregion
+
+
+
+
+
+
+
+
+        [HttpPost]
+        public async Task<IActionResult> SaveSnapshot()
+        {
+            bool saved = false;
+           
+            string image = Request.Form["datatype"].ToString();
+            var base64Data = Regex.Match(image, @"data:image/(?<type>.+?),(?<data>.+)").Groups["data"].Value;
+            var binData = Convert.FromBase64String(base64Data);
+            // var data = Convert.FromBase64String(image);
+            var path = Path.GetTempFileName();
+            // var path = Path.Combine(, "snapshot.png");
+            //  var uploads = Path.Combine(_appEnv.WebRootPath, path);
+            using (var stream = new FileStream(path, FileMode.Create))
+            {
+              await binData.CopyToAsync(stream);
+            }
+            System.IO.File.WriteAllBytes(path, binData);
+            saved = true;
+
+
+            return Json(saved ? "image saved" : "image not saved");
+        }
     }
 }
