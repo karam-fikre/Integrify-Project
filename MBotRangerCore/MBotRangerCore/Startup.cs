@@ -45,8 +45,7 @@ namespace MBotRangerCore
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
                 options.Password.RequireLowercase = false;
-                options.Password.RequiredUniqueChars = 1;
-                
+                options.Password.RequiredUniqueChars = 1;              
 
             });
 

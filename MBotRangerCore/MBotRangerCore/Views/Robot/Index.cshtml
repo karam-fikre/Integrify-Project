@@ -1,35 +1,41 @@
-﻿ @using Microsoft.AspNetCore.Identity
- @using MBotRangerCore.Models
+﻿@using Microsoft.AspNetCore.Identity
+@using MBotRangerCore.Models
 @model MBotRangerCore.Models.ConfirmViewModel
+@*@model MBotRangerCore.Models.RobotPrivacy *@
 
-
-
-    @inject SignInManager<ApplicationUser> SignInManager
-    @inject UserManager<ApplicationUser> UserManager 
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 @{
     ViewData["Title"] = "Robot Controller";
 }
 
-    @if (SignInManager.IsSignedIn(User))
-    {
-
+@*  @if (SignInManager.IsSignedIn(User))*@
 
 @section Scripts
     {
     <script src="~/js/CaptureModal.js"></script>
     <script src="~/js/Robot_JQuery.js"></script>
+<script src="~/js/WaitingList.js"></script>
     <link rel="stylesheet" href="~/css/webcam.css" />
 }
-
 <script src="~/lib/jquery/dist/jquery.js"></script>
+@if (!@Model.IsWaitingUser)
+{
 
+    <div><h3 id="logoutWarn" style="text-align:end"></h3></div>
+    <div class="togglePrivate" style="color:white; background-color:black; border-radius:5px; width:154px; height:29px;">
+        <input style="float:left; margin-left:2px; background-color:green;  color:white; border-top-left-radius:5px; border-bottom-left-radius:5px;" id="private" type="button" value="Private"/>
+        <input style="background-color:black; color:#262222; border-top-right-radius:5px; border-bottom-right-radius:5px;" id="public" type="button" value="Public"/>
 
-<div><h3 id="logoutWarn"></h3></div>
-    <div class="row">
+    </div>
         
+}
+@if (!@Model.IsWaitingUser)
+{
+    <div class="row">
         @*The appropriate width and height should be 640 and 480 respectively
             canvas size on js file should be the same with cshtml file to avoid croping*@
-        <div class="col-md-8">
+        <div id="divVideo" class="col-md-8">
             <video src="~/images/video.mp4" controls loop muted id="videoM" width="720" height="500" autoplay></video>
         </div>
 
@@ -64,97 +70,77 @@
                     <input id="backBtn" type="submit" name="submit" value="Back" />
                 </div>
             </div>
-            <div class="row">
-                <div><h3>Logged in users Email list:</h3></div>                
-                @*  <ul>
-                       @foreach (var wList in ViewBag.WaitList)
-                          {
-                         <li><h4>@wList.Email</h4></li>
+           
 
-                         }
-                   </ul>
-                *@
-                
-                <table>
-                    <tr>
-                        <th><h4>Postion</h4></th>
-                        <th><h4>Name</h4></th>
-                        <th><h4>Email</h4></th>
-                        
-                    </tr>
-                    @{int dd = 0;
-                    }
-                    @foreach (var wList in ViewBag.WaitList)
-                    {
-                        dd++;
-                        <tr>
-                            <td><p><b>@dd   </b></p></td>
-                            <td><p><b>@UserManager.FindByEmailAsync(wList.Email).Result.FirstName</b></p></td>
-                            <td><p><b>@wList.Email</b></p></td>
-                        </tr>
 
-                    }
-                 
-                   
-                </table>
-
-                
-              
-            </div>
         </div>
     </div>
 
     <!--Camera control options-->
-    <div class="row">
-        <div class="col-md-2">
-            <input id="webcamM" type="submit" name="cam" value="Start" />
-        </div>
-        <div class="col-md-2">
-            <input id="stopM" type="submit" name="cam" value="Stop" />
-        </div>
-        <div class="col-md-2">
-            <input id="captureModal" type="submit" name="cam" value="Capture" />
-        </div>
-        <div class="col-md-2">
-            @using (Html.BeginForm("Index", "Robot"))
-            {
-                <input id="buttonWebcam" type="submit" name="cam" value="Reload" />
-            }
-        </div>
-    </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <input id="webcamM" type="submit" name="cam" value="Start" />
+                                </div>
+                                <div class="col-md-2">
+                                    <input id="stopM" type="submit" name="cam" value="Stop" />
+                                </div>
+                                <div class="col-md-2">
+                                    <input id="captureModal" type="submit" name="cam" value="Capture" />
+                                </div>
+                                <div class="col-md-2">
+                                    @using (Html.BeginForm("Index", "Robot"))
+                                    {
+                                        <input id="buttonWebcam" type="submit" name="cam" value="Reload" />
+                                    }
+                                </div>
+                            </div>
 
 
     <!-- Modal to capture a photo from the stream -->
-    <div id="myModalRobot" class="modal">
-        <div class="modal-content">
-            <div class="row">
-                <div class="col-md-6">
-                    <canvas id="popupCanvas" width="500" height="330"></canvas>
-                </div>
-            </div>
-            <div id="popupButtons" class="row">
-                <div class="col-md-3">
-                    <button id="popupSave">Save</button>
-                </div>
-                <div class="col-md-3">
-                    <button id="popupCancel">Cancel</button>
-                </div>
-            </div>
-        </div>
+                            <div id="myModalRobot" class="modal">
+                                <div class="modal-content">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <canvas id="popupCanvas" width="500" height="330"></canvas>
+                                        </div>
+                                    </div>
+                                    <div id="popupButtons" class="row">
+                                        <div class="col-md-3">
+                                            <input type="submit" id="popupSave" value="Save" />
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input type="submit" id="popupCancel" value="Cancel" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <p>@ViewData["msg"]</p>
+
+                            <div><p id="unload"></p></div>
+                            <div><p>Keys Change </p><span id="msg" /></div>
+                            <div><p>Arrows Change </p><span id="msg2" /></div>
+
+                            <div><p id="timerLog">@ViewBag.TimerLog</p></div>
+                            <div><p id="SecondsWait">@ViewBag.YouWait</p></div>
+                            <div><p>@ViewBag.Time</p></div>
+                                
+
+
+}
+                            else if (@ViewBag.Public == "Yes")
+                            {
+     <h1>You are Viewing the video as A guest!</h1>
+    <div id="divVideoGuest" class="col-md-8">
+        <video src="~/images/video.mp4" controls loop muted id="videoGuest" width="720" height="500" autoplay></video>
     </div>
-
-
-
-    <p>@ViewData["msg"]</p>
+}
+else
+{
     
-    <div><p id="unload"></p></div>
-    <div><p>Keys Change </p><span id="msg" /></div>
-    <div><p>Arrows Change </p><span id="msg2" /></div>
-
-    
-
-    
-
-
-    }
-
+   <h1>Waiting Time:</h1>
+   <h2>@ViewBag.NoOF_Users number of users infront of you</h2>
+   <h3>The main user has </h3>
+   <h3 id="youWait">@ViewBag.YouWait</h3>
+   <h3>seconds left</h3>
+}

@@ -1,4 +1,6 @@
-﻿body {
+﻿
+
+body {
     /*overflow: hidden;*/
     padding-top: 50px;
     padding-bottom: 20px;
@@ -11,7 +13,8 @@
 }
 
 hr[id="bottomLine"] {
-    margin-top: 500px;
+   /* margin-top: 100px;*/
+    margin-bottom: 10px;
 }
     
 
@@ -84,15 +87,83 @@ table,tr {
     border-collapse: collapse;
     width:auto;
     border:solid;
+    color:#000;
     border-width:thin;
-    border-color:azure;
+    border-color:white;
 }
 
 td, th {
     font-family: arial, sans-serif;
     border-collapse: collapse;
-    width: 150px;
-    border: solid;
-    border-width: thin;
+    width: 60px;
+    color: #000;
+    border:hidden;
     border-color: azure;
 }
+th[id="pID"] {
+    width: 30px;
+}
+
+#usersTable {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: auto;
+}
+
+    #usersTable td, #usersTable th {
+        border: 1px solid #ddd;
+    }
+
+    #usersTable tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    #usersTable tr:hover {
+        background-color: #ddd;
+    }
+
+    #usersTable th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #4CAF50;
+        color: white;
+    }
+
+div[id="homePageDiv"] {
+    margin-top:50px;
+}
+
+
+div[id="divLogged"] {
+    position: static;
+    height: 1300px;
+    background-color: #000;
+  
+}
+
+#divLogged h4 {
+    font-size: smaller;
+    margin-left: 10px;
+color:white;
+
+}
+#divLogged tr:hover {
+    background-color:darkslategray;
+}
+div[id="innerDivLogged"] {
+    position: fixed;
+    margin-top: 180px;
+    background-color: black;
+    height: 400px;
+    width: 235px;
+}
+
+#innerDivLogged h5 {
+    position: fixed;
+    vertical-align: top;
+    margin-left:10px;
+}
+
+
+

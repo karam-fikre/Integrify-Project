@@ -14,23 +14,18 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using MBotRangerCore;
 using MBotRangerCore.Services;
+using MBotRangerCore.Helpers;
 
 namespace MBotRangerCore.Controllers
 {
     public class AccountController : Controller
     {
+
+        public WaitingUsers waitListObj = new WaitingUsers();
         //Session accessor variables
-        public string wholeAccess="";
         const string S_counter = "counter";
         const string S_state = "state";
         const string S_tester = "test";
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        private ISession ourSession => _httpContextAccessor.HttpContext.Session;
-
-        //public AccountController(IHttpContextAccessor httpContextAccessor)
-        //{
-        //    _httpContextAccessor = httpContextAccessor;
-        //}
 
 
         private readonly UserManager<ApplicationUser> _userManager;
@@ -40,12 +35,11 @@ namespace MBotRangerCore.Controllers
         private readonly MbotAppData mBotAppVar;
 
 
-
         public AccountController( UserManager<ApplicationUser> userManager,
                                   SignInManager<ApplicationUser> signInManager,
-                                  ILogger<AccountController> logger,
-                                  IEmailSender emailSender,
-                                  MbotAppData _mBotAppVar )
+                                  ILogger<AccountController> logger, 
+								  IEmailSender emailSender,
+								  MbotAppData _mBotAppVar )
 
         {
             mBotAppVar = _mBotAppVar;
@@ -74,16 +68,13 @@ namespace MBotRangerCore.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-
- HttpContext.Session.SetInt32(S_counter, 0);
+            ViewBag.WaitList = mBotAppVar.users;
+            HttpContext.Session.SetInt32(S_counter, 0);
 
             //Check if the user Logged in
-            bool IsAuthenticated = User.Identity.IsAuthenticated;
-            if (!IsAuthenticated)           
-
+            if (!User.Identity.IsAuthenticated)  
             {
                 return RedirectToAction(nameof(HomeController.Start), "Home");
-
             }
             return View();
         }
@@ -94,8 +85,8 @@ namespace MBotRangerCore.Controllers
         public async Task<IActionResult> Login(string returnUrl = null)
         {
 
-            ViewData["HowMany"] = mBotAppVar.LoggedInCounter; 
-
+            ViewData["HowMany"] = mBotAppVar.LoggedInCounter;
+            ViewBag.WaitList = mBotAppVar.users;
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
             ViewData["ReturnUrl"] = returnUrl;
             return View();
@@ -108,7 +99,7 @@ namespace MBotRangerCore.Controllers
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
         {
             ViewData["HowMany"] = mBotAppVar.LoggedInCounter;
-
+            
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
@@ -116,19 +107,24 @@ namespace MBotRangerCore.Controllers
                 if (result.Succeeded)
                 {
                     if (!mBotAppVar.IsItInUse)
-                    {
-                        ViewBag.CountDown = 0;
-                        // mBotAppVar.testList.Add(model.Email.ToString());                        
-                        mBotAppVar.users.Add(new LoginViewModel() { Email = model.Email });                       
-                        HttpContext.Session.SetString("User", model.Email);
-                        HttpContext.Session.SetString("UserTemp", model.Email);
-                        mBotAppVar.CurrentUser = model.Email;
-                        wholeAccess = model.Email;
-                        ////App variables
-
-                        mBotAppVar.LoggedInCounter++;
-                        mBotAppVar.IsItInUse = true;
-                        ConstructorsAssigner(mBotAppVar);
+                    {                        
+                        //If user already signed in, nothing will be done.
+                        if (UserIsAlreadyLoggedIn(model.Email.ToString()))
+                        {
+                            
+                        }
+                        else
+                        {
+                            mBotAppVar.users.Add(new LoginViewModel() { Email = model.Email, LoggedInTime = DateTime.Now });
+                            HttpContext.Session.SetString("User", model.Email);
+                            mBotAppVar.CurrentUser = model.Email;
+                            mBotAppVar.LoggedInCounter++;
+                            mBotAppVar.IsItInUse = true;
+                            waitListObj.usersLogOutTime.Add(model.Email, 10000);
+                            waitListObj.usersTime.Add(model.Email, DateTime.Now);
+                            ConstructorsAssigner(mBotAppVar);
+                        }
+                       
 
                         _logger.LogInformation("User logged in.");
                         return RedirectToAction(nameof(RobotController.Index), "Robot");
@@ -136,31 +132,56 @@ namespace MBotRangerCore.Controllers
                     else
                     {
                         //Log the main user out when 2nd user request
-                        ViewBag.CountDown = 5;
 
+                    //    mBotAppVar.TimerForLogout = 10000;
+                        if (UserIsAlreadyLoggedIn(model.Email.ToString()))
+                        {
+                            ModelState.AddModelError(string.Empty, "Same user has logged in already.");
+                     
+                            // HttpContext.Session.SetString("User", model.Email);
+                            // return RedirectToAction(nameof(RobotController.Index), "Robot");
+                            return View();
+                        }
+                        else
+                        {
+                            
+                            mBotAppVar.users.Add(new LoginViewModel() { Email = model.Email, LoggedInTime = DateTime.Now });
+                            HttpContext.Session.SetString("User", model.Email);
 
-                        mBotAppVar.testList.Add(model.Email.ToString());
-                        mBotAppVar.users.Add(new LoginViewModel() { Email = model.Email });
-                        HttpContext.Session.SetString("User", model.Email);
+                            //App variables
+                            mBotAppVar.LoggedInCounter++;
+                            ConstructorsAssigner(mBotAppVar);
+                        }
 
-                        //App variables
-                        mBotAppVar.LoggedInCounter++;
-                        ConstructorsAssigner(mBotAppVar);
-
-
+                       
                         ModelState.AddModelError(string.Empty, "Someone has logged in");
                         return RedirectToAction(nameof(HomeController.Start), "Home");
                     }
+                  
                 }
                 else
                     {
                         ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                         return View();
                     }
-                }
-                return View();          
+               
+            }
+            
+            return View();          
            
-        }       
+        }
+
+        private bool UserIsAlreadyLoggedIn (string newEmail)
+        {
+            bool userExist = false;
+
+            foreach (var i in mBotAppVar.users)
+            {
+                if (newEmail.Equals(i.Email))
+                    userExist = true;
+            }
+            return userExist;
+        }
 
         // GET: Users/Register
         [HttpGet]
@@ -195,7 +216,7 @@ namespace MBotRangerCore.Controllers
                 {
                     if (!mBotAppVar.IsItInUse)
                     {
-                        mBotAppVar.users.Add(new LoginViewModel() { Email = model.Email });
+                        mBotAppVar.users.Add(new LoginViewModel() { Email = model.Email, LoggedInTime = DateTime.Now });
                         HttpContext.Session.SetString("User", model.Email);
                         mBotAppVar.CurrentUser = model.Email;
                         mBotAppVar.IsItInUse = true;
@@ -210,8 +231,7 @@ namespace MBotRangerCore.Controllers
                     }
                     else
                     {
-                        mBotAppVar.testList.Add(model.Email.ToString());
-                        mBotAppVar.users.Add(new LoginViewModel() { Email = model.Email });
+                        mBotAppVar.users.Add(new LoginViewModel() { Email = model.Email, LoggedInTime = DateTime.Now });
                         mBotAppVar.LoggedInCounter++;
                         ConstructorsAssigner(mBotAppVar);
                         HttpContext.Session.SetString("User", model.Email);
@@ -228,6 +248,13 @@ namespace MBotRangerCore.Controllers
             return View(model);
         }
 
+        public IActionResult LoseAccess(string loggedOutEmail)
+        {
+            LogoutHelper(loggedOutEmail);
+            mBotAppVar.users.Add(new LoginViewModel() { Email = loggedOutEmail });
+            return RedirectToAction(nameof(HomeController.Start), "Home");
+        }
+
         //Automatic logout.
         [HttpGet]
         public async Task<IActionResult> Logout(int? notUsedInt, string loggedOutEmail)
@@ -241,11 +268,11 @@ namespace MBotRangerCore.Controllers
 
             LogoutHelper(loggedOutEmail);
             await _signInManager.SignOutAsync();
-                _logger.LogInformation("User logged out.");
-                return RedirectToAction(nameof(AccountController.Login));
-            
-            
-            
+            _logger.LogInformation("User logged out.");
+            return RedirectToAction(nameof(AccountController.Login));
+
+
+
         }
 
         //When logout button is pressed
@@ -262,6 +289,7 @@ namespace MBotRangerCore.Controllers
 
         public void LogoutHelper(string loggedOutEmail)
         {
+            
             if (loggedOutEmail == mBotAppVar.users.ElementAt(0).Email)
             {
                 if (mBotAppVar.LoggedInCounter > 1)
@@ -270,12 +298,12 @@ namespace MBotRangerCore.Controllers
                     mBotAppVar.CurrentUser = mBotAppVar.users.ElementAt(0).Email;
                     mBotAppVar.LoggedInCounter--;
                     string oow = loggedOutEmail;
-                    string hh = HttpContext.Session.GetString("UserTemp");
 
                 }
                 else if (mBotAppVar.LoggedInCounter == 1)
                 {
                     mBotAppVar.users.RemoveAt(0);
+                    mBotAppVar.CurrentUser = "";
                     mBotAppVar.IsItInUse = false;
                     mBotAppVar.LoggedInCounter = 0;
                 }

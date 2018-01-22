@@ -39,5 +39,7 @@ namespace MBotRangerCore.Models
         [DataType(DataType.Password)]
         [Compare("Password", ErrorMessage = "Confirm Passowrd and Password don't match")]
         public string ConfirmPassword { get; set; }
+
+        public bool IsWaitingUser { get; set; } = false;
     }
 }
