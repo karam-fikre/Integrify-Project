@@ -64,12 +64,21 @@ var cancelPop = document.getElementById("popupCancel");
 cancelPop.onclick = function () {
     modal.style.display = "none";
 };
+
+var image = popCanvas.toDataURL("image/png").replace("image/png", "image/octet-stream");  // here is the most important part because if you dont replace you will get a DOM 18 exception.
 savePop.onclick = function () {
     modal.style.display = "none";
-    var image = popCanvas.toDataURL("image/png").replace("image/png", "image/octet-stream");  // here is the most important part because if you dont replace you will get a DOM 18 exception.
     // window.location.href = image; // 
-    window.location = "/Gallery/Upload?file=" + image;
-};
+    //window.location = "/Gallery/Upload?file=" + image;
+
+    $.ajax({
+        type: "POST",
+        url: '../../Robot/SaveSnapshot',
+        dataType: 'text',
+        data: { dataType: image },
+        success: function (result) { alert(result); }
+    });
+}
 
 window.onclick = function (event) {
     if (event.target === modal) {

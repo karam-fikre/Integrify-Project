@@ -17,6 +17,7 @@ using MBotRangerCore.Services;
 using CloudinaryDotNet;
 using System.IO;
 using CloudinaryDotNet.Actions;
+using MBotRangerCore.Helpers;
 
 namespace MBotRangerCore.Controllers
 {

@@ -18,6 +18,7 @@ namespace MBotRangerCore.Controllers
 {
     public class GalleryController : Controller
     {
+        MbotAppData galleryAppData;
         private IConfiguration _config;
         private string ConnectionString { get; }
         private readonly MBotRangerCoreContext _context;
@@ -28,6 +29,7 @@ namespace MBotRangerCore.Controllers
 
         public GalleryController(MBotRangerCoreContext context,IConfiguration config)
         {
+            galleryAppData = new MbotAppData();
             _context = context;
             _config = config;
             ConnectionString = _config["ConnectionString"];
@@ -35,6 +37,7 @@ namespace MBotRangerCore.Controllers
 
         public IActionResult ImagesView()
         {
+            ViewBag.WaitList = galleryAppData.users;
             var imagelist = _context.GalleryImage.AsParallel();
            
             var model = new GalleryIndexModel
@@ -50,7 +53,7 @@ namespace MBotRangerCore.Controllers
         [HttpGet]
         public IActionResult Upload()
         {
-
+            ViewBag.WaitList = galleryAppData.users;
             var model = new UploadImageModel();
             return View();
         }
@@ -61,6 +64,7 @@ namespace MBotRangerCore.Controllers
         [HttpPost]
         public async Task<IActionResult> Upload(IFormFile file,string title)
         {
+            ViewBag.WaitList = galleryAppData.users;
             Cloudinary cloudinary = new Cloudinary(account);
             var filePath = Path.GetTempFileName();
                     using (var stream = new FileStream(filePath, FileMode.Create))
