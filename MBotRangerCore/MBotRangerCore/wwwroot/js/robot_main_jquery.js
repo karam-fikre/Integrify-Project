@@ -72,8 +72,11 @@ timeSeconds = tempTimerLog % 60;
 var warnSecondsw2 = timeHours + " " + timeMinutes + " " + timeSeconds;
 */
 var temptime = document.getElementById("SecondsWait").innerHTML;
-var timerLogOut = temptime*1000;
-var intialWarn = 5000;
+var timerLogOut = temptime * 1000;
+if (timerLogOut > 700000)
+    var intialWarn = 15000;
+else
+    var intialWarn = 1000;
 var warnSeconds = (timerLogOut - intialWarn) / 1000;
 
 //Inactivity logging out and and take away Robot access from first user
@@ -94,7 +97,8 @@ function idleLogout() {
         window.onclick = resetTimer;
         window.onscroll = resetTimer;
         window.onkeypress = resetTimer;
-        logOutMsg = "You have been away for " + intialWarn/1000 + " seconds and you will be log out in ";
+       // logOutMsg = "You have been away for " + intialWarn / 1000 + " seconds and you will be log out in ";
+        logOutMsg = "You used the maximum time, your session will end in ";
     }
     else
     {

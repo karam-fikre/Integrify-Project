@@ -3,9 +3,6 @@ var popContext = popCanvas.getContext('2d');
 var captureByModal = document.getElementById("captureModal");
 
 
-
-///*******Webcamstart copied
-
 //This file is for streaming from the webcam.
 var localstream;
 
@@ -33,25 +30,16 @@ webcamStop.addEventListener("click", function () {
     vidOff();
 });
 
-
-
 function vidOff() {
     video.pause();
     video.src = "";
     localstream.getTracks()[0].stop();
 }
 
-
-/////*********Webcam start end
-
-
-
 captureByModal.addEventListener("click", function () {
     modal.style.display = "block";
     popContext.drawImage(video, 0, 0, 500, 330);
 });
-
-
 
 
 
@@ -64,9 +52,22 @@ var cancelPop = document.getElementById("popupCancel");
 cancelPop.onclick = function () {
     modal.style.display = "none";
 };
+
+var image = popCanvas.toDataURL("image/png").replace("image/png", "image/octet-stream");  
+
 savePop.onclick = function () {
     modal.style.display = "none";
-};
+   // window.location.href = image; // 
+//window.location = "/Gallery/Upload?file=" + image;
+$.ajax({
+    type: "POST",
+    url: '../../Robot/SaveSnapshot',
+    dataType: 'text',
+    data: { dataType: image },
+    success: function (result) { alert(result); }
+});
+
+}
 
 window.onclick = function (event) {
     if (event.target === modal) {

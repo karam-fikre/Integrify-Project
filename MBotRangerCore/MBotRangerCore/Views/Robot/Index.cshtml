@@ -13,12 +13,15 @@
 
 @section Scripts
     {
-    <script src="~/js/CaptureModal.js"></script>
-    <script src="~/js/Robot_JQuery.js"></script>
-<script src="~/js/WaitingList.js"></script>
-    <link rel="stylesheet" href="~/css/webcam.css" />
+    <script src="~/js/modal_and_toggle.js"></script>
+    <script src="~/js/robot_main_jquery.js"></script>
+<script src="~/js/waiting_list_handler.js"></script>
+<script src="~/js/idle_time_handler.js"></script>
+    <link rel="stylesheet" href="~/css/robot_main.css" />
 }
 <script src="~/lib/jquery/dist/jquery.js"></script>
+
+<div><h4 id="logoutWarnIDLE" style="text-align:end; color:saddlebrown;">I</h4></div>
 @if (!@Model.IsWaitingUser)
 {
 

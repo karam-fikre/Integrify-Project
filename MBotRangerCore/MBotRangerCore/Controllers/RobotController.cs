@@ -10,6 +10,8 @@ using MBotRangerCore.Models;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using MBotRangerCore.Helpers;
+using System.IO;
+using System.Text.RegularExpressions;
 
 namespace MBotRangerCore.Controllers
 {
@@ -42,30 +44,38 @@ namespace MBotRangerCore.Controllers
         {
             if (!string.IsNullOrEmpty(str))
             {
-              //  RobotArrows(str);
-               // AssignToArduino(str);
+                RobotArrows(str);
+                AssignToArduino(str);
                 return str;
             }
             return "Unsuccesful";
 
         }
 
-        
-
-        public List<LoginViewModel> MyAction()
-        {
-
-            return robotAppData.users;
-        }
         ConfirmViewModel rob = new ConfirmViewModel();
-        //public IActionResult ISPublic(bool isPublic)
-        //{
-           
-        //ViewBag.IsPublic = isPublic;
-        //    bool ff = ViewBag.IsPublic;
-        //    rob.Is_Public = isPublic;
-        //    return View("Index", rob);
-        //}
+      
+
+        [HttpPost]
+        public ActionResult SaveSnapshot()
+        {
+            ConstructorAssigner(robotAppData);
+            bool saved = false;
+
+            var image = Request.Form["datatype"];
+            var base64Data = Regex.Match(image, @"data:image/(?<type>.+?),(?<data>.+)").Groups["data"].Value;
+            var binData = Convert.FromBase64String(base64Data);
+            // var data = Convert.FromBase64String(image);
+            var path = Path.GetTempFileName();
+            // var path = Path.Combine(, "snapshot.png");
+            //  var uploads = Path.Combine(_appEnv.WebRootPath, path);
+
+            System.IO.File.WriteAllBytes(path, binData);
+            saved = true;
+
+
+            return Json(saved ? "image saved" : "image not saved");
+        }
+
 
         [SessionTimeOut(1)]
         public IActionResult Index(string submit, bool isPublic)
@@ -89,13 +99,10 @@ namespace MBotRangerCore.Controllers
             //The user is not main user.
             if (!isUserSameAsCurrent)
             {
-
                 rob.IsWaitingUser = true;
                 ViewBag.Public = (robotAppData.IsRobotVideoPublic) ? "Yes" : "No";
                // ViewBag.YouWait = waitListObj.GetTimeDifference(robotAppData.users,robotAppData.users[1].LoggedInTime);
                 ViewBag.YouWait = waitListObj.GetWaitingTimeInSeconds(robotAppData.users);
-
-
             }
             //Only the main user can change from public to private or vise versa
             else
@@ -103,7 +110,6 @@ namespace MBotRangerCore.Controllers
                 robotAppData.IsRobotVideoPublic = isPublic;
                 ViewBag.Public = (robotAppData.IsRobotVideoPublic) ? "Yes" : "No";
                 ConstructorAssigner(robotAppData);
-
             }
 
 
@@ -115,36 +121,11 @@ namespace MBotRangerCore.Controllers
 
             ViewBag.TimerLog = robotAppData.TimerForLogout;
             ViewBag.WaitList = robotAppData.users;
-            AssignToArduino("0");
-
-
-
+            AssignToArduino(submit);
            
             //ViewBag.Time = waitListObj.usersTime[robotAppData.users[0].ToString()];
-            return View(rob);
-            
-            //Orginal before Monday is here down
-            /*
- 			bool IsAuthenticated = User.Identity.IsAuthenticated;
-            if (!IsAuthenticated  || !isUserSameAsCurrent)
-            {
-                return RedirectToAction(nameof(HomeController.Start), "Home");
-            }
-
-
-            if (robotAppData.users.Count > 1)
-            {
-                robotAppData.TimerForLogout = 10000;
-            }
-            else
-            {
-                robotAppData.TimerForLogout = 100031000;
-            }
-            ViewBag.TimerLog = robotAppData.TimerForLogout; 
-            ViewBag.WaitList = robotAppData.users;
-            AssignToArduino("0");
-            return View(rob);
-            */
+            return View(rob);            
+        
         }
 
         public void ConstructorAssigner(MbotAppData theAppData)
@@ -157,21 +138,17 @@ namespace MBotRangerCore.Controllers
 
         public IActionResult RobotArrows(string str)
         {
-            if (!string.IsNullOrEmpty(str))
-
+            //Check if the user Logged in
+            if (!User.Identity.IsAuthenticated)
             {
-               //Check if the user Logged in
-           		bool IsAuthenticated = User.Identity.IsAuthenticated;
-            	if (!IsAuthenticated)
-                {
-                    return RedirectToAction(nameof(HomeController.Start), "Home");
+                return RedirectToAction(nameof(HomeController.Start), "Home");
+            }
 
-                }
-
+            if (!string.IsNullOrEmpty(str))
+            {
                 ViewData["Key"] = str;
                 AssignToArduino(str);
             }
-
             return View();
         }
 
@@ -179,11 +156,9 @@ namespace MBotRangerCore.Controllers
         public IActionResult Mouse(string submit)
         {
             //Check if the user Logged in
-            bool IsAuthenticated = User.Identity.IsAuthenticated;
-            if (!IsAuthenticated)
+            if (!User.Identity.IsAuthenticated)
             {
                 return RedirectToAction(nameof(HomeController.Start), "Home");
-
             }
             AssignToArduino(submit);
             return View();
@@ -220,7 +195,7 @@ namespace MBotRangerCore.Controllers
         }
 
 
-#region XUnit Action/Methods
+#region XUnit-Methods
 
         public bool ForXUnit()
         {

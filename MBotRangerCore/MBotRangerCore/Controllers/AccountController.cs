@@ -22,11 +22,6 @@ namespace MBotRangerCore.Controllers
     {
 
         public WaitingUsers waitListObj = new WaitingUsers();
-        //Session accessor variables
-        const string S_counter = "counter";
-        const string S_state = "state";
-        const string S_tester = "test";
-
 
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
@@ -69,7 +64,6 @@ namespace MBotRangerCore.Controllers
         public IActionResult Index()
         {
             ViewBag.WaitList = mBotAppVar.users;
-            HttpContext.Session.SetInt32(S_counter, 0);
 
             //Check if the user Logged in
             if (!User.Identity.IsAuthenticated)  
@@ -125,7 +119,6 @@ namespace MBotRangerCore.Controllers
                             ConstructorsAssigner(mBotAppVar);
                         }
                        
-
                         _logger.LogInformation("User logged in.");
                         return RedirectToAction(nameof(RobotController.Index), "Robot");
                     }
@@ -197,8 +190,7 @@ namespace MBotRangerCore.Controllers
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(ConfirmViewModel model, string returnUrl = null)
-        {
-            
+        {            
             List<string> _allowedEmailDomains = new List<string> { "outlook.com", "hotmail.com", "gmail.com", "yahoo.com" };
             var emailDomain = model.Email.Split('@')[1];
 
@@ -270,9 +262,6 @@ namespace MBotRangerCore.Controllers
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
             return RedirectToAction(nameof(AccountController.Login));
-
-
-
         }
 
         //When logout button is pressed
@@ -321,10 +310,7 @@ namespace MBotRangerCore.Controllers
             }
        ConstructorsAssigner(mBotAppVar);
         }
-
-
-   
-
+        
         // GET: Users/Forgot Password
         [HttpGet]
         [AllowAnonymous]
@@ -333,8 +319,7 @@ namespace MBotRangerCore.Controllers
             return View();
         }
 
-
-
+        
         // POST: Users/Forgot Password
         [HttpPost]
         [AllowAnonymous]
@@ -362,7 +347,6 @@ namespace MBotRangerCore.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
-
 
 
         // GET: Users/Forgot Password Confirm
@@ -426,11 +410,6 @@ namespace MBotRangerCore.Controllers
         }
 
 
-
-
-
-     
-        
 
         #region Helpers
 

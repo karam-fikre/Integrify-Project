@@ -17,6 +17,7 @@ namespace MBotRangerCore
 {
     public class Startup
     {
+        MbotAppData fdsfd = new MbotAppData();
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
