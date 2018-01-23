@@ -208,7 +208,7 @@ namespace MBotRangerCore.Controllers
         public async Task<IActionResult> Register(ConfirmViewModel model, string returnUrl = null)
         {
             
-            List<string> _allowedEmailDomains = new List<string> { "outlook.com", "hotmail.com", "gmail.com", "yahoo.com" };
+            List<string> _allowedEmailDomains = new List<string> { "outlook.com", "hotmail.com", "gmail.com", "yahoo.com" ,"k.com"};
             var emailDomain = model.Email.Split('@')[1];
 
             ViewData["ReturnUrl"] = returnUrl;
@@ -247,7 +247,7 @@ namespace MBotRangerCore.Controllers
                         ModelState.AddModelError(string.Empty, "Someone has logged in");
                         await _signInManager.SignInAsync(user, isPersistent: false);
                         _logger.LogInformation("User created a new account with password.");
-                        return RedirectToAction(nameof(HomeController.Start), "Home");
+                        return RedirectToAction(nameof(AccountController.UploadProfilePicture), "Account");
                     }
                   
                 }
@@ -434,31 +434,29 @@ namespace MBotRangerCore.Controllers
             return View();
         }
 
-
-
+        
         [HttpGet]
-        public IActionResult UploadProfilePicture()
+        public  IActionResult UploadProfilePicture()
         {
-            bool IsAuthenticated = User.Identity.IsAuthenticated;
-            if (!IsAuthenticated)
+          
+            ViewBag.WaitList = mBotAppVar.users;
+            if (!User.Identity.IsAuthenticated)
             {
                 return RedirectToAction(nameof(HomeController.Start), "Home");
             }
             return View();
         }
-
-
-
-
+        
         [HttpPost]
         public async Task<IActionResult> UploadProfilePicture(IFormFile file)
         {
-            bool IsAuthenticated = User.Identity.IsAuthenticated;
-            if (!IsAuthenticated)
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            ViewBag.WaitList = mBotAppVar.users;
+
+            if (!User.Identity.IsAuthenticated)
             {
                 return RedirectToAction(nameof(HomeController.Start), "Home");
             }
-            var user = await GetCurrentUserAsync();
             Cloudinary cloudinary = new Cloudinary(account);
             if (User.Identity.IsAuthenticated)
             {
@@ -477,16 +475,21 @@ namespace MBotRangerCore.Controllers
                
                 _context.Update(user);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(RobotController.Index), "Robot");
+            //    return View();
+               return RedirectToAction(nameof(HomeController.Start), "Home");
             }
             return View();
         }
 
 
+       
+    
+
 
         private Task<ApplicationUser> GetCurrentUserAsync()
         {
-            return _userManager.GetUserAsync(HttpContext.User);
+
+           return _userManager.GetUserAsync(HttpContext.User);
         }
 
         #region Helpers

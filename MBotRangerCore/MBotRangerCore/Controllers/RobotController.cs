@@ -264,7 +264,7 @@ namespace MBotRangerCore.Controllers
             //  var uploads = Path.Combine(_appEnv.WebRootPath, path);
             using (var stream = new FileStream(path, FileMode.Create))
             {
-              await binData.CopyToAsync(stream);
+     //         await binData.CopyToAsync(stream);
             }
             System.IO.File.WriteAllBytes(path, binData);
             saved = true;

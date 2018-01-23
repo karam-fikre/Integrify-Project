@@ -93,14 +93,16 @@
         </div>
     </nav>
    
-   
-
 }
 
 else
 {
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
+                <ul class="nav navbar-nav navbar-left">
+                    <li><a asp-area="" asp-controller="Home" asp-action="Start"><b>Home</b></a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="About"><b>About</b></a></li>
+                </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a asp-area="" asp-controller="Account" asp-action="Login">Login</a></li>
                     <li><a asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>

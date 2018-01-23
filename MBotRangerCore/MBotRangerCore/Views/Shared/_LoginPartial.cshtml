@@ -33,10 +33,10 @@
         
         <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="navbar-right">
             <ul class="nav navbar-nav navbar-right">
-               @if (UserManager.GetUserAsync(User).Result.ProfilePicture ==null) {
+               @if (UserManager.GetUserAsync(User).Result.ProfilePicture == null)
+               {
                 <li>
-                    
-                    <img src="~/images/robot-kit-makeblock-mbot-ranger-1.jpg" class="img-circle"
+                    <img alt="image" usemap="GoTo" src="http://res.cloudinary.com/dlxazvufc/image/upload/v1516628595/wckoji393ycargytgv11.png" class="img-circle"
                          style="max-width:50px;
             height:auto;
             background: #FFFFFF;
@@ -50,7 +50,7 @@
                else
                {
                 <li>
-                    <img src="@UserManager.GetUserAsync(User).Result.ProfilePicture" class="img-circle"
+                    <img alt="image" usemap="GoTo" src="@UserManager.GetUserAsync(User).Result.ProfilePicture" class="img-circle"
                          style="max-width:50px;
             height:auto;
             background: #FFFFFF;
@@ -74,3 +74,6 @@
     </div>
 }
 
+<map name="GoTo">
+    <area shape="default"  alt="GoTo" href="~/Account/UploadProfilePicture">
+</map>
