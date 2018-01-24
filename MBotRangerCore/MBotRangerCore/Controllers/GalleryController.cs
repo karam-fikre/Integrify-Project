@@ -1,42 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Threading.Tasks;
-using MBotRangerCore.Models;
+﻿using MBotRangerCore.Models;
 using MBotRangerCore.Models.ImagesModels;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Blob;
-using CloudinaryDotNet;
-using CloudinaryDotNet.Actions;
-using System.IO;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace MBotRangerCore.Controllers
 {
     public class GalleryController : Controller
     {
         MbotAppData galleryAppData;
-        private IConfiguration _config;
-        private string ConnectionString { get; }
         private readonly MBotRangerCoreContext _context;
-        private Account account = new Account(
-                                            "dlxazvufc",
-                                            "152192368129483",
-                                            "gOgstsNVkTW8-lSAj3KptLwmgNM");
+        private readonly UserManager<ApplicationUser> _userManager;
+       
 
-        public GalleryController(MBotRangerCoreContext context,IConfiguration config)
+        public GalleryController(MBotRangerCoreContext context, UserManager<ApplicationUser> userManager)
         {
             galleryAppData = new MbotAppData();
             _context = context;
-            _config = config;
-            ConnectionString = _config["ConnectionString"];
+            _userManager = userManager;
+          
         }
 
         public IActionResult ImagesView()
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction(nameof(HomeController.Start), "Home");
+            }
             ViewBag.WaitList = galleryAppData.users;
             var imagelist = _context.GalleryImage.AsParallel();
            
@@ -47,49 +40,35 @@ namespace MBotRangerCore.Controllers
             };
             return View(model);
         }
-
-
-
-        [HttpGet]
-        public IActionResult Upload()
-        {
-            ViewBag.WaitList = galleryAppData.users;
-            var model = new UploadImageModel();
-            return View();
-        }
-
-
-
-
+        
         [HttpPost]
-        public async Task<IActionResult> Upload(IFormFile file,string title)
+        public async Task<IActionResult> SaveSnapshot()
         {
-            ViewBag.WaitList = galleryAppData.users;
-            Cloudinary cloudinary = new Cloudinary(account);
-            var filePath = Path.GetTempFileName();
-                    using (var stream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await file.CopyToAsync(stream);
-                    }
-                var uploadParams = new ImageUploadParams()
+            if (!User.Identity.IsAuthenticated)
             {
-                File = new FileDescription(filePath)
-            };
-            var uploadResult = cloudinary.Upload(uploadParams);
-            var image = new GalleryImage
+                return RedirectToAction(nameof(HomeController.Start), "Home");
+            }
+            bool saved = false;
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            string image = Request.Form["datatype"].ToString();
+            
+            var databaseimage = new GalleryImage
             {
-                Title = title,
-                Url = uploadResult.Uri.AbsoluteUri,
+                Title = user.FirstName,
+                Url = image.ToString(),
                 Created = DateTime.Now
             };
-            _context.Add(image);
+            _context.Add(databaseimage);
             await _context.SaveChangesAsync();
-            return RedirectToAction("ImagesView");
+            saved = true;
+            return Json(saved ? "Your Snapshot stored in Gallery, you can see it there with your First Name on it" : "image not saved");
         }
 
-    
 
-   
+        private Task<ApplicationUser> GetCurrentUserAsync()
+        {
 
+            return _userManager.GetUserAsync(HttpContext.User);
+        }
     }
 }

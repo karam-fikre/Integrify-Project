@@ -1,22 +1,27 @@
 ﻿@model MBotRangerCore.Models.ImagesModels.GalleryIndexModel
 
 @{
-    ViewData["Title"] = "ImagesView";
+    ViewData["Title"] = "Gallery";
 }
 
-<h2>ImagesView</h2>
+<h2>Gallery</h2>
 
 <link rel="stylesheet" href="~/css/site.css" />
 
 <div class="container body-content">
-    <div class="gallery-content">
+    <div class="row gallery-content">
         @foreach (var image in Model.Images)
-    {
-        <div class="gallery-image-container">
-            <div class="gallery-image" style="background-image:url(@image.Url)"></div>
-           </div>
-            <span>@image.Title</span>
-            }
+        {
+            <div class="gallery-image-container">
+                <img src="@image.Url" class="gallery-image" />
+            </div>
+           
+              <span>
+                   @image.Title
+                   Screenshot Created at: @image.Created
+              </span>
+           
+        }
 
         </div>
     </div>

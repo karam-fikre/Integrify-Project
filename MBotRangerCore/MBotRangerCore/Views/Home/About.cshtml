@@ -37,7 +37,13 @@
 
 
         </table> *@
+    <div><h3 hidden id="logoutWarn"></h3></div>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            @await Html.PartialAsync("_LoginPartial")
 
+        </div>
+    </nav>
     <div class="row">
         <h3 id="logoutWarn"></h3>
         <p id="timerLog">@ViewBag.TimerLog</p>
@@ -52,6 +58,8 @@
         }
     </div>
 }
+else
+{
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <ul class="nav navbar-nav navbar-left">
@@ -64,7 +72,7 @@
         </ul>
     </div>
 </nav>
-
+}
 <div id="aboutID">
     <p id="aboutID">
   
