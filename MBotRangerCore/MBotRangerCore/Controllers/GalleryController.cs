@@ -65,6 +65,19 @@ namespace MBotRangerCore.Controllers
         }
 
 
+        
+        [HttpPost]
+        public async Task<IActionResult> DeleteSnapShot(int? id)
+        {
+            bool delete = false;
+            GalleryImage DeletedImage =  _context.GalleryImage.FirstOrDefault(m => m.Id == id);
+            _context.GalleryImage.Remove(DeletedImage);
+            await _context.SaveChangesAsync();
+            delete = true;
+            return Json(delete ? "Your Snapshot deleted from Gallery, ": "image not deleted");
+        }
+
+
         private Task<ApplicationUser> GetCurrentUserAsync()
         {
 

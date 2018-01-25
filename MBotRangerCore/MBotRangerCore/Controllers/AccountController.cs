@@ -208,7 +208,7 @@ namespace MBotRangerCore.Controllers
         public async Task<IActionResult> Register(ConfirmViewModel model, string returnUrl = null)
         {
             
-            List<string> _allowedEmailDomains = new List<string> { "outlook.com", "hotmail.com", "gmail.com", "yahoo.com" ,"k.com"};
+            List<string> _allowedEmailDomains = new List<string> { "outlook.com", "hotmail.com", "gmail.com", "yahoo.com" };
             var emailDomain = model.Email.Split('@')[1];
 
             ViewData["ReturnUrl"] = returnUrl;

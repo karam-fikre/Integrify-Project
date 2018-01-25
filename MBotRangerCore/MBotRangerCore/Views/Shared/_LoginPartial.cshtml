@@ -38,13 +38,13 @@
                @if (UserManager.GetUserAsync(User).Result.ProfilePicture == null)
                {
                 <li>
-                    <img alt="image" usemap="GoTo" src="http://res.cloudinary.com/dlxazvufc/image/upload/v1516628595/wckoji393ycargytgv11.png" class="img-circle"
-                         style="max-width:50px;
+                    <img alt="image" usemap="GoTo" src="http://res.cloudinary.com/dlxazvufc/image/upload/v1516628595/wckoji393ycargytgv11.png" class="img-rounded"
+                         style="width:120px;height:100px;
             height:auto;
             background: #FFFFFF;
             margin: auto;
             margin-top :10px;
-            border-radius: 100px;
+            border-radius:10px;
             padding: 2px;
             box-shadow: 0px 0px 10px #888;" />
                 </li>
@@ -52,13 +52,13 @@
                else
                {
                 <li>
-                    <img alt="image" usemap="GoTo" src="@UserManager.GetUserAsync(User).Result.ProfilePicture" class="img-circle"
-                         style="max-width:50px;
+                    <img alt="image" usemap="GoTo" src="@UserManager.GetUserAsync(User).Result.ProfilePicture" class="img-rounded"
+                         style="width:50px;height:40px;
             height:auto;
             background: #FFFFFF;
             margin: auto;
             margin-top :10px;
-            border-radius: 100px;
+            border-radius:10px;
             padding: 2px;
             box-shadow: 0px 0px 10px #888;" />
                 </li>

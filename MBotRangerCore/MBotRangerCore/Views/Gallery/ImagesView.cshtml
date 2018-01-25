@@ -1,27 +1,37 @@
 ﻿@model MBotRangerCore.Models.ImagesModels.GalleryIndexModel
-
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 @{
     ViewData["Title"] = "Gallery";
 }
 
 <h2>Gallery</h2>
+<script src="~/js/imageview.js"></script>
+<link rel="stylesheet" href="~/css/galleryview.css" />
 
-<link rel="stylesheet" href="~/css/site.css" />
-
-<div class="container body-content">
-    <div class="row gallery-content">
+<div id="picdiv" class="container body-content">
         @foreach (var image in Model.Images)
         {
-            <div class="gallery-image-container">
-                <img src="@image.Url" class="gallery-image" />
+            
+            <div class="responsive">
+                <div data="Screenshot Created at: @image.Created" class="gallery">
+                    <a target="_blank" href="@image.Url">
+                        <img id="imgview" src="@image.Url"  width="300" height="200">
+                    </a>
+                    <div class="desc">@image.Title</div>
+                </div>
+                @if (image.Title == UserManager.GetUserAsync(User).Result.FirstName)
+                {
+                    <div class="caption">
+                        <a href="#" onclick="deleteImage(@image.Id)" style=""><i class="glyphicon glyphicon-trash"></i></a>
+                        <span id="description"></span>
+                    </div>
+
+                }
+
             </div>
-           
-              <span>
-                   @image.Title
-                   Screenshot Created at: @image.Created
-              </span>
-           
         }
 
-        </div>
+       
     </div>

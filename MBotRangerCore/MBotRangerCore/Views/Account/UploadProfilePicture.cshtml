@@ -7,21 +7,21 @@
 }
 
 <script src="~/js/jquery-3.2.1.min.js"></script>
-<script src="~/js/UploadProfileImage.js"></script>
-
-<h2>Upload</h2>
+<script src="~/js/uploadprofilepicture.js"></script>
+<link href="~/css/uploadprofilepicture.css" rel="stylesheet" />
+<h2>Upload Profile Picture</h2>
 
     <form id="upload-form" asp-action="UploadProfilePicture" method="post" enctype="multipart/form-data">
         
 
-  <div id="imgPreview" class="img-circle">
+  <div id="imgPreview" class="img-rounded">
 @if (UserManager.GetUserAsync(User).Result.ProfilePicture == null)
 {
-   <img id="targetImg" src="http://res.cloudinary.com/dlxazvufc/image/upload/v1516628595/wckoji393ycargytgv11.png" class="img-circle" style="width:150px;height:100px;background: #FFFFFF;margin: auto;margin-top :10px;border-radius: 200px;padding: 2px; box-shadow: 0px 0px 10px #888;" />
+   <img id="targetImg" src="http://res.cloudinary.com/dlxazvufc/image/upload/v1516628595/wckoji393ycargytgv11.png" class="img-rounded" style="width:120px;height:100px;background: #FFFFFF;margin: auto;margin-top :10px;border-radius: 20px;padding: 2px; box-shadow: 0px 0px 10px #888;" />
 }
 else
 {
-    <img id="targetImg" src="@UserManager.GetUserAsync(User).Result.ProfilePicture" class="img-circle" style="width:150px;height:100px;background: #FFFFFF;margin: auto;margin-top :10px;border-radius: 200px; padding: 2px; box-shadow: 0px 0px 10px #888;" />
+    <img id="targetImg" src="@UserManager.GetUserAsync(User).Result.ProfilePicture" class="img-rounded" style="width:120px;height:100px;background: #FFFFFF;margin: auto;border-radius: 20px;margin-top :10px; padding: 2px; box-shadow: 0px 0px 10px #888;" />
 
 }
 
@@ -32,9 +32,11 @@ else
                 </div>
             </div>  
         <br>
-        <div class="col-md-4">
-            <input type="file" id="imagebrow" />
-            
+        <label class="fileContainer">
+            Upload Photo!
+            <input type="file" name="file" id="imagebrow" />
+        </label>
+        <div class="col-md-4">            
             <div class="submit">
                 <button type="submit" id="btn-upload" class="btn btn-info">
                     Save
@@ -47,7 +49,6 @@ else
 
     @using (Html.BeginForm("Start", "Home"))
             {
-        <br>
         <div class="submit">
             <button type="submit" id="btn-upload" class="btn btn-info">
                 Cancel
