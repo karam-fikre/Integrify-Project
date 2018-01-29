@@ -11,47 +11,7 @@
     <script src="~/js/robot_main_jquery.js"></script>
 }
 
-@if (SignInManager.IsSignedIn(User))
-{
-    @*
-        <h3>Logged in Users List:</h3>
-        <h5>If you're not on position 1, please wait until your turn to access the robot</h5>
-        <table id="usersTable">
-            <tr>
-                <th><h4><b>Postion</b></h4></th>
-                <th><h4><b>Name</b></h4></th>
-                <th><h4><b>Email</b></h4></th>
-            </tr>
-            @{int dd = 0;
-            }
-            @foreach (var wList in ViewBag.WaitList)
-            {
-                dd++;
-                <tr>
-                    <td><h4>@dd   </h4></td>
-                    <td><h4>@UserManager.FindByEmailAsync(wList.Email).Result.FirstName</h4></td>
-                    <td><h4>@wList.Email</h4></td>
-                </tr>
 
-            }
-
-
-        </table> *@
-
-    <div class="row">
-        <h3 id="logoutWarn"></h3>
-        <p id="timerLog">@ViewBag.TimerLog</p>
-        
-        @if (ViewBag.WaitList[0].Email == ViewBag.Session)
-        {
-            <p>Success</p>
-        }
-        else
-        {
-        <p>Failure</p>
-        }
-    </div>
-}
 
 
 <div id="aboutID">
@@ -100,3 +60,23 @@
 </ul>
 </p>
     </div>
+
+
+@if (SignInManager.IsSignedIn(User))
+{
+
+
+    <div class="row">
+        <h3 id="logoutWarn"></h3>
+        <p id="timerLog">@ViewBag.TimerLog</p>
+
+        @if (ViewBag.WaitList[0].Email == ViewBag.Session)
+        {
+            <p>Success</p>
+        }
+        else
+        {
+            <p>Failure</p>
+        }
+    </div>
+}

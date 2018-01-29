@@ -57,22 +57,22 @@ var image = popCanvas.toDataURL("image/png").replace("image/png", "image/octet-s
 
 savePop.onclick = function () {
     modal.style.display = "none";
-   // window.location.href = image; // 
-//window.location = "/Gallery/Upload?file=" + image;
-$.ajax({
-    type: "POST",
-    url: '../../Robot/SaveSnapshot',
-    dataType: 'text',
-    data: { dataType: image },
-    success: function (result) { alert(result); }
-});
-
+    var img = document.createElement("img");
+    img.src = popCanvas.toDataURL();
+    $("#snaptest").prepend(img)
+    $.ajax({
+        type: "POST",
+        url: '../../Gallery/SaveSnapshot',
+        dataType: 'text',
+        data: { dataType: img.src },
+        success: function (result) { alert(result); }
+    });
 }
 
 window.onclick = function (event) {
     if (event.target === modal) {
         modal.style.display = "none";
-    }
+    
 };
 
 

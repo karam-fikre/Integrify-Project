@@ -17,6 +17,7 @@ namespace MBotRangerCore.Controllers
 {
     public class RobotController : Controller
     {
+        ConfirmViewModel rob = new ConfirmViewModel();
         public bool isViewPublic = false;
         public byte[] sendbuf;
 
@@ -52,8 +53,7 @@ namespace MBotRangerCore.Controllers
 
         }
 
-        ConfirmViewModel rob = new ConfirmViewModel();
-      
+            
 
         [HttpPost]
         public ActionResult SaveSnapshot()
@@ -81,7 +81,7 @@ namespace MBotRangerCore.Controllers
         public IActionResult Index(string submit, bool isPublic)
         {
             ViewBag.YouWait = waitListObj.GetWaitingTimeInSeconds(robotAppData.users);
-            ViewBag.NoOF_Users = (robotAppData.users.Count) - 2;
+            
 
             //Check if the user Logged in
             if (!User.Identity.IsAuthenticated)
@@ -101,7 +101,6 @@ namespace MBotRangerCore.Controllers
             {
                 rob.IsWaitingUser = true;
                 ViewBag.Public = (robotAppData.IsRobotVideoPublic) ? "Yes" : "No";
-               // ViewBag.YouWait = waitListObj.GetTimeDifference(robotAppData.users,robotAppData.users[1].LoggedInTime);
                 ViewBag.YouWait = waitListObj.GetWaitingTimeInSeconds(robotAppData.users);
             }
             //Only the main user can change from public to private or vise versa
@@ -117,6 +116,9 @@ namespace MBotRangerCore.Controllers
             //For instance, if there is only one user, the user should have access as long as he is not idle for too long for instance
             //Orginal          robotAppData.TimerForLogout = waitListObj.getLogoutTime(robotAppData.users.Count);
             //TEMP Edited the way to get the timeLogout temporary
+
+             
+            ViewBag.NoOF_Users = robotAppData.users.FindIndex(a => a.Email == loggedInUser);
             robotAppData.TimerForLogout = waitListObj.getLogoutTime(robotAppData.users, robotAppData.users.Count);
 
             ViewBag.TimerLog = robotAppData.TimerForLogout;

@@ -82,53 +82,55 @@ div[id="aboutID"]{
     padding: 10px;
 }
 
-table,tr {
+#waitingListTable {
     font-family: arial, sans-serif;
+   /* font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;*/
+    margin-left: 0px;
     border-collapse: collapse;
-    width:auto;
-    border:solid;
-    color:#000;
-    border-width:thin;
-    border-color:white;
-}
-
-td, th {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 60px;
-    color: #000;
-    border:hidden;
-    border-color: azure;
-}
-th[id="pID"] {
-    width: 30px;
-}
-
-#usersTable {
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
+    min-width: 250px;
     width: auto;
 }
 
-    #usersTable td, #usersTable th {
-        border: 1px solid #ddd;
+#waitingListTable h4 {
+        color: black;
+        font-size:14px;
+        text-align:center;
+}
+
+#waitingListTable h4[id="name"] {
+            color: black;
+            font-size: 14px;
+            margin-left: 5px;
+            text-align: left;
+}
+
+#waitingListTable td, #waitingListTable th {
+        border: 1px solid black;
+        width: 60px;
     }
 
-    #usersTable tr:nth-child(even) {
-        background-color: #f2f2f2;
-    }
+#waitingListTable td, #waitingListTable th[id="posId"] {
+        border: 1px solid black;
+        width: 20px;
+}
 
-    #usersTable tr:hover {
-        background-color: #ddd;
-    }
 
-    #usersTable th {
+#waitingListTable tr {
+        background-color: aliceblue;
+        border: solid;
+}
+    
+#waitingListTable tr:hover {
+        background-color: #000;
+}
+
+#waitingListTable th {
         padding-top: 12px;
         padding-bottom: 12px;
         text-align: left;
         background-color: #4CAF50;
-        color: white;
-    }
+}
+   
 
 div[id="homePageDiv"] {
     margin-top:50px;
@@ -138,16 +140,12 @@ div[id="homePageDiv"] {
 div[id="divLogged"] {
     position: static;
     height: 1300px;
+    min-width: 240px; /*added on 23 january*/
+    max-width: 250px; /*added on 23 january*/
     background-color: #000;
-  
 }
 
-#divLogged h4 {
-    font-size: smaller;
-    margin-left: 10px;
-color:white;
 
-}
 #divLogged tr:hover {
     background-color:darkslategray;
 }
@@ -156,7 +154,9 @@ div[id="innerDivLogged"] {
     margin-top: 180px;
     background-color: black;
     height: 400px;
-    width: 235px;
+    width:235px;
+    /*width: 100%; added on 23 january*/
+    margin-left: -30px;
 }
 
 #innerDivLogged h5 {

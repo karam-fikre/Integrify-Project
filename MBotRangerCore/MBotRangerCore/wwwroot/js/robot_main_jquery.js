@@ -1,7 +1,4 @@
-﻿
-
-
-//Button control options with Jquery
+﻿//Button control options with Jquery
 $('#forwardBtn').click(function () {
     RobotBtnOptions("1");   
 });
@@ -20,7 +17,6 @@ $('#stopBtn').click(function () {
     RobotBtnOptions("5");   
 });
 
-
 function RobotBtnOptions(_option) {
     var url = "/Robot/MoveRobotOption";
     $.post(url, { option: _option }, function (data) {
@@ -28,9 +24,7 @@ function RobotBtnOptions(_option) {
     });
 }
 
-
 //Arrow Options with Jquery
-
 document.onkeydown = function (e) {
     if (e.keyCode === 37)       // left
         KeyOptions("3");
@@ -56,12 +50,8 @@ document.onkeyup = function (e) {
     }    
 };
 
-
-
-
-
 /*
-//change the seconds into Hour:Minute:Seconds Format
+// change the seconds into Hour:Minute:Seconds Format
 // timeHours = parseInt(timerLogOut / 3600);
 var tempTimerLog = timerLogOut;
 var timeHours, timeMinutes, timeSeconds, timeAll;
@@ -149,6 +139,17 @@ setInterval(function () {
     $("#waitingListTable").load("/Home/About #waitingListTable");
 }, 5000);
 
+/*
+setInterval(function () {
+    $("#SecondsWait").load("/Robot/Index #SecondsWait");  
+}, 1000);
+*/
+/*
+setInterval(function () {
+
+    $("#logoutWarn").load("/Robot/Index #logoutWarn");
+}, 1000);*/
+
 
 
 
@@ -164,18 +165,8 @@ function getMyData() {
 
 
 
-$('button').click(function (e) {
-    $('#someID').data("key", "newValue").trigger('changeData');
-});
 
-$('#someID').on('changeData', function (e) {
-    alert('My Custom Event - Change Data Called! for ' + this.id);
-});
-
-
-
-
-
+///Bottom to be deleted
 
 
 var xx = "ffw";
