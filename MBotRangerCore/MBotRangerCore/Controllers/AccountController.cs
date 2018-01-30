@@ -141,20 +141,23 @@ namespace MBotRangerCore.Controllers
            
         }
 
-        private bool UserIsAlreadyLoggedIn (string newEmail)
+        //private bool UserIsAlreadyLoggedIn (string newEmail)
+        //{
+        //    foreach (var i in mBotAppVar.users)
+        //    {
+        //        if (newEmail.Equals(i.Email))
+        //            return true;
+        //    }
+        //    return false;
+        //}
+        private bool UserIsAlreadyLoggedIn(string newEmail)
         {
-            bool userExist = false;
-
-            foreach (var i in mBotAppVar.users)
-            {
-                if (newEmail.Equals(i.Email))
-                    userExist = true;
-            }
-            return userExist;
+            return mBotAppVar.users.Any(p => newEmail.Equals(p.Email));
+            
         }
 
-        // GET: Users/Register
-        [HttpGet]
+    // GET: Users/Register
+    [HttpGet]
         [AllowAnonymous]
         public IActionResult Register(string returnUrl = null)
         {

@@ -177,6 +177,7 @@ namespace MBotRangerCore.Controllers
                 IPAddress broadcast = IPAddress.Parse("195.198.161.214");
                 IPEndPoint ep = new IPEndPoint(broadcast, 80);
                 s.SendTo(sendbuf, ep);
+                s.Close();
             }
         }
 

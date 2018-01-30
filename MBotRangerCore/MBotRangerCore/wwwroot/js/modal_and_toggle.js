@@ -53,13 +53,15 @@ cancelPop.onclick = function () {
     modal.style.display = "none";
 };
 
+
+
 var image = popCanvas.toDataURL("image/png").replace("image/png", "image/octet-stream");  
 
 savePop.onclick = function () {
     modal.style.display = "none";
     var img = document.createElement("img");
     img.src = popCanvas.toDataURL();
-    $("#snaptest").prepend(img)
+    $("#snaptest").prepend(img);
     $.ajax({
         type: "POST",
         url: '../../Gallery/SaveSnapshot',
@@ -67,12 +69,11 @@ savePop.onclick = function () {
         data: { dataType: img.src },
         success: function (result) { alert(result); }
     });
-}
+};
 
 window.onclick = function (event) {
-    if (event.target === modal) {
-        modal.style.display = "none";
-    
+    if (event.target === modal) 
+        modal.style.display = "none";   
 };
 
 
@@ -83,18 +84,18 @@ var isPublic = false;
 
 private.onclick = function () {
     document.getElementById("public").style.backgroundColor = "black";
-    document.getElementById("public").style.color = "#262222"; 
-    document.getElementById("private").style.backgroundColor = "green"; 
+    document.getElementById("public").style.color = "#262222";
+    document.getElementById("private").style.backgroundColor = "green";
     document.getElementById("private").style.color = "white";
     isPublic = false;
     PublicPrivate(isPublic);
 };
 
 
-public.onclick = function () {    
-    document.getElementById("private").style.backgroundColor = "black"; 
-    document.getElementById("private").style.color = "#262222"; 
-    document.getElementById("public").style.backgroundColor = "green"; 
+public.onclick = function () {
+    document.getElementById("private").style.backgroundColor = "black";
+    document.getElementById("private").style.color = "#262222";
+    document.getElementById("public").style.backgroundColor = "green";
     document.getElementById("public").style.color = "white";
     isPublic = true;
     PublicPrivate(isPublic);
@@ -111,6 +112,5 @@ public.onclick = function () {
 function PublicPrivate(_isPublic) {
     var url = "/Robot/Index";
     $.post(url, { submit: "8", isPublic: _isPublic });
-  //  $("#ppp").load("/Robot/Index #privateDiv");
+    //  $("#ppp").load("/Robot/Index #privateDiv");
 }
-
