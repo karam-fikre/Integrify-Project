@@ -66,7 +66,7 @@ namespace XUnitMbot
         public void TestNotNullRobotIndex()
         {
             var robCon = new RobotController(null);
-            ViewResult result = robCon.Index("") as ViewResult;
+            ViewResult result = robCon.Index("",false) as ViewResult;
             Assert.NotNull(result);
         }
 
