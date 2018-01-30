@@ -8,7 +8,10 @@ var deleteImage = function (id) {
         url: '../../Gallery/DeleteSnapShot?id='+id,
         dataType: 'text',
         data: { dataType: data },
+        success: function () {
+            $("#picdiv").load("/Gallery/ImagesView #picdiv");
+        }
     });
 
-    $("#picdiv").load("/Gallery/ImagesView #picdiv");
+    
 }

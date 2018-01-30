@@ -19,12 +19,12 @@
                     <a target="_blank" href="@image.Url">
                         <img id="imgview" src="@image.Url"  width="300" height="200">
                     </a>
-                    <div class="desc">@image.Title</div>
+                    <div class="desc">Image taken by:@image.Title</div>
                 </div>
                 @if (image.Title == UserManager.GetUserAsync(User).Result.FirstName)
                 {
                     <div class="caption">
-                        <a href="#" onclick="deleteImage(@image.Id)" style=""><i class="glyphicon glyphicon-trash"></i></a>
+                        <a data="Delete Image" onclick="deleteImage(@image.Id)" id="deleteimage"><i class="glyphicon glyphicon-trash"></i></a>
                         <span id="description"></span>
                     </div>
 

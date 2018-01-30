@@ -24,6 +24,9 @@ namespace MBotRangerCore.Controllers
           
         }
 
+
+
+
         public IActionResult ImagesView()
         {
             if (!User.Identity.IsAuthenticated)
@@ -40,6 +43,9 @@ namespace MBotRangerCore.Controllers
             };
             return View(model);
         }
+
+
+
         
         [HttpPost]
         public async Task<IActionResult> SaveSnapshot()
@@ -76,6 +82,9 @@ namespace MBotRangerCore.Controllers
             delete = true;
             return Json(delete ? "Your Snapshot deleted from Gallery, ": "image not deleted");
         }
+
+
+
 
 
         private Task<ApplicationUser> GetCurrentUserAsync()

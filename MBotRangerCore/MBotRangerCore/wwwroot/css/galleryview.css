@@ -70,4 +70,23 @@ div[data]:hover:after {
     z-index: 2;
     border-radius: 5px;
     background-color: aliceblue;
+    cursor:pointer;
+}
+
+a[id="deleteimage"]:hover {
+    cursor: pointer;
+}
+
+a[data]:hover:after {
+    content: attr(data);
+    padding: 4px 8px;
+    color: rgba(0,0,0,0.5);
+    position: absolute;
+    left: auto;
+    top: auto;
+    white-space: nowrap;
+    z-index: 2;
+    border-radius: 5px;
+    background-color: aliceblue;
+    cursor: pointer;
 }
