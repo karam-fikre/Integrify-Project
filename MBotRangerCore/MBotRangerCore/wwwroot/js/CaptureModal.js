@@ -68,14 +68,14 @@ cancelPop.onclick = function () {
 var image = popCanvas.toDataURL("image/png").replace("image/png", "image/octet-stream");  // here is the most important part because if you dont replace you will get a DOM 18 exception.
 savePop.onclick = function () {
     modal.style.display = "none";
-    // window.location.href = image; // 
-    //window.location = "/Gallery/Upload?file=" + image;
-
+    var img = document.createElement("img");
+    img.src = popCanvas.toDataURL();
+    $("#snaptest").prepend(img)
     $.ajax({
         type: "POST",
-        url: '../../Robot/SaveSnapshot',
+        url: '../../Gallery/SaveSnapshot',
         dataType: 'text',
-        data: { dataType: image },
+        data: { dataType: img.src },
         success: function (result) { alert(result); }
     });
 }

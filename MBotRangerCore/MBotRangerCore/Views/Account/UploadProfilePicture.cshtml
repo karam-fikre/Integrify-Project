@@ -1,40 +1,64 @@
 ﻿@model MBotRangerCore.Models.ApplicationUser
-
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 @{
     ViewData["Title"] = "UploadProfilePicture";
 }
 
-<h2>Upload</h2>
-<form id="upload-form" asp-action="UploadProfilePicture" method="post" enctype="multipart/form-data">
+<script src="~/js/jquery-3.2.1.min.js"></script>
+<script src="~/js/uploadprofilepicture.js"></script>
+<link href="~/css/uploadprofilepicture.css" rel="stylesheet" />
+<h2>Upload Profile Picture</h2>
 
-    <div id="profpicdiv" class="profile-pic" style="background-image: url('/images/robot-kit-makeblock-mbot-ranger-1.jpg')">
+    <form id="upload-form" asp-action="UploadProfilePicture" method="post" enctype="multipart/form-data">
+        
 
-        <label class="profile-pic">
-            <span class="glyphicon glyphicon-camera"></span>
-            <span id="piclabel"><input id="uploadlink" class="profile-pic" type="file" name="file" style="display:none" />Change Image</span>
-        </label>
-    </div>
-
-
-
-    <div class="submit">
-        <button type="submit" id="btn-upload" class="btn btn-info">
-            Save
-        </button>
-    </div>
-
-
-
-</form>
-
-
-
-@using (Html.BeginForm("Index", "Robot"))
-            {
-<div class="submit">
-    <button type="submit" id="btn-upload" class="btn btn-info">
-        Skip
-    </button>
-</div>
+  <div id="imgPreview" class="img-rounded">
+@if (UserManager.GetUserAsync(User).Result.ProfilePicture == null)
+{
+   <img id="targetImg" src="http://res.cloudinary.com/dlxazvufc/image/upload/v1516628595/wckoji393ycargytgv11.png" class="img-rounded" style="width:120px;height:100px;background: #FFFFFF;margin: auto;margin-top :10px;border-radius: 20px;padding: 2px; box-shadow: 0px 0px 10px #888;" />
+}
+else
+{
+    <img id="targetImg" src="@UserManager.GetUserAsync(User).Result.ProfilePicture" class="img-rounded" style="width:120px;height:100px;background: #FFFFFF;margin: auto;border-radius: 20px;margin-top :10px; padding: 2px; box-shadow: 0px 0px 10px #888;" />
 
 }
+
+      <br>
+                <div class="caption">
+                    <a href="#" onclick="clearPreview()" id="cleardata" style="display:none"><i class="glyphicon glyphicon-trash"></i></a>
+                    <span id="description"></span>
+                </div>
+            </div>  
+        <br>
+        <label class="fileContainer">
+            Upload Photo!
+            <input type="file" name="file" id="imagebrow" />
+        </label>
+        <div class="col-md-4">            
+            <div class="submit">
+                <button type="submit" id="btn-upload" class="btn btn-info">
+                    Save
+                </button>
+            </div>
+        </div>
+        </form>
+
+
+
+    @using (Html.BeginForm("Start", "Home"))
+            {
+        <div class="submit">
+            <button type="submit" id="btn-upload" class="btn btn-info">
+                Cancel
+            </button>
+        </div>
+    }
+  
+
+
+
+
+
+

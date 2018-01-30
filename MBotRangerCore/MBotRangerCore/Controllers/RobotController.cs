@@ -19,13 +19,13 @@ namespace MBotRangerCore.Controllers
     {
         public bool isViewPublic = false;
         public byte[] sendbuf;
-
         MbotAppData robotAppData;
         WaitingUsers waitListObj = new WaitingUsers();
 
         public RobotController(MbotAppData robotAppData)
         {
             this.robotAppData = robotAppData;
+          
         }
 
         [HttpPost]
@@ -246,31 +246,6 @@ namespace MBotRangerCore.Controllers
 
 
 
-
-
-
-
-        [HttpPost]
-        public async Task<IActionResult> SaveSnapshot()
-        {
-            bool saved = false;
-           
-            string image = Request.Form["datatype"].ToString();
-            var base64Data = Regex.Match(image, @"data:image/(?<type>.+?),(?<data>.+)").Groups["data"].Value;
-            var binData = Convert.FromBase64String(base64Data);
-            // var data = Convert.FromBase64String(image);
-            var path = Path.GetTempFileName();
-            // var path = Path.Combine(, "snapshot.png");
-            //  var uploads = Path.Combine(_appEnv.WebRootPath, path);
-            using (var stream = new FileStream(path, FileMode.Create))
-            {
-              await binData.CopyToAsync(stream);
-            }
-            System.IO.File.WriteAllBytes(path, binData);
-            saved = true;
-
-
-            return Json(saved ? "image saved" : "image not saved");
-        }
+       
     }
 }
