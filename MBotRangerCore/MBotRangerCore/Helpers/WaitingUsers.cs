@@ -57,7 +57,7 @@ namespace MBotRangerCore.Helpers
                 DateTime assignTime = new DateTime(user1.Year,
                                                     user1.Month,
                                                     user1.Day,
-                                                    user1.Hour+10, 
+                                                    user1.Hour+5, 
                                                     user1.Minute,
                                                     user1.Second,
                                                     user1.Millisecond,

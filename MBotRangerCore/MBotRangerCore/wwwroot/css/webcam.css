@@ -13,7 +13,8 @@ video {
 
 
 div[id="controlButtons"] {
-    margin-top: 50px;
+    margin-top: 10%;
+    padding-left: 1px;
 }
 
 div[id="webcamButtons"] {
@@ -28,7 +29,7 @@ div[id="popupButtons"] {
     margin-top: 10px;
     border-left: 80px;
 }
-   
+
 
 input[type=submit] {
     clear: both;
@@ -36,7 +37,7 @@ input[type=submit] {
     margin-top: 5px;
     border-style: outset;
     font-size: 20px;
-    font-family:Arial;
+    font-family: 'Segoe UI', SegoeUI, "Helvetica Neue";
     border-radius: 15px;
     font-weight: bolder;
     background: #5d6222;

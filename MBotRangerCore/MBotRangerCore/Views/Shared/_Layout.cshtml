@@ -10,6 +10,7 @@
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
+  
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -19,19 +20,46 @@
     </environment>
 </head>
 <body>
-    <div id="divLogged" class="col-md-2">
-        <div style="position:fixed;" class="col-md-12">
-            <img style="margin-top:20px; margin-left:0px;" height="140" width="200" src="~/images/sample.gif" />
-            <p style="margin-top: 440px; color:aqua"></p>
-            <hr style="width:190px; margin-left:0px;">
-            @*<img style="margin-top:0px; margin-left:0px;" width="200" src="~/images/social.png" />*@
-            <a target="_blank" href="http://www.facebook.com"><img style="margin-top:0px; margin-left:20px;" width="50" src="~/images/facebook.png" /></a>
-            <a target="_blank" href="http://www.instagram.com"><img style="margin-top:0px; margin-left:0px;" width="50" src="~/images/instagram-circle-512.png" /></a>
-            <a target="_blank" href="http://www.integrifysweden.se"> <img style="margin-top:0px; margin-left:0px;" width="50" src="~/images/integrifyI.png" /></a>
+    <header class="navbar navbar-inverse navbar-fixed-top">
+        <nav>
+            <div class="container">
+
+                @await Html.PartialAsync("_LoginPartial")
+
+            </div>
+        </nav>
+    </header>
+    <div class="row">
+        <div id="divLogged" class="col-md-2">
+            <div class="sidebar-nav-fixed affix">
+                <img class="gifImage" src="~/images/sample.gif" />
+                <p class="spaceUp"></p>
+                <hr class="lineUpSocial">
+                <a target="_blank" href="http://www.facebook.com"><img class="SocialIcon1" width="50" src="~/images/facebook.png" /></a>
+                <a target="_blank" href="http://www.instagram.com"><img class="SocialIcon2" width="50" src="~/images/instagram-circle-512.png" /></a>
+                <a target="_blank" href="http://www.integrifysweden.se"> <img class="SocialIcon3" width="50" src="~/images/integrifyI.png" /></a>
+            </div>
         </div>
+
+            <div class="col-md-10">
+                <div class="jumbotron">
+                    @RenderBody()
+
+                </div>
+            </div>
+
+        <div class="container-fluid">
+
+            <footer>
+                <a href="https://integrifysweden.se/"> <img width="40" src="~/images/Integrify_logo.png" style="fill: #fff;" /></a>
+                <p>&copy; 2017 Integrify Sweden AB.</p>
+            </footer>
+        </div>
+        </div>
+
         @if (SignInManager.IsSignedIn(User))
-        {
-            <div id="innerDivLogged" class="col-md-12">
+            {
+            <div id="innerDivLogged" class="col-md-10">
                 <h4 style="font-size:larger;"><b>LOGGED IN USERS:</b></h4>
                 @*  <ul>
                         @{int dd = 0;
@@ -54,8 +82,8 @@
                     @{int dd = 0;}
 
                     @foreach (var wList in ViewBag.WaitList)
-                       {
-                    dd++;
+                    {
+                        dd++;
                         <tr>
                             <td><h4>@dd   </h4></td>
                             <td><h4>@UserManager.FindByEmailAsync(wList.Email).Result.FirstName</h4></td>
@@ -65,27 +93,9 @@
                     }
                 </table>
             </div>
-}
-    </div>
-    
-    <div id="MainBody" class="col-md-10">
-        <nav class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                                
-                @await Html.PartialAsync("_LoginPartial")
+                        }
 
-            </div>
-        </nav>
-        <div class="container body-content">
-            @RenderBody()
-
-            <hr id="bottomLine" />
-            <footer>
-                <a href="https://integrifysweden.se/"> <img width="40" src="~/images/Integrify_logo.png" style="fill: #fff;" /></a>
-                <p>&copy; 2017 Integrify Sweden AB.</p>
-            </footer>
-        </div>
-
+ 
         <environment include="Development">
             <script src="~/lib/jquery/dist/jquery.js"></script>
             <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
@@ -108,6 +118,6 @@
         </environment>
 
         @RenderSection("Scripts", required: false)
-    </div>
+
 </body>
 </html>

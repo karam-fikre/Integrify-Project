@@ -36,7 +36,7 @@
         @*The appropriate width and height should be 640 and 480 respectively
             canvas size on js file should be the same with cshtml file to avoid croping*@
         <div id="divVideo" class="col-md-8">
-            <video src="~/images/video.mp4" controls loop muted id="videoM" width="720" height="500" autoplay></video>
+            <video src="~/images/video.mp4" controls loop muted id="videoM" class="videoToShow" autoplay></video>
         </div>
 
         @*Robot controllers Button on the main page*@
@@ -130,7 +130,7 @@
 }
                             else if (@ViewBag.Public == "Yes")
                             {
-     <h1>You are Viewing the video as A guest!</h1>
+     <h1>You are Viewing the video as a guest!</h1>
     <div id="divVideoGuest" class="col-md-8">
         <video src="~/images/video.mp4" controls loop muted id="videoGuest" width="720" height="500" autoplay></video>
     </div>

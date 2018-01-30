@@ -11,94 +11,92 @@
 @section Scripts
     {
     <script src="~/js/Robot_JQuery.js"></script>
-<script src="~/js/HomePage.js"></script>
-}
+    <script src="~/js/HomePage.js"></script>
+    }
 
-<h2 class="header-text" style="text-align:center; font-family:Arial;">INTEGRIFY MBOT HOME</h2>
-@if (!SignInManager.IsSignedIn(User))
-{
-   @* <h5 style="margin-top:90px;">Until you get access to the robot, please watch the demo video down</h5>
-  *@
-}
-
-<div style="position:relative;" class="container">
-    <img style="position:absolute; top:100px; left: 800px" src="~/images/90092_01.png" width="400" class="rounded" />
-
-</div>
-<div style="color:aliceblue;" id="homePageDiv" class="container">
-    @*<video src="~/images/video.mp4" controls loop muted id="videoM" width="720" height="500" autoplay></video>
-    *@
-    <h4 style="margin-top:40px; color:burlywood;">This project is done on Makeblock's Mbot ranger. For brief detail about the project, <br> please watch the video below</h4>
-        <iframe style="margin-top:50px;" width="720" height="480" src="https://www.youtube.com/embed/gjZpoBZywWg" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-    <div style="margin-top:40px;">
-    <div style="margin-top:40px;" class="row">
-
-        <h1>-------------------------------------------------------------------------------------------------</h1>
-    <div  class="col-md-3">
-        <a target="_blank" href="https://www.linkedin.com/in/ahed-abusharekh-b8751123/"><img width="50" src="~/images/linkedin.png" /></a>
-        <h4 id="author1" style="cursor:pointer;"><b>Ahed AbuSharekh</b></h4>   
-    </div>
-        
-        <div class="col-md-3">
-            <a target="_blank" href="https://www.linkedin.com/in/daneybm/"><img width="50" src="~/images/linkedin.png" /></a>
-            <h4 id="author2" style="cursor:pointer;"><b>Daniel Mekonnen</b></h4>
-        </div>
-        <div class="col-md-3">
-            <a target="_blank" href="https://www.linkedin.com/in/karam-aldulaimi-a84538150/"><img width="50" src="~/images/linkedin.png" /></a>
-            <h4 id="author3" style="cursor:pointer;"><b>Karam Aldulaimi</b></h4>
-
-        </div>
-        <div class="col-md-3">
-            <a target="_blank" href="https://www.linkedin.com/in/torbjorneinegren/"><img width="50" src="~/images/linkedin.png" /></a>
-            <h4 id="author4" style="cursor:pointer;"><b>Torbjörn Einegren</b></h4>
-        </div>
-        </div>
-        <div class="row">
-            <div  class="col-md-3">
-                <p id="detail1">This is detail about Ahed
-                <br><a target="_blank" href="mailto:daneymail@gmail.com">Contact Ahed</a>
-                </p>
-            </div>
-            <div class="col-md-3">
-                <p id="detail2">This is detail about Daniel
-                    <br><a target="_blank" href="mailto:daneymail@gmail.com">Contact Daniel</a>
-                </p>
-            </div>
-            <div class="col-md-3">
-                <p  id="detail3">This is detail about Karam
-                <br><a target="_blank" href="mailto:daneymail@gmail.com">Contact Karam</a>
-                </p>
-            </div>
-            <div  class="col-md-3">
-                <p id="detail4">This is detail about Torbjörn
-                <br><a target="_blank" href="mailto:daneymail@gmail.com">Contact Torbjörn</a>
-                </p>
-            </div>
-        </div>
-        </div>
-    
-    <div><p id="timerLog">@ViewBag.TimerLog</p></div>
-    <div><p id="heartBeat">T</p></div>
-    <div><p id="diff">D</p></div>
-    <div><p hidden id="logoutWarn">W</p></div>
-</div>
-
-@if (SignInManager.IsSignedIn(User))
-{
-    <div><h3 hidden id="logoutWarn"></h3></div>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            @await Html.PartialAsync("_LoginPartial")
+        <div style="color:aliceblue;" id="homePageDiv" class="col-md-7">
+            <h2 class="header-text" style="text-align:center; font-family:Arial;">INTEGRIFY MBOT HOME</h2>
+            @if (!SignInManager.IsSignedIn(User))
+            {
+                @* <h5 style="margin-top:90px;">Until you get access to the robot, please watch the demo video down</h5>
+                *@
+            }
             
+            <h4 style="color:burlywood;">This project is done on Makeblock's Mbot ranger. For brief detail about the project, please watch the video below.</h4>
+            <iframe class="videoToShow" src="https://www.youtube.com/embed/gjZpoBZywWg" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+
+            <div style="margin-top:40px;">
+                <div style="margin-top:40px;" class="row">
+
+                    <h1 class="lineUpSocialContact"></h1>
+                    <div class="col-md-3">
+                        <a target="_blank" href="https://www.linkedin.com/in/ahed-abusharekh-b8751123/"><img width="50" src="~/images/linkedin.png" /></a>
+                        <h4 id="author1" style="cursor:pointer;"><b>Ahed AbuSharekh</b></h4>
+                        <p id="detail1">
+                            This is detail about Ahed
+                            <br><a target="_blank" href="mailto:ahedali@gmail.com">Contact Ahed</a>
+                        </p>
+                    </div>
+
+                    <div class="col-md-3">
+                        <a target="_blank" href="https://www.linkedin.com/in/daneybm/"><img width="50" src="~/images/linkedin.png" /></a>
+                        <h4 id="author2" style="cursor:pointer;"><b>Daniel Mekonnen</b></h4>
+                        <p id="detail2">
+                            This is detail about Daniel
+                            <br><a target="_blank" href="mailto:daneymail@gmail.com">Contact Daniel</a>
+                        </p>
+                    </div>
+                    <div class="col-md-3">
+                        <a target="_blank" href="https://www.linkedin.com/in/karam-aldulaimi-a84538150/"><img width="50" src="~/images/linkedin.png" /></a>
+                        <h4 id="author3" style="cursor:pointer;"><b>Karam Aldulaimi</b></h4>
+                        <p id="detail3">
+                            This is detail about Karam
+                            <br><a target="_blank" href="mailto:daneymail@gmail.com">Contact Karam</a>
+                        </p>
+
+                    </div>
+                    <div class="col-md-3">
+                        <a target="_blank" href="https://www.linkedin.com/in/torbjorneinegren/"><img width="50" src="~/images/linkedin.png" /></a>
+                        <h4 id="author4" style="cursor:pointer;"><b>Torbjörn Einegren</b></h4>
+                        <p id="detail4">
+                            This is detail about Torbjörn
+                            <br><a target="_blank" href="mailto:daneymail@gmail.com">Contact Torbjörn</a>
+                        </p>
+                    </div>
+                </div>
+               
+            </div>
         </div>
-    </nav>
-   
-   
 
-}
+<div class="container col-md-3">
+    <img src="~/images/90092_01.png" class="robotPicture" />
 
-else
-{
+</div>
+        @*<div><p id="timerLog">@ViewBag.TimerLog</p></div>
+        <div><p id="heartBeat">T</p></div>
+        <div><p id="diff">D</p></div>
+        <div><p hidden id="logoutWarn">W</p></div>*@
+
+
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <div><h3 hidden id="logoutWarn"></h3></div>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                @await Html.PartialAsync("_LoginPartial")
+
+            </div>
+        </nav>
+
+
+
+
+
+    }
+
+    else
+    {
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <ul class="nav navbar-nav navbar-right">
@@ -107,4 +105,5 @@ else
                 </ul>
             </div>
         </nav>
-}
+    }
+
