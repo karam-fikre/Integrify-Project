@@ -16,7 +16,66 @@ hr[id="bottomLine"] {
    /* margin-top: 100px;*/
     margin-bottom: 10px;
 }
+
+
+.profile-pic {
+    border-radius: 50%;
+    height: 150px;
+    width: 150px;
+    background-size: cover;
+    background-position: center;
+    vertical-align: middle;
+    text-align: center;
+    color: transparent;
+    transition: all .3s ease;
+    text-decoration: none;
+}
+
+    .profile-pic:hover {
+        background-color: rgba(0,0,0,.5);
+        z-index: 10000;
+        color: #fff;
+        transition: all .3s ease;
+        text-decoration: none;
+    }
+
+
+
+
+.profile-pic span {
+    display: inline-block;
+    padding-top: 4.5em;
+    padding-bottom: 4.5em;
+}
+
+.gallery-content{
+
+    padding:24px;
+}
+
+
+.gallery-image{
     
+    background-size:cover;
+    background-repeat:no-repeat;
+    background-position:center;
+    height:150px;
+    width:150px;
+}
+
+.gallery-image-container {
+    padding: 8px;
+    background: #fff;
+    border-radius: 2px;
+    display: inline-block;
+    height: 170px;
+    width: 170px;
+    margin: 12px;
+    position: relative;
+    box-shadow: 0 10px 18px rgba(0,0,0,2),0 5px 5px rgba(0,0,0,2);
+}
+
+
 
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */

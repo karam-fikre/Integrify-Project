@@ -1,0 +1,47 @@
+.fileContainer {
+    overflow: hidden;
+    position: relative;
+}
+
+    .fileContainer [type=file] {
+        cursor: inherit;
+        display: block;
+        font-size: 999px;
+        filter: alpha(opacity=0);
+        min-height: 100%;
+        min-width: 100%;
+        opacity: 0;
+        position: absolute;
+        right: 0;
+        text-align: right;
+        top: 0;
+    }
+
+/* Example stylistic flourishes */
+
+.fileContainer {
+    background-color: #5bc0de;
+    border-radius: .5em;
+    float: left;
+    padding: .5em;
+}
+
+    .fileContainer [type=file] {
+        cursor: pointer;
+    }
+
+span[id="description"] {
+    text-align: center;
+    color: cadetblue;
+    font-weight: bold;
+}
+
+
+
+.caption {
+    margin-top: 3px;
+    border-radius: 10px;
+    background-color: aliceblue;
+    width: 180px;
+    padding:initial;
+}

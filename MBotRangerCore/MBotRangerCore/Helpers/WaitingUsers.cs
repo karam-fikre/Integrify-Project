@@ -46,7 +46,7 @@ namespace MBotRangerCore.Helpers
             return milliSecondsDiff;
         }
 
-        public int GetWaitingTimeInSeconds(List<LoginViewModel> users)
+   			 public int GetWaitingTimeInSeconds(List<LoginViewModel> users)
 
         {
             int seconds = 79999;

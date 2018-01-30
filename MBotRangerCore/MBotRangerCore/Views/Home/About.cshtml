@@ -11,8 +11,39 @@
     <script src="~/js/robot_main_jquery.js"></script>
 }
 
+@if (SignInManager.IsSignedIn(User))
+{
 
 
+    <div class="row">
+        <h3 id="logoutWarn"></h3>
+        <p id="timerLog">@ViewBag.TimerLog</p>
+
+        @if (ViewBag.WaitList[0].Email == ViewBag.Session)
+        {
+            <p>Success</p>
+        }
+        else
+        {
+            <p>Failure</p>
+        }
+    </div>
+}
+else
+{
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <ul class="nav navbar-nav navbar-left">
+            <li><a asp-area="" asp-controller="Home" asp-action="Start">Home</a></li>
+            <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a asp-area="" asp-controller="Account" asp-action="Login">Login</a></li>
+            <li><a asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>
+        </ul>
+    </div>
+</nav>
+}
 
 <div id="aboutID">
     <p id="aboutID">
@@ -33,7 +64,7 @@
 <ul>
     <li>Visual Studio 2017</li>
     <li>C#</li>
-    <li>C</li>
+    <li>C++</li>
     <li>.Net</li>
     <li>ASP.NET Core using MVC</li>
     <li>Razor</li>
@@ -62,21 +93,3 @@
     </div>
 
 
-@if (SignInManager.IsSignedIn(User))
-{
-
-
-    <div class="row">
-        <h3 id="logoutWarn"></h3>
-        <p id="timerLog">@ViewBag.TimerLog</p>
-
-        @if (ViewBag.WaitList[0].Email == ViewBag.Session)
-        {
-            <p>Success</p>
-        }
-        else
-        {
-            <p>Failure</p>
-        }
-    </div>
-}

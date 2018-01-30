@@ -43,13 +43,7 @@ namespace MBotRangerCore.Controllers
         //}
 
         public IActionResult About()
-        {
-            //Check if the user logged in
-            if (!User.Identity.IsAuthenticated)
-            {
-                return RedirectToAction(nameof(HomeController.Start), "Home");
-            }
-
+        {          
             ViewBag.WaitList = homeAppData.users;
             ViewBag.TimerLog = homeAppData.TimerForLogout;
             ViewBag.Session = HttpContext.Session.GetString("User");

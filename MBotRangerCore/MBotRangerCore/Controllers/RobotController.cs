@@ -13,6 +13,7 @@ using MBotRangerCore.Helpers;
 using System.IO;
 using System.Text.RegularExpressions;
 
+
 namespace MBotRangerCore.Controllers
 {
     public class RobotController : Controller
@@ -20,13 +21,13 @@ namespace MBotRangerCore.Controllers
         ConfirmViewModel rob = new ConfirmViewModel();
         public bool isViewPublic = false;
         public byte[] sendbuf;
-
         MbotAppData robotAppData;
         WaitingUsers waitListObj = new WaitingUsers();
 
         public RobotController(MbotAppData robotAppData)
         {
             this.robotAppData = robotAppData;
+          
         }
 
         [HttpPost]
@@ -45,36 +46,20 @@ namespace MBotRangerCore.Controllers
         {
             if (!string.IsNullOrEmpty(str))
             {
-                RobotArrows(str);
+			    RobotArrows(str);
                 AssignToArduino(str);
+
                 return str;
             }
             return "Unsuccesful";
 
         }
 
-            
-
-        [HttpPost]
-        public ActionResult SaveSnapshot()
-        {
-            ConstructorAssigner(robotAppData);
-            bool saved = false;
-
-            var image = Request.Form["datatype"];
-            var base64Data = Regex.Match(image, @"data:image/(?<type>.+?),(?<data>.+)").Groups["data"].Value;
-            var binData = Convert.FromBase64String(base64Data);
-            // var data = Convert.FromBase64String(image);
-            var path = Path.GetTempFileName();
-            // var path = Path.Combine(, "snapshot.png");
-            //  var uploads = Path.Combine(_appEnv.WebRootPath, path);
-
-            System.IO.File.WriteAllBytes(path, binData);
-            saved = true;
 
 
-            return Json(saved ? "image saved" : "image not saved");
-        }
+
+        ConfirmViewModel rob = new ConfirmViewModel();
+   
 
 
         [SessionTimeOut(1)]
@@ -89,18 +74,19 @@ namespace MBotRangerCore.Controllers
                 return RedirectToAction(nameof(HomeController.Start), "Home");
             }
 
-            ViewBag.Public = "No";             
-            string loggedInUser      = HttpContext.Session.GetString("User");
-            string mainUser          = robotAppData.CurrentUser; //The user who has the access to control the robot
-            bool isUserSameAsCurrent = !String.IsNullOrEmpty(loggedInUser) && 
+            ViewBag.Public = "No";
+            string loggedInUser = HttpContext.Session.GetString("User");
+            string mainUser = robotAppData.CurrentUser; //The user who has the access to control the robot
+            bool isUserSameAsCurrent = !String.IsNullOrEmpty(loggedInUser) &&
                                        !String.IsNullOrEmpty(mainUser) &&
                                        loggedInUser.Equals(mainUser);
-            
+
             //The user is not main user.
             if (!isUserSameAsCurrent)
             {
                 rob.IsWaitingUser = true;
                 ViewBag.Public = (robotAppData.IsRobotVideoPublic) ? "Yes" : "No";
+
                 ViewBag.YouWait = waitListObj.GetWaitingTimeInSeconds(robotAppData.users);
             }
             //Only the main user can change from public to private or vise versa
@@ -123,11 +109,14 @@ namespace MBotRangerCore.Controllers
 
             ViewBag.TimerLog = robotAppData.TimerForLogout;
             ViewBag.WaitList = robotAppData.users;
+
             AssignToArduino(submit);
            
             //ViewBag.Time = waitListObj.usersTime[robotAppData.users[0].ToString()];
             return View(rob);            
         
+
+
         }
 
         public void ConstructorAssigner(MbotAppData theAppData)
@@ -154,7 +143,7 @@ namespace MBotRangerCore.Controllers
             return View();
         }
 
-       
+
         public IActionResult Mouse(string submit)
         {
             //Check if the user Logged in
@@ -198,7 +187,10 @@ namespace MBotRangerCore.Controllers
         }
 
 
+
 #region XUnit-Methods
+
+
 
         public bool ForXUnit()
         {
@@ -219,6 +211,8 @@ namespace MBotRangerCore.Controllers
             return null;
         }
 
-#endregion
+        #endregion
+
+       
     }
 }

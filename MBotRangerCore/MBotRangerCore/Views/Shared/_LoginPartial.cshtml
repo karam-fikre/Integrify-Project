@@ -1,6 +1,5 @@
 @using Microsoft.AspNetCore.Identity
 @using MBotRangerCore.Models
-@model MBotRangerCore.Models.ConfirmViewModel
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
@@ -27,6 +26,8 @@
            @* <li><a asp-area="" asp-controller="Robot" asp-action="RobotArrows">Robot Arrows</a></li>
              <li><a asp-area="" asp-controller="Robot" asp-action="Mouse">Mouse Control</a></li>
              <li><a asp-area="" asp-controller="MobileCam" asp-action="Index">Mobile Camera</a></li>*@
+
+            <li><a asp-area="" asp-controller="Gallery" asp-action="ImagesView" class="navbar-brand"><b>GALLERY</b></a></li>   
              <li><a asp-area="" asp-controller="Home" asp-action="About" class="navbar-brand"><b>ABOUT</b></a></li>       
             @*<li><a asp-area="" asp-controller="Home" asp-action="Contact">About</a></li>*@
         </ul>
@@ -34,6 +35,34 @@
         
         <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="navbar-right">
             <ul class="nav navbar-nav navbar-right">
+               @if (UserManager.GetUserAsync(User).Result.ProfilePicture == null)
+               {
+                <li>
+                    <img alt="image" usemap="GoTo" src="http://res.cloudinary.com/dlxazvufc/image/upload/v1516628595/wckoji393ycargytgv11.png" class="img-rounded"
+                         style="width:120px;height:100px;
+            height:auto;
+            background: #FFFFFF;
+            margin: auto;
+            margin-top :10px;
+            border-radius:10px;
+            padding: 2px;
+            box-shadow: 0px 0px 10px #888;" />
+                </li>
+               }
+               else
+               {
+                <li>
+                    <img alt="image" usemap="GoTo" src="@UserManager.GetUserAsync(User).Result.ProfilePicture" class="img-rounded"
+                         style="width:50px;height:40px;
+            height:auto;
+            background: #FFFFFF;
+            margin: auto;
+            margin-top :10px;
+            border-radius:10px;
+            padding: 2px;
+            box-shadow: 0px 0px 10px #888;" />
+                </li>
+               }
                 <li>
                     <a asp-area="" asp-controller="Account" asp-action="Index">Hello @UserManager.GetUserAsync(User).Result.FirstName !</a>
                 </li>
@@ -47,3 +76,6 @@
     </div>
 }
 
+<map name="GoTo">
+    <area shape="default"  alt="GoTo" href="~/Account/UploadProfilePicture">
+</map>
