@@ -10,6 +10,9 @@ namespace MBotRangerCore.Models
     public class ApplicationUser : IdentityUser
     {
 
+   
+
+
         [Display(Name = "First Name")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "First name required")]
         public string FirstName { get; set; }
@@ -23,5 +26,9 @@ namespace MBotRangerCore.Models
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime DateOfBirth { get; set; }
+
+        [Display(Name = "Profile Picture")]
+        public string ProfilePicture { get; set; }
+
     }
 }

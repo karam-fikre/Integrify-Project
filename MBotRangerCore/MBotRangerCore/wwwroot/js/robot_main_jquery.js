@@ -1,7 +1,4 @@
-﻿
-
-
-//Button control options with Jquery
+﻿//Button control options with Jquery
 $('#forwardBtn').click(function () {
     RobotBtnOptions("1");   
 });
@@ -20,7 +17,6 @@ $('#stopBtn').click(function () {
     RobotBtnOptions("5");   
 });
 
-
 function RobotBtnOptions(_option) {
     var url = "/Robot/MoveRobotOption";
     $.post(url, { option: _option }, function (data) {
@@ -28,40 +24,43 @@ function RobotBtnOptions(_option) {
     });
 }
 
-
-//Arrow Options with Jquery
-
+//WASD keys as arrow Options with Jquery
 document.onkeydown = function (e) {
-    if (e.keyCode === 37)       // left
-        KeyOptions("3");
-    else if (e.keyCode === 38)  // forward
+    if (e.keyCode === 65)        // Key 'A' to move left
+        KeyOptions("3"); 
+    else if (e.keyCode === 87)  // Key 'W' to move forward
         KeyOptions("1");
-    else if (e.keyCode === 39) //right
-        KeyOptions("4"); 
-    else if (e.keyCode === 40) //back
-        KeyOptions("2"); 
+    else if (e.keyCode === 68)  //Key 'D' to move right
+        KeyOptions("4");
+    else if (e.keyCode === 83) //Key 'S' to move backward
+        KeyOptions("2");   
 };
-
-function KeyOptions(_option) {
-    var url = "/Robot/MoveRobotArrowsOption";
-    $.post(url, { str: _option }, function (data) {
-        $("#msg2").html(data);
-    });
-}
-
-document.onkeyup = function (e) {
-    if (e.keyCode === 37 || e.keyCode === 38 || e.keyCode === 39 || e.keyCode === 40) 
-    {
-        KeyOptions("5"); //Stop
-    }    
-};
-
-
-
-
 
 /*
-//change the seconds into Hour:Minute:Seconds Format
+    When button is kept pressed(keydown), it only sends value once to contoller.
+    Variable tempString is used to check if there is a change in the
+    keydown/up calls and it make sure only excute KeyOptions function
+    once until a change.
+*/
+var tempString = "";
+function KeyOptions(_option) {
+    if (tempString != _option) {
+        tempString = _option;
+        var url = "/Robot/MoveRobotArrowsOption";
+        $.post(url, { str: _option }, function (data) {
+            $("#msg2").html(data);
+        });
+    }    
+}
+
+
+document.onkeyup = function (e) {
+    if (e.keyCode === 65 || e.keyCode === 68 || e.keyCode === 87 || e.keyCode === 83) 
+        KeyOptions("5", 5); //Stop     
+};
+
+/*
+// change the seconds into Hour:Minute:Seconds Format
 // timeHours = parseInt(timerLogOut / 3600);
 var tempTimerLog = timerLogOut;
 var timeHours, timeMinutes, timeSeconds, timeAll;
@@ -72,8 +71,11 @@ timeSeconds = tempTimerLog % 60;
 var warnSecondsw2 = timeHours + " " + timeMinutes + " " + timeSeconds;
 */
 var temptime = document.getElementById("SecondsWait").innerHTML;
-var timerLogOut = temptime*1000;
-var intialWarn = 5000;
+var timerLogOut = temptime * 1000;
+if (timerLogOut > 700000)
+    var intialWarn = 15000;
+else
+    var intialWarn = 1000;
 var warnSeconds = (timerLogOut - intialWarn) / 1000;
 
 //Inactivity logging out and and take away Robot access from first user
@@ -84,7 +86,11 @@ var warnSeconds = (timerLogOut - intialWarn) / 1000;
 var interSeconds = warnSeconds;
 var logOutMsg;
 
-function idleLogout() {
+
+// The following function log out the user automatically with two conditions;
+// 1. Used the robot page for maximum time
+// 2. Another user logs in and is waiting to access the robot page
+function autoLogout() {
     var timeIdle;
     var warnTime;
     if (timerLogOut > 700000) {
@@ -94,7 +100,8 @@ function idleLogout() {
         window.onclick = resetTimer;
         window.onscroll = resetTimer;
         window.onkeypress = resetTimer;
-        logOutMsg = "You have been away for " + intialWarn/1000 + " seconds and you will be log out in ";
+       // logOutMsg = "You have been away for " + intialWarn / 1000 + " seconds and you will be log out in ";
+        logOutMsg = "You used the maximum time, your session will end in ";
     }
     else
     {
@@ -108,9 +115,9 @@ function idleLogout() {
         var loggedOutEmail = document.getElementById("loggedUser").value;       
         window.location = '/Account/Logout?loggedOutEmail=' + loggedOutEmail;
     }
-    var her; 
+    var varForSetInterval; 
     function warn() {        
-        her = setInterval(function () {            
+        varForSetInterval = setInterval(function () {            
             document.getElementById("logoutWarn").innerHTML = logOutMsg + interSeconds + " seconds";
           //  document.getElementById("GuestWaitTime").innerHTML = interSeconds + " seconds";
             //$("#logoutWarn").clone().appendTo("#logoutWarn");
@@ -119,7 +126,7 @@ function idleLogout() {
             if (interSeconds === 0)
             {
                 document.getElementById("logoutWarn").innerHTML = "Bye";
-                clearInterval(her);
+                clearInterval(varForSetInterval);
             }
         }, 1000);
       //  document.getElementById("logoutWarn").innerHTML = logOutMsg + warnSeconds + " seconds";
@@ -129,7 +136,7 @@ function idleLogout() {
 
     function resetTimer() {
         document.getElementById("logoutWarn").innerHTML = "";
-        clearInterval(her);
+        clearInterval(varForSetInterval);
         interSeconds = warnSeconds;
         clearTimeout(timeIdle);
         clearTimeout(warnTime);
@@ -137,13 +144,24 @@ function idleLogout() {
         timeIdle = setTimeout(logout, timerLogOut);  // time is in milliseconds
     }
 }
-idleLogout();
+autoLogout();
 
 
 
 setInterval(function () {
     $("#waitingListTable").load("/Home/About #waitingListTable");
 }, 5000);
+
+/*
+setInterval(function () {
+    $("#SecondsWait").load("/Robot/Index #SecondsWait");  
+}, 1000);
+*/
+/*
+setInterval(function () {
+
+    $("#logoutWarn").load("/Robot/Index #logoutWarn");
+}, 1000);*/
 
 
 
@@ -160,18 +178,8 @@ function getMyData() {
 
 
 
-$('button').click(function (e) {
-    $('#someID').data("key", "newValue").trigger('changeData');
-});
 
-$('#someID').on('changeData', function (e) {
-    alert('My Custom Event - Change Data Called! for ' + this.id);
-});
-
-
-
-
-
+///Bottom to be deleted
 
 
 var xx = "ffw";

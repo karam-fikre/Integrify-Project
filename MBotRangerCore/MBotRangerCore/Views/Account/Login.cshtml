@@ -13,17 +13,17 @@
 <h2>@ViewData["Title"]</h2>
 
 
-@if (0.Equals(ViewData["HowMany"]))
+@if (0.Equals(ViewData["UserLoggedInNumber"]))
 {
 	<h5><b>No</b> users are logged in right now</h5>
 }
-else if (1.Equals(ViewData["HowMany"]))
+else if (1.Equals(ViewData["UserLoggedInNumber"]))
 {
 	<h5><b>One</b> user is logged in right now</h5>
 }
 else
 {
-	<h5><b>@ViewData["HowMany"]</b> users are logged in right now</h5>
+	<h5><b>@ViewData["UserLoggedInNumber"]</b> users are logged in right now</h5>
 }
 <div class="row">
 	<div class="col-md-7">
@@ -49,11 +49,12 @@ else
 						</label>
 					</div>
 				</div>
-				<div class="form-group">
-					<button id="logInID" type="submit" class="btn btn-default">Log in</button>
+                
+				<div class="submit">
+					<button id="logInID" type="submit" class="btn btn-info">Log in</button>
 				</div>
 				<div class="form-group">
-
+                    <br />
 					<p>
 						<a asp-action="ForgotPassword" asp-route-returnurl="@ViewData["ReturnUrl"]">Forogt Password?</a>
 					</p>
@@ -68,7 +69,7 @@ else
 
 
 @section Scripts {
-	<script src="~/js/Robot_JQuery.js"></script>
+	<script src="~/js/robot_main_jquery.js"></script>
 	@await Html.PartialAsync("_ValidationScriptsPartial")
 
 }

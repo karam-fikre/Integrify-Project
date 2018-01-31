@@ -10,7 +10,6 @@
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
-  
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -73,29 +72,37 @@
 
                         }
                     </ul>*@
-                <table id="waitingListTable">
-                    <tr>
-                        <th id="pID"><h4><b>Pos</b></h4></th>
-                        <th><h4><b>Name</b></h4></th>
-                        <th><h4><b>Logged Time</b></h4></th>
-                    </tr>
-                    @{int dd = 0;}
-
-                    @foreach (var wList in ViewBag.WaitList)
-                    {
-                        dd++;
+               <table id="waitingListTable">
+                   
+                        
                         <tr>
-                            <td><h4>@dd   </h4></td>
-                            <td><h4>@UserManager.FindByEmailAsync(wList.Email).Result.FirstName</h4></td>
-                            <td><h4>@wList.LoggedInTime</h4></td>
+                            <th id="posId"><h4><b>Pos</b></h4></th>
+                            <th><h4><b>Name</b></h4></th>
+                            <th><h4><b>Logged Time</b></h4></th>
                         </tr>
+                        @{int dd = 0;}
 
-                    }
-                </table>
+                        @foreach (var wList in ViewBag.WaitList)
+                        {
+                            dd++;
+                            <tr>
+                               <td><h4>@dd   </h4></td>
+                                <td><h4 id="name">@UserManager.FindByEmailAsync(wList.Email).Result.FirstName</h4></td>
+                                <td><h4>@wList.LoggedInTime</h4></td>
+                            </tr>
+
+                        }
+                    </table>
             </div>
                         }
 
- 
+            <hr id="bottomLine" />
+            <footer>
+                <a href="https://integrifysweden.se/"> <img width="40" src="~/images/Integrify_logo.png" style="fill: #fff;" /></a>
+                <p>&copy; 2017 Integrify Sweden AB.</p>
+            </footer>
+        </div>
+
         <environment include="Development">
             <script src="~/lib/jquery/dist/jquery.js"></script>
             <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>

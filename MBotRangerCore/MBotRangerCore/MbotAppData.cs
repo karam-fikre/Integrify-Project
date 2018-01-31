@@ -17,6 +17,9 @@ namespace MBotRangerCore
         public bool LoginType { get; set; } = false;   //Guest or logged in Mode
         public List<LoginViewModel> users = new List<LoginViewModel>();
         public string CurrentUser { get; set; }
+        public string Distance { get; set; }
+
+
         public int TimerForLogout { get; set; } = 1500055000;
         public bool IsRobotVideoPublic { get; set; } = false;
     }

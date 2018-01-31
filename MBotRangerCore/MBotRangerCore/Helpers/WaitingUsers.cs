@@ -46,26 +46,30 @@ namespace MBotRangerCore.Helpers
             return milliSecondsDiff;
         }
 
-        public int GetWaitingTimeInSeconds(List<LoginViewModel> users)
+   			 public int GetWaitingTimeInSeconds(List<LoginViewModel> users)
 
         {
             int seconds = 79999;
             if (users.Count == 1)
             {
+               
                 DateTime user1 = users[0].LoggedInTime;
                 //If only one user is active, assign 10 hours
-                DateTime assignTime = new DateTime(user1.Year,
+                user1 = user1.AddHours(10);              
+               
+                DateTime assignTime = new DateTime( user1.Year,
                                                     user1.Month,
                                                     user1.Day,
-                                                    user1.Hour+5, 
+                                                    user1.Hour , 
                                                     user1.Minute,
                                                     user1.Second,
                                                     user1.Millisecond,
                                                     DateTimeKind.Local);
 
-                DateTime dtNow = DateTime.Now;
 
-                TimeSpan result = assignTime.Subtract(dtNow);
+                DateTime dt2Now = DateTime.Now;
+
+                TimeSpan result = assignTime.Subtract(dt2Now);
 
                 seconds = Convert.ToInt32(result.TotalSeconds);
                 if (seconds <= 0)
@@ -75,11 +79,14 @@ namespace MBotRangerCore.Helpers
             {
                 DateTime user2 = users[1].LoggedInTime;
                 //if there are more than one user, assign 5 minutes from the second user signed in
+                //user2 = user2.AddMinutes(5);
+               user2 = user2.AddSeconds(15);
+                
                 DateTime assignTime = new DateTime( user2.Year,
                                                     user2.Month,
                                                     user2.Day,
                                                     user2.Hour,
-                                                    user2.Minute + 1,
+                                                    user2.Minute,
                                                     user2.Second,
                                                     user2.Millisecond, 
                                                     DateTimeKind.Local);

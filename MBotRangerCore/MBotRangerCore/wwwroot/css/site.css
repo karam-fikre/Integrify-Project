@@ -17,7 +17,66 @@ hr[id="bottomLine"] {
    /* margin-top: 100px;*/
     margin-bottom: 10px;
 }
+
+
+.profile-pic {
+    border-radius: 50%;
+    height: 150px;
+    width: 150px;
+    background-size: cover;
+    background-position: center;
+    vertical-align: middle;
+    text-align: center;
+    color: transparent;
+    transition: all .3s ease;
+    text-decoration: none;
+}
+
+    .profile-pic:hover {
+        background-color: rgba(0,0,0,.5);
+        z-index: 10000;
+        color: #fff;
+        transition: all .3s ease;
+        text-decoration: none;
+    }
+
+
+
+
+.profile-pic span {
+    display: inline-block;
+    padding-top: 4.5em;
+    padding-bottom: 4.5em;
+}
+
+.gallery-content{
+
+    padding:24px;
+}
+
+
+.gallery-image{
     
+    background-size:cover;
+    background-repeat:no-repeat;
+    background-position:center;
+    height:150px;
+    width:150px;
+}
+
+.gallery-image-container {
+    padding: 8px;
+    background: #fff;
+    border-radius: 2px;
+    display: inline-block;
+    height: 170px;
+    width: 170px;
+    margin: 12px;
+    position: relative;
+    box-shadow: 0 10px 18px rgba(0,0,0,2),0 5px 5px rgba(0,0,0,2);
+}
+
+
 
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
@@ -76,6 +135,26 @@ div[id="aboutID"]{
     -webkit-text-stroke-color: black;
     padding: 10px;
 }
+#waitingListTable {
+    font-family: arial, sans-serif;
+    /* font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;*/
+    margin-left: 0px;
+    border-collapse: collapse;
+    min-width: 250px;
+    width: auto;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 table, tr {
     font-family: 'Segoe UI', SegoeUI, "Helvetica Neue";
@@ -95,35 +174,58 @@ td, th {
     border: hidden;
     border-color: azure;
 }
-th[id="pID"] {
-    width: 30px;
+
+#waitingListTable h4 {
+    color: black;
+    font-size: 14px;
+    text-align: center;
 }
+
+#waitingListTable h4[id="name"] {
+            color: black;
+            font-size: 14px;
+            margin-left: 5px;
+            text-align: left;
+}
+
+
+
+
+
+
 
 #usersTable {
     font-family: 'Segoe UI', SegoeUI, "Helvetica Neue";
     border-collapse: collapse;
     width: auto;
 }
-
-    #usersTable td, #usersTable th {
-        border: 1px solid #ddd;
+#waitingListTable td, #waitingListTable th {
+        border: 1px solid black;
+        width: 60px;
     }
 
-    #usersTable tr:nth-child(even) {
-        background-color: #f2f2f2;
-    }
+#waitingListTable td, #waitingListTable th[id="posId"] {
+        border: 1px solid black;
+        width: 20px;
+}
 
-    #usersTable tr:hover {
-        background-color: #ddd;
-    }
 
-    #usersTable th {
+#waitingListTable tr {
+        background-color: aliceblue;
+        border: solid;
+}
+    
+#waitingListTable tr:hover {
+        background-color: #000;
+}
+
+#waitingListTable th {
         padding-top: 12px;
         padding-bottom: 12px;
         text-align: left;
         background-color: #4CAF50;
-        color: white;
-    }
+}
+   
 
 div[id="homePageDiv"] {
     margin-top:-65px;
@@ -133,8 +235,9 @@ div[id="homePageDiv"] {
 div[id="divLogged"] {
   
     height: 1300px;
+    min-width: 240px; /*added on 23 january*/
+    max-width: 250px; /*added on 23 january*/
     background-color: #000;
-  
 }
 
 #divLogged h4 {
@@ -151,7 +254,9 @@ div[id="innerDivLogged"] {
     margin-top: 180px;
     background-color: black;
     height: 400px;
-    width: 235px;
+    width:235px;
+    /*width: 100%; added on 23 january*/
+    margin-left: -30px;
 }
 
 #innerDivLogged h5 {

@@ -10,9 +10,9 @@
 
 @section Scripts
     {
-    <script src="~/js/Robot_JQuery.js"></script>
-    <script src="~/js/HomePage.js"></script>
-    }
+    <script src="~/js/robot_main_jquery.js"></script>
+<script src="~/js/start_page.js"></script>
+}
 
         <div style="color:aliceblue;" id="homePageDiv" class="col-md-7">
             <h2 class="header-text" style="text-align:center; font-family:Arial;">INTEGRIFY MBOT HOME</h2>
@@ -79,26 +79,26 @@
         <div><p hidden id="logoutWarn">W</p></div>*@
 
 
-    @if (SignInManager.IsSignedIn(User))
-    {
-        <div><h3 hidden id="logoutWarn"></h3></div>
-        <nav class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                @await Html.PartialAsync("_LoginPartial")
-
-            </div>
-        </nav>
-
-
-
-
-
-    }
+@if (SignInManager.IsSignedIn(User))
+{
+    <div><h3 hidden id="logoutWarn"></h3></div>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            @await Html.PartialAsync("_LoginPartial")
+            
+        </div>
+    </nav>
+   
+}
 
     else
     {
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
+                <ul class="nav navbar-nav navbar-left">
+                    <li><a asp-area="" asp-controller="Home" asp-action="Start"><b>Home</b></a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="About"><b>About</b></a></li>
+                </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a asp-area="" asp-controller="Account" asp-action="Login">Login</a></li>
                     <li><a asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>
