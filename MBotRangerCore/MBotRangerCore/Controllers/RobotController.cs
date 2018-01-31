@@ -55,12 +55,7 @@ namespace MBotRangerCore.Controllers
 
         }
 
-
-
-
-        ConfirmViewModel rob = new ConfirmViewModel();
-   
-
+        
 
         [SessionTimeOut(1)]
         public IActionResult Index(string submit, bool isPublic)
