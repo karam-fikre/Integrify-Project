@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using System.Text;
-using System.Net.Sockets;
-using System.Net;
+﻿using MBotRangerCore.Helpers;
 using MBotRangerCore.Models;
-using System.Diagnostics;
 using Microsoft.AspNetCore.Http;
-using MBotRangerCore.Helpers;
-using System.IO;
-using System.Text.RegularExpressions;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Diagnostics;
+using System.Net;
+using System.Net.Sockets;
+using System.Text;
 
 
 namespace MBotRangerCore.Controllers
