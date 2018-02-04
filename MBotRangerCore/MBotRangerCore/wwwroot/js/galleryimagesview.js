@@ -5,7 +5,7 @@ var deleteImage = function (id) {
     var data = document.getElementById("imgview").getAttribute('src');
     $.ajax({
         type: "POST",
-        url: '../../Gallery/DeleteSnapShot?id='+id,
+        url: '../../Gallery/DeleteSnapShot?id=' + id,
         dataType: 'text',
         data: { dataType: data },
         success: function () {
@@ -13,5 +13,5 @@ var deleteImage = function (id) {
         }
     });
 
-    
-}
+
+};

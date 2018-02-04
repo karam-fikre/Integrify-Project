@@ -15,19 +15,12 @@ var webcamStop = document.getElementById("stopM");
 
 // Get the webcam and start it
 webcamStart.addEventListener("click", function () {
-    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        // We can add `{ audio: true }` argument to access the audio
-        navigator.mediaDevices.getUserMedia({ video: true }).then(function (stream) {
-            video.src = window.URL.createObjectURL(stream);
-            localstream = stream;
-            video.play();
-        });
-    }
+            video.src = "http://192.168.1.81:8080/video";     
 });
 
 // Stop the Webcam
 webcamStop.addEventListener("click", function () {
-    vidOff();
+    video.src = "";
 });
 
 function vidOff() {
@@ -60,7 +53,6 @@ savePop.onclick = function () {
     modal.style.display = "none";
     var img = document.createElement("img");
     img.src = popCanvas.toDataURL();
-    $("#snaptest").prepend(img)
     $.ajax({
         type: "POST",
         url: '../../Gallery/SaveSnapshot',

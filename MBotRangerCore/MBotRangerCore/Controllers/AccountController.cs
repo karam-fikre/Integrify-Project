@@ -1,23 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using MBotRangerCore.Models;
-using WebApplication7;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Http;
-using MBotRangerCore;
-using MBotRangerCore.Services;
-using CloudinaryDotNet;
-using System.IO;
+﻿using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using MBotRangerCore.Helpers;
+using MBotRangerCore.Models;
+using MBotRangerCore.Services;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace MBotRangerCore.Controllers
 {
@@ -82,6 +78,10 @@ namespace MBotRangerCore.Controllers
             return View();
         }
 
+
+
+
+#region Login
         // GET: Users/Login        
         [HttpGet]
         [AllowAnonymous]
@@ -165,8 +165,15 @@ namespace MBotRangerCore.Controllers
             
         }
 
-    // GET: Users/Register
-    [HttpGet]
+
+
+
+        #endregion
+
+
+#region Register
+        // GET: Users/Register
+        [HttpGet]
         [AllowAnonymous]
         public IActionResult Register(string returnUrl = null)
         {
@@ -227,6 +234,13 @@ namespace MBotRangerCore.Controllers
         }
 
 
+
+
+
+        #endregion
+
+
+#region Logout
         public IActionResult LoseAccess(string loggedOutEmail)
         {
             LogoutHelper(loggedOutEmail);
@@ -289,7 +303,14 @@ namespace MBotRangerCore.Controllers
                 mBotAppVar.LoggedInCounter--;
             }
         }
-        
+
+
+
+        #endregion
+
+
+
+#region Forgot Password and Reset it
         // GET: Users/Forgot Password
         [HttpGet]
         [AllowAnonymous]
@@ -388,7 +409,13 @@ namespace MBotRangerCore.Controllers
             return View();
         }
 
-        
+
+
+#endregion
+
+
+
+ #region Profile Picture
         [HttpGet]
         public  IActionResult UploadProfilePicture()
         {
@@ -446,7 +473,13 @@ namespace MBotRangerCore.Controllers
            return _userManager.GetUserAsync(HttpContext.User);
         }
 
-        #region Helpers
+
+#endregion
+
+
+
+
+ #region Helpers
 
         private void AddErrors(IdentityResult result)
         {

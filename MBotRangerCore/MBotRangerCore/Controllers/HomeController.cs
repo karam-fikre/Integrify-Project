@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using MBotRangerCore.Models;
+﻿using MBotRangerCore.Models;
 using Microsoft.AspNetCore.Http;
-using System.Globalization;
+using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace MBotRangerCore.Controllers
 {
@@ -21,12 +16,18 @@ namespace MBotRangerCore.Controllers
             
         }
 
+
+
+
         public IActionResult Index()
         {
             ViewBag.WaitList = homeAppData.users;
             return View();
         }
         
+
+
+
         //The Start Page 
         public IActionResult Start()
         {
@@ -42,6 +43,9 @@ namespace MBotRangerCore.Controllers
         //    HttpContext.Session.SetInt32("Counter", 1);
         //}
 
+
+
+
         public IActionResult About()
         {          
             ViewBag.WaitList = homeAppData.users;
@@ -50,6 +54,9 @@ namespace MBotRangerCore.Controllers
             return View();
         }
         
+
+
+
         public IActionResult Contact()
         {
             //Check if the user Logged in
@@ -62,6 +69,9 @@ namespace MBotRangerCore.Controllers
             return View();      
         
         }
+
+
+
 
         public IActionResult Error()
         {
