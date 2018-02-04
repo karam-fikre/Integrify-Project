@@ -10,6 +10,7 @@ body {
     background-attachment: fixed;
     background-position: center;
     background-size: cover;
+    overflow-x: hidden;
 }
 
 hr[id="bottomLine"] {
@@ -90,11 +91,6 @@ hr[id="bottomLine"] {
     line-height: 1.4;
 }
 
-/* Make .svg files in the carousel display properly in older browsers */
-.carousel-inner .item img[src$=".svg"] {
-    width: 100%;
-}
-
 /* QR code generator */
 #qrCode {
     margin: 15px;
@@ -130,30 +126,59 @@ div[id="aboutID"]{
 }
 
 .header-text {
-    font-size: 50px;
+    font-size: 40px;
     font-weight: 700;
     color: white;
-    font-family:'Times New Roman';
+    font-family: 'Segoe UI', SegoeUI, "Helvetica Neue";
     text-shadow: 1px 1px 1px #000;
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: black;
-    position: absolute;
     padding: 10px;
 }
-
 #waitingListTable {
     font-family: arial, sans-serif;
-   /* font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;*/
+    /* font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;*/
     margin-left: 0px;
     border-collapse: collapse;
     min-width: 250px;
     width: auto;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+table, tr {
+    font-family: 'Segoe UI', SegoeUI, "Helvetica Neue";
+    border-collapse: collapse;
+    width: auto;
+    border: solid;
+    color: #000;
+    border-width: thin;
+    border-color: white;
+}
+
+td, th {
+    font-family: 'Segoe UI', SegoeUI, "Helvetica Neue";
+    border-collapse: collapse;
+    width: 60px;
+    color: #000;
+    border: hidden;
+    border-color: azure;
+}
+
 #waitingListTable h4 {
-        color: black;
-        font-size:14px;
-        text-align:center;
+    color: black;
+    font-size: 14px;
+    text-align: center;
 }
 
 #waitingListTable h4[id="name"] {
@@ -163,6 +188,17 @@ div[id="aboutID"]{
             text-align: left;
 }
 
+
+
+
+
+
+
+#usersTable {
+    font-family: 'Segoe UI', SegoeUI, "Helvetica Neue";
+    border-collapse: collapse;
+    width: auto;
+}
 #waitingListTable td, #waitingListTable th {
         border: 1px solid black;
         width: 60px;
@@ -192,19 +228,24 @@ div[id="aboutID"]{
    
 
 div[id="homePageDiv"] {
-    margin-top:50px;
+    margin-top:-65px;
 }
 
 
 div[id="divLogged"] {
-    position: static;
+  
     height: 1300px;
     min-width: 240px; /*added on 23 january*/
     max-width: 250px; /*added on 23 january*/
     background-color: #000;
 }
 
+#divLogged h4 {
+    font-size: smaller;
+    margin-left: 10px;
+color:white;
 
+}
 #divLogged tr:hover {
     background-color:darkslategray;
 }
@@ -224,5 +265,98 @@ div[id="innerDivLogged"] {
     margin-left:10px;
 }
 
+.gifImage {
+    margin-top: 20px;
+    margin-left: 0;
+    height: auto;
+    width: 15%;
+    position:fixed;
+}
+
+.robotPicture {
+    margin-left:30%;
+    margin-top:300px;
+    width:100%;
+    height:auto;
+}
+
+.spaceUp {
+    margin-top: 500px;
+    color: aqua
+}
+.lineUpSocial {
+    width: 190px;
+    margin-left: 0;
+}
+.SocialIcon1 {
+    margin-top: 0;
+    margin-left: 20px;
+}
+.SocialIcon2 .SocialIcon3 {
+    margin-top: 0;
+    margin-left: 0;
+}
 
 
+.jumbotron {
+    background-color: unset;
+    margin-top: 20px;
+}
+
+
+
+
+
+
+.videoToShow {
+    margin-top: 50px;
+    width:100%;
+    /*width:720px;*/
+    height:350px;
+    
+
+}
+
+footer a {
+    margin: 9px;
+}
+
+@media (max-width: 425px) {
+    div[id="divLogged"] {
+        height: unset;
+        display: none;
+    }
+
+    .gifImage {
+        display: none;
+    }
+    .jumbotron {
+        margin-top: 70px;
+    }
+
+}
+
+@media (max-width: 768px) {
+    div[id="divLogged"] {
+        height: unset;
+        display: none;
+    }
+    .gifImage {
+        display: none;
+    }
+    .jumbotron {
+        margin-top: 70px;
+    }
+
+    div[id="controlButtons"] {
+      
+        display: flex;
+        align-items: center;
+    }
+}
+
+.lineUpSocialContact {
+    border-bottom: 2px solid white;
+    margin-top:5px;
+    
+}

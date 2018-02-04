@@ -123,7 +123,7 @@ function autoLogout() {
             //$("#logoutWarn").clone().appendTo("#logoutWarn");
            
             interSeconds--;
-            if (interSeconds == 0)
+            if (interSeconds === 0)
             {
                 document.getElementById("logoutWarn").innerHTML = "Bye";
                 clearInterval(varForSetInterval);
