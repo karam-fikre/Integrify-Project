@@ -23,6 +23,7 @@ var ReadImage = function (file) {
             $("#targetImg").attr('src', _file.target.result);
             $("#description").text("Size" + size + ", " + height + "X" + width + "");
             $("#cleardata").show();
+            $("#btn-upload").prop('disabled', false);
         }
     }
 }
@@ -34,4 +35,5 @@ var clearPreview = function () {
         $("#imagebrow").val("");
         $("#description").text("");
         $("#imgPreview").load("/Account/UploadProfilePicture #imgPreview")
+        $("#btn-upload").prop('disabled', true);
 }
