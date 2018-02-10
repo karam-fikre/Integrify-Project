@@ -4,91 +4,91 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
-@{
-    ViewData["Title"] = "";
-}
-
 @section Scripts
     {
     <script src="~/js/robot_main_jquery.js"></script>
+<script src="~/js/main_user_logout_request.js"></script>
 <script src="~/js/start_page.js"></script>
+<link rel="stylesheet" href="~/css/start_page.css" />
+}
+<div id="mainHomeInfo">
+    <div id="div_homePageHeader">
+        <h2>MBOT RANGER WEB CONTROLLER</h2>
+    </div>
+    <div id="div_homePageInfo">
+        <h4>The project is done on Makeblock's Mbot ranger robot kit.</h4>
+     @*   <h4>For brief detail about the project, please watch the video below.</h4> *@
+    </div>
+</div>
+@if (!SignInManager.IsSignedIn(User))
+{
+   @* <h5 style="margin-top:90px;">Until you get access to the robot, please watch the demo video down</h5>
+  *@
 }
 
-        <div style="color:aliceblue;" id="homePageDiv" class="col-md-7">
-            <h2 class="header-text" style="text-align:center; font-family:Arial;">INTEGRIFY MBOT HOME</h2>
-            @if (!SignInManager.IsSignedIn(User))
-            {
-                @* <h5 style="margin-top:90px;">Until you get access to the robot, please watch the demo video down</h5>
-                *@
-            }
-            
-            <h4 style="color:burlywood;">This project is done on Makeblock's Mbot ranger. For brief detail about the project, please watch the video below.</h4>
-            <iframe class="videoToShow" src="https://www.youtube.com/embed/gjZpoBZywWg" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
-
-
-            <div style="margin-top:40px;">
-                <div style="margin-top:40px;" class="row">
-
-</div>
 <div style="color:aliceblue;" id="homePageDiv" class="container">
     @*<video src="~/images/video.mp4" controls loop muted id="videoM" width="720" height="500" autoplay></video>
     *@
-    <h4 style="margin-top:40px; color:burlywood;">This project is done on Makeblock's Mbot ranger. For brief detail about the project, <br> please watch the video below</h4>
-        <iframe  style="margin-top:50px; " width="720" height="480" src="https://www.youtube.com/embed/gjZpoBZywWg" frameborder="0" allow="encrypted-media" allowfullscreen></iframe>
-    <div style="margin-top:40px;">
-    <div style="margin-top:40px;" class="row">
+    
+    <iframe  style="margin-top:10px; margin-left:50px; " width="1020" height="480" src="https://www.youtube.com/embed/TcRxZk07E9c" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    <div id="div_authorInfo">
+    <div id="div_authorInfoInner" class="row">
+        <h1 id="textAuthor">Project Members</h1>
+        <h1 id="line">_________________________________________________________</h1>
+        <div  class="col-md-3">
+          <a target="_blank" href="https://www.linkedin.com/in/ahed-abusharekh-b8751123/"><img src="~/images/authors/Ahed.jpg" /></a>
+          <h4 id="author1"><b>Ahed AbuSharekh</b></h4>   
+        </div>
+        
+        <div class="col-md-3">
+            <a target="_blank" href="https://www.linkedin.com/in/daneybm/"><img src="~/images/authors/Daney.png" /></a>
+            <h4 id="author2"><b>Daniel Mekonnen</b></h4>
+        </div>
+        <div class="col-md-3">
+            <a target="_blank" href="https://www.linkedin.com/in/karam-aldulaimi-a84538150/"><img src="~/images/authors/Karam.jpg" /></a>
+            <h4 id="author3"><b>Karam Aldulaimi</b></h4>
 
-
-                    <h1 class="lineUpSocialContact"></h1>
-                    <div class="col-md-3">
-                        <a target="_blank" href="https://www.linkedin.com/in/ahed-abusharekh-b8751123/"><img width="50" src="~/images/linkedin.png" /></a>
-                        <h4 id="author1" style="cursor:pointer;"><b>Ahed AbuSharekh</b></h4>
-                        <p id="detail1">
-                            This is detail about Ahed
-                            <br><a target="_blank" href="mailto:ahedali@gmail.com">Contact Ahed</a>
-                        </p>
-                    </div>
-
-                    <div class="col-md-3">
-                        <a target="_blank" href="https://www.linkedin.com/in/daneybm/"><img width="50" src="~/images/linkedin.png" /></a>
-                        <h4 id="author2" style="cursor:pointer;"><b>Daniel Mekonnen</b></h4>
-                        <p id="detail2">
-                            This is detail about Daniel
-                            <br><a target="_blank" href="mailto:daneymail@gmail.com">Contact Daniel</a>
-                        </p>
-                    </div>
-                    <div class="col-md-3">
-                        <a target="_blank" href="https://www.linkedin.com/in/karam-aldulaimi-a84538150/"><img width="50" src="~/images/linkedin.png" /></a>
-                        <h4 id="author3" style="cursor:pointer;"><b>Karam Aldulaimi</b></h4>
-                        <p id="detail3">
-                            This is detail about Karam
-                            <br><a target="_blank" href="mailto:daneymail@gmail.com">Contact Karam</a>
-                        </p>
-
-                    </div>
-                    <div class="col-md-3">
-                        <a target="_blank" href="https://www.linkedin.com/in/torbjorneinegren/"><img width="50" src="~/images/linkedin.png" /></a>
-                        <h4 id="author4" style="cursor:pointer;"><b>Torbjörn Einegren</b></h4>
-                        <p id="detail4">
-                            This is detail about Torbjörn
-                            <br><a target="_blank" href="mailto:daneymail@gmail.com">Contact Torbjörn</a>
-                        </p>
-                    </div>
-                </div>
-               
+        </div>
+        <div class="col-md-3">
+            <a target="_blank" href="https://www.linkedin.com/in/torbjorneinegren/"><img src="~/images/authors/Tobis.jpg" /></a>
+            <h4 id="author4"><b>Torbjörn Einegren</b></h4>
+        </div>
+        </div>
+        <div class="row">
+            <div  class="col-md-3">
+                <p id="detail1">+46-729 245124
+                <br><a target="_blank" href="mailto:ahedali@gmail.com">ahedali@gmail.com</a>
+                    <br><a target="_blank" href="https://www.linkedin.com/in/ahed-abusharekh-b8751123/">Linkedin</a>
+                </p>
+            </div>
+            <div class="col-md-3">
+                <p id="detail2">+46-723 346129
+                    <br><a target="_blank" href="mailto:daneymail@gmail.com">daneymail@gmail.com</a>
+                    <br><a target="_blank" href="https://www.linkedin.com/in/daneybm/">Linkedin</a>
+                </p>
+            </div>
+            <div class="col-md-3">
+                <p  id="detail3">+46-722 888085
+                <br><a target="_blank" href="mailto:karamfikre@gmail.com">karamfikre@gmail.com</a>
+                    <br><a target="_blank" href="https://www.linkedin.com/in/karam-aldulaimi-a84538150/">Linkedin</a>
+                </p>
+            </div>
+            <div  class="col-md-3">
+                <p id="detail4">+46-706 517871
+                <br><a target="_blank" href="mailto:torbjorneinegren@hotmail.com">torbjorneinegren@hotmail.com</a>
+                    <br><a target="_blank" href="https://www.linkedin.com/in/torbjorneinegren/">Linkedin</a>
+                </p>
             </div>
         </div>
-
-<div class="container col-md-3">
-    <img src="~/images/90092_01.png" class="robotPicture" />
-
+        </div>
+    
+   @*
+    <div><p hidden id="heartBeat">T</p></div>
+    <div><p hidden id="diff">D</p></div>
+    <div><p hidden id="logoutWarn">W</p></div>
+*@
 </div>
-        @*<div><p id="timerLog">@ViewBag.TimerLog</p></div>
-        <div><p id="heartBeat">T</p></div>
-        <div><p id="diff">D</p></div>
-        <div><p hidden id="logoutWarn">W</p></div>*@
-
 
 @if (SignInManager.IsSignedIn(User))
 {
@@ -102,19 +102,18 @@
    
 }
 
-    else
-    {
+else
+{
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <ul class="nav navbar-nav navbar-left">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Start"><b>Home</b></a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About"><b>About</b></a></li>
+                    <li><a style="color:white" asp-area="" asp-controller="Home" asp-action="Start"><b>Home</b></a></li>
+                    <li><a style="color:white" asp-area="" asp-controller="Home" asp-action="About"><b>About</b></a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a asp-area="" asp-controller="Account" asp-action="Login">Login</a></li>
-                    <li><a asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>
+                    <li><a style="color:white" asp-area="" asp-controller="Account" asp-action="Login">Login</a></li>
+                    <li><a style="color:white" asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>
                 </ul>
             </div>
         </nav>
-    }
-
+}

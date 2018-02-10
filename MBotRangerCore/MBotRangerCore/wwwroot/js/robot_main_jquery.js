@@ -20,44 +20,9 @@ $('#stopBtn').click(function () {
 function RobotBtnOptions(_option) {
     var url = "/Robot/MoveRobotOption";
     $.post(url, { option: _option }, function (data) {
-        $("#msg").html(data);
+     //   $("#msg").html(data);
     });
 }
-
-//WASD keys as arrow Options with Jquery
-document.onkeydown = function (e) {
-    if (e.keyCode === 65)        // Key 'A' to move left
-        KeyOptions("3"); 
-    else if (e.keyCode === 87)  // Key 'W' to move forward
-        KeyOptions("1");
-    else if (e.keyCode === 68)  //Key 'D' to move right
-        KeyOptions("4");
-    else if (e.keyCode === 83) //Key 'S' to move backward
-        KeyOptions("2");   
-};
-
-/*
-    When button is kept pressed(keydown), it only sends value once to contoller.
-    Variable tempString is used to check if there is a change in the
-    keydown/up calls and it make sure only excute KeyOptions function
-    once until a change.
-*/
-var tempString = "";
-function KeyOptions(_option) {
-    if (tempString != _option) {
-        tempString = _option;
-        var url = "/Robot/MoveRobotArrowsOption";
-        $.post(url, { str: _option }, function (data) {
-            $("#msg2").html(data);
-        });
-    }    
-}
-
-
-document.onkeyup = function (e) {
-    if (e.keyCode === 65 || e.keyCode === 68 || e.keyCode === 87 || e.keyCode === 83) 
-        KeyOptions("5", 5); //Stop     
-};
 
 /*
 // change the seconds into Hour:Minute:Seconds Format
@@ -70,15 +35,17 @@ timeMinutes = Math.floor(tempTimerLog / 60);
 timeSeconds = tempTimerLog % 60;
 var warnSecondsw2 = timeHours + " " + timeMinutes + " " + timeSeconds;
 */
-var temptime = document.getElementById("SecondsWait").innerHTML;
+/*
+var temptime = document.getElementById("mainUserWaitSeconds").innerHTML;
 var timerLogOut = temptime * 1000;
+//When main user has maximum time to control the robot
 if (timerLogOut > 700000)
     var intialWarn = 15000;
+//When main user has limited time since there is someone else who would like to access robot page
 else
     var intialWarn = 1000;
 var warnSeconds = (timerLogOut - intialWarn) / 1000;
 
-//Inactivity logging out and and take away Robot access from first user
 
 //var timerLogOut = document.getElementById("timerLog").innerHTML;
 //var intialWarn = 5000;
@@ -152,9 +119,10 @@ setInterval(function () {
     $("#waitingListTable").load("/Home/About #waitingListTable");
 }, 5000);
 
+*/
 /*
 setInterval(function () {
-    $("#SecondsWait").load("/Robot/Index #SecondsWait");  
+    $("#mainUserWaitSeconds").load("/Robot/Index #mainUserWaitSeconds");
 }, 1000);
 */
 /*
@@ -166,29 +134,10 @@ setInterval(function () {
 
 
 
-/*
-setInterval(getMyData, 5000);
-
-function getMyData() {
-    $.post("/Robot/Index", { submit: "5" });
-
-}  */
 
 
 
 
-
-
-///Bottom to be deleted
-
-
-var xx = "ffw";
-window.onbeforeunload = function dd() {
-    // xx = xx + xx;
-    document.getElementById("unload").innerHTML = xx;
-
-
-};
 
 
 

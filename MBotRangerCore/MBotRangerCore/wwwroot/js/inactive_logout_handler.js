@@ -1,6 +1,10 @@
 ﻿//The time is in milliseconds
-var maxInactiveTime = 100000; //TODO change to large number in normal condition
-var warnAfterThisTime = 10000;
+//var warnAfterThisTime = (2 * 60 * 1000); // 2 Minutes for Idle time
+//var warnAfterThisTime = (20 * 1000); // 20 seconds for DEMO
+var warnAfterThisTime = (30 * 60 * 1000); // 30 Minutes for DEMO
+
+var maxInactiveTime = warnAfterThisTime + (10 * 1000); 
+var warnInMinutes = warnAfterThisTime / (60 * 1000);
 var remainingTime = (maxInactiveTime - warnAfterThisTime) / 1000; //Change milliseconds to seconds
 var intervalRemainingTime = remainingTime;
 
@@ -24,7 +28,7 @@ function inactiveLogout() {
     var var_interval;
     function warn() {
         var_interval = setInterval(function () {
-            document.getElementById("logoutWarnIDLE").innerHTML = "You have been inactive for " + warnAfterThisTime / 1000 + " seconds and you will be logged out in " + intervalRemainingTime + " seconds";
+            document.getElementById("logoutWarnIDLE").innerHTML = "You have been inactive for " + warnInMinutes + " minutes and you will be logged out in " + intervalRemainingTime + " seconds";
 
             intervalRemainingTime--;
             if (intervalRemainingTime < 1) {

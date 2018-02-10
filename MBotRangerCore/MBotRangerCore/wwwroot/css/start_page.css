@@ -1,0 +1,50 @@
+﻿#div_authorInfo {
+    margin-top:40px;
+}
+
+#div_authorInfo img {
+        width: 100px;
+        border-radius: 15px;
+        border-color: black;
+}
+
+
+#div_authorInfo h4 {
+    cursor:pointer;
+    color:#f1c1b1;
+}
+
+h1[id="textAuthor"] {
+       margin-top:40px;
+    }
+h1[id="line"]{
+        margin-top: 20px;
+}
+
+#mainHomeInfo {
+    margin-top:-20px;
+    margin-left:-45px;
+    width:100%;
+}
+#div_homePageHeader {
+    margin-top:70px;
+}
+#div_homePageHeader h2 {
+    text-align:center;
+    font-size:40px;
+    font-family:Arial;
+}
+
+#homePageDiv {
+    margin-top: 20px;
+}
+
+#div_homePageInfo{    
+    margin-top: 15px; 
+}
+
+#div_homePageInfo h4{
+    font-size: 20px;
+    color: white;
+    text-align:center;
+}

@@ -55,7 +55,8 @@ namespace MBotRangerCore.Helpers
                
                 DateTime user1 = users[0].LoggedInTime;
                 //If only one user is active, assign 10 hours
-                user1 = user1.AddHours(10);              
+                user1 = user1.AddHours(10);
+               
                
                 DateTime assignTime = new DateTime( user1.Year,
                                                     user1.Month,
@@ -79,9 +80,10 @@ namespace MBotRangerCore.Helpers
             {
                 DateTime user2 = users[1].LoggedInTime;
                 //if there are more than one user, assign 5 minutes from the second user signed in
-                //user2 = user2.AddMinutes(5);
-               user2 = user2.AddSeconds(15);
-                
+               // user2 = user2.AddMinutes(5);
+                user2 = user2.AddMinutes(59);
+                // user2 = user2.AddSeconds(25);
+
                 DateTime assignTime = new DateTime( user2.Year,
                                                     user2.Month,
                                                     user2.Day,

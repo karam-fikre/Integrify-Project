@@ -1,6 +1,4 @@
-﻿
-
-var deleteImage = function (id) {
+﻿var deleteImage = function (id) {
 
     var data = document.getElementById("imgview").getAttribute('src');
     $.ajax({

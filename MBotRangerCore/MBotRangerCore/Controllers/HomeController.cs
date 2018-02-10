@@ -31,7 +31,7 @@ namespace MBotRangerCore.Controllers
         //The Start Page 
         public IActionResult Start()
         {
-            ViewBag.TimerLog = homeAppData.TimerForLogout;
+          
             ViewBag.Type = homeAppData.LoginType;
             ViewBag.WaitList = homeAppData.users;
 
@@ -49,7 +49,6 @@ namespace MBotRangerCore.Controllers
         public IActionResult About()
         {          
             ViewBag.WaitList = homeAppData.users;
-            ViewBag.TimerLog = homeAppData.TimerForLogout;
             ViewBag.Session = HttpContext.Session.GetString("User");
             return View();
         }

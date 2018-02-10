@@ -13,8 +13,7 @@ video {
 
 
 div[id="controlButtons"] {
-    margin-top: 10%;
-    padding-left: 1px;
+    margin-top: 120px;
 }
 
 div[id="webcamButtons"] {
@@ -29,7 +28,7 @@ div[id="popupButtons"] {
     margin-top: 10px;
     border-left: 80px;
 }
-
+   
 
 input[type=submit] {
     clear: both;
@@ -37,7 +36,7 @@ input[type=submit] {
     margin-top: 5px;
     border-style: outset;
     font-size: 20px;
-    font-family: 'Segoe UI', SegoeUI, "Helvetica Neue";
+    font-family:Arial;
     border-radius: 15px;
     font-weight: bolder;
     background: #5d6222;
@@ -45,9 +44,25 @@ input[type=submit] {
     height: 60px;
     color: #000000;
 }
-input[type=submit]:hover {
-    opacity:0.7;
-}
+    input[type=submit]:hover:enabled {
+        opacity: 0.7;
+    }
+
+    input[type=submit]:disabled {
+        clear: both;
+        display: inline-block;
+        border-style: hidden;
+        cursor: no-drop;
+        margin-top: 5px;
+        font-size: 20px;
+        font-family: Arial;
+        border-radius: 15px;
+        font-weight: bold;
+        background: #888;
+        width: 115px;
+        height: 60px;
+        color: #000000;
+    }
     /* The Modal (background) */
     .modal {
         display: none; /* Hidden by default */

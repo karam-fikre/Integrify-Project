@@ -26,9 +26,10 @@ else
 	<h5><b>@ViewData["UserLoggedInNumber"]</b> users are logged in right now</h5>
 }
 <div class="row">
-	<div class="col-md-7">
+	<div class="col-md-4">
 		<section>
 			<form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" id="LoginForm">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 				<hr />
 				<div class="form-group">
 					<label asp-for="Email"></label>
@@ -61,14 +62,26 @@ else
 						<a asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]">Register as a new user?</a>
 					</p>
 				</div>
+                
+   
+                
 			</form>
 		</section>
 	</div>
 </div>
+<div>
+    @using (Html.BeginForm("start", "Home"))
+    {
+        <input style="opacity:0.5; background: #14fcbc; border:none; border-radius:5px; color: #000000; font-weight: bolder; width: 100px; height: 40px;" id="backToStartPage" type="submit" value="Back to Start" />
+    }
+</div>
+
 
 
 @section Scripts {
 	<script src="~/js/robot_main_jquery.js"></script>
+
+<script src="~/js/main_user_logout_request.js"></script>
 	@await Html.PartialAsync("_ValidationScriptsPartial")
 
 }

@@ -9,6 +9,7 @@
 @section Scripts
     {
     <script src="~/js/robot_main_jquery.js"></script>
+<script src="~/js/main_user_logout_request.js"></script>
 }
 
 @if (SignInManager.IsSignedIn(User))
@@ -16,17 +17,18 @@
 
 
     <div class="row">
+@*
         <h3 id="logoutWarn"></h3>
-        <p id="timerLog">@ViewBag.TimerLog</p>
 
-        @if (ViewBag.WaitList[0].Email == ViewBag.Session)
-        {
-            <p>Success</p>
-        }
-        else
-        {
-            <p>Failure</p>
-        }
+    @if (ViewBag.WaitList[0].Email == ViewBag.Session)
+    {
+        <p>Success</p>
+    }
+    else
+    {
+        <p>Failure</p>
+    }
+*@
     </div>
 }
 else

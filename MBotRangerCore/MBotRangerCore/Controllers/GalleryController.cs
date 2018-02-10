@@ -16,12 +16,11 @@ namespace MBotRangerCore.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
        
 
-        public GalleryController(MBotRangerCoreContext context, UserManager<ApplicationUser> userManager)
+        public GalleryController(MBotRangerCoreContext context, UserManager<ApplicationUser> userManager, MbotAppData galleryAppData)
         {
-            galleryAppData = new MbotAppData();
+            this.galleryAppData = galleryAppData;
             _context = context;
-            _userManager = userManager;
-          
+            _userManager = userManager;          
         }
 
 
